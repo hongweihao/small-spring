@@ -16,15 +16,17 @@ public class BeanFactoryTest {
 
     @Test
     public void test() {
+        // 大杂烩把工厂准备好
         DefaultListableBeanFactory defaultListableBeanFactory = new DefaultListableBeanFactory();
 
-        // 注册bean
-        BeanDefinition beanDefinition = new BeanDefinition(TestService.class);
-        defaultListableBeanFactory.register("testService", beanDefinition);
+        // 登记
+        BeanDefinition beanDefinition = new BeanDefinition(SuperMungBean.class);
+        defaultListableBeanFactory.register("superMungBean", beanDefinition);
 
-        // 从工厂中获取bean对象
-        TestService service = (TestService) defaultListableBeanFactory.getBean("testService");
+        // 取豆子
+        SuperMungBean service = (SuperMungBean) defaultListableBeanFactory.getBean("superMungBean");
+
+        // 测试看看豆子好不好吃
         service.test();
     }
-
 }

@@ -11,7 +11,6 @@ package pri.hongweihao.smallspring;
 public class BeanDefinition {
     private final Class beanClass;
 
-
     public BeanDefinition(Class beanClass) {
         this.beanClass = beanClass;
     }
@@ -19,6 +18,4 @@ public class BeanDefinition {
     public Class getBeanClass() {
         return this.beanClass;
     }
-
-
 }

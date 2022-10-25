@@ -8,12 +8,11 @@ package pri.hongweihao.smallspring;
  * @author Karl
  * @date 2022/10/25 13:35
  */
-public class Super {
-    public Super() {
+public class SuperMungBean {
+    public SuperMungBean() {
     }
 
     public void test() {
-        System.out.println("那必须好吃啊");
+        System.out.println("超级绿豆那必须好吃啊");
     }
-
 }
