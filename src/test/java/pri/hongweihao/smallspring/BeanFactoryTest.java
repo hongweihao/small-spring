@@ -1,6 +1,7 @@
 package pri.hongweihao.smallspring;
 
 import org.junit.Test;
+import pri.hongweihao.smallspring.factory.DefaultListableBeanFactory;
 
 /**
  * <p>
@@ -15,18 +16,15 @@ public class BeanFactoryTest {
 
     @Test
     public void test() {
-        BeanFactory beanFactory = new BeanFactory();
+        DefaultListableBeanFactory defaultListableBeanFactory = new DefaultListableBeanFactory();
 
-        TestService testService = new TestService();
-        BeanDefinition beanDefinition = new BeanDefinition(testService);
+        // 注册bean
+        BeanDefinition beanDefinition = new BeanDefinition(TestService.class);
+        defaultListableBeanFactory.register("testService", beanDefinition);
 
-        beanFactory.register("testService", beanDefinition);
-
-        BeanDefinition testService1 = beanFactory.getBean("testService");
-        TestService service = (TestService) testService1.getBean();
+        // 从工厂中获取bean对象
+        TestService service = (TestService) defaultListableBeanFactory.getBean("testService");
         service.test();
-
-
     }
 
 }

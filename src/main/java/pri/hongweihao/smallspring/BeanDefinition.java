@@ -9,14 +9,15 @@ package pri.hongweihao.smallspring;
  * @date 2022/10/25 13:29
  */
 public class BeanDefinition {
-    private final Object bean;
+    private final Class beanClass;
 
-    public BeanDefinition(Object bean) {
-        this.bean = bean;
+
+    public BeanDefinition(Class beanClass) {
+        this.beanClass = beanClass;
     }
 
-    public Object getBean(){
-        return this.bean;
+    public Class getBeanClass() {
+        return this.beanClass;
     }
 
 
