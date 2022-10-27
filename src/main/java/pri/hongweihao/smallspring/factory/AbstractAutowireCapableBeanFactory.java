@@ -2,6 +2,12 @@ package pri.hongweihao.smallspring.factory;
 
 import pri.hongweihao.smallspring.BeanDefinition;
 import pri.hongweihao.smallspring.BeanException;
+import pri.hongweihao.smallspring.factory.strategy.CglibInstantiationStrategyImpl;
+import pri.hongweihao.smallspring.factory.strategy.JDKInstantiationStrategyImpl;
+
+import java.lang.reflect.Constructor;
+import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * <p>
@@ -12,15 +18,31 @@ import pri.hongweihao.smallspring.BeanException;
  * @date 2022/10/26 13:52
  */
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory {
+
+    //private final InstantiationStrategy instantiationStrategy = new JDKInstantiationStrategyImpl();
+    private final InstantiationStrategy instantiationStrategy = new CglibInstantiationStrategyImpl();
+
     @Override
-    protected Object createBean(String beanName, BeanDefinition beanDefinition) {
+    protected Object createBean(String beanName, BeanDefinition beanDefinition, Object... args) {
         Object instance;
-        try {
-            instance = beanDefinition.getBeanClass().newInstance();
-        } catch (Exception e) {
-            throw new BeanException("Cannot instantiation a bean: " + beanDefinition.getBeanClass().getName());
-        }
+        instance = createInstance(beanDefinition, args);
+
         super.register(beanName, instance);
         return instance;
+    }
+
+    private Object createInstance(BeanDefinition beanDefinition, Object... args) {
+        Constructor[] constructors = beanDefinition.getBeanClass().getDeclaredConstructors();
+        Optional<Constructor> first = Arrays.stream(constructors)
+                .filter(constructor -> constructor.getParameterTypes().length == args.length)
+                .findFirst();
+
+        try {
+            return instantiationStrategy.createBean(beanDefinition, first.orElse(null), args);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BeanException("Failed to initialize for this class: " + beanDefinition.getBeanClass().getName());
+        }
+
     }
 }
