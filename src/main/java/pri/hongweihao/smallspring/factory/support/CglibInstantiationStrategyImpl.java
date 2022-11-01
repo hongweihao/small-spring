@@ -1,13 +1,11 @@
-package pri.hongweihao.smallspring.factory.strategy;
+package pri.hongweihao.smallspring.factory.support;
 
-import net.sf.cglib.proxy.Callback;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.NoOp;
-import pri.hongweihao.smallspring.BeanDefinition;
-import pri.hongweihao.smallspring.factory.InstantiationStrategy;
+import pri.hongweihao.smallspring.factory.config.BeanDefinition;
+import pri.hongweihao.smallspring.factory.support.InstantiationStrategy;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
 /**

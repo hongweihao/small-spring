@@ -1,8 +1,7 @@
-package pri.hongweihao.smallspring.factory;
+package pri.hongweihao.smallspring.factory.support;
 
-import pri.hongweihao.smallspring.BeanDefinition;
+import pri.hongweihao.smallspring.factory.config.BeanDefinition;
 import pri.hongweihao.smallspring.BeanException;
-import pri.hongweihao.smallspring.registry.BeanDefinitionRegistry;
 
 import java.util.Map;
 import java.util.Objects;

@@ -1,4 +1,4 @@
-package pri.hongweihao.smallspring.registry;
+package pri.hongweihao.smallspring.factory.config;
 
 /**
  * <p>

@@ -1,6 +1,6 @@
-package pri.hongweihao.smallspring.factory;
+package pri.hongweihao.smallspring.factory.support;
 
-import pri.hongweihao.smallspring.BeanDefinition;
+import pri.hongweihao.smallspring.factory.config.BeanDefinition;
 
 import java.lang.reflect.Constructor;
 

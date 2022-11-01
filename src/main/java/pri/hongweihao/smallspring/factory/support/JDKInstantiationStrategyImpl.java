@@ -1,8 +1,7 @@
-package pri.hongweihao.smallspring.factory.strategy;
+package pri.hongweihao.smallspring.factory.support;
 
-import pri.hongweihao.smallspring.BeanDefinition;
-import pri.hongweihao.smallspring.BeanException;
-import pri.hongweihao.smallspring.factory.InstantiationStrategy;
+import pri.hongweihao.smallspring.factory.config.BeanDefinition;
+import pri.hongweihao.smallspring.factory.support.InstantiationStrategy;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

@@ -1,12 +1,12 @@
 package pri.hongweihao.smallspring;
 
-import net.sf.cglib.proxy.Callback;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.NoOp;
 import org.junit.Test;
 import pri.hongweihao.smallspring.bean.Test2Service;
 import pri.hongweihao.smallspring.bean.TestService;
-import pri.hongweihao.smallspring.factory.DefaultListableBeanFactory;
+import pri.hongweihao.smallspring.factory.support.DefaultListableBeanFactory;
+import pri.hongweihao.smallspring.factory.config.BeanDefinition;
 
 /**
  * <p>

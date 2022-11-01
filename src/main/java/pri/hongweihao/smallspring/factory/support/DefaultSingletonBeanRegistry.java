@@ -1,6 +1,6 @@
-package pri.hongweihao.smallspring.registry;
+package pri.hongweihao.smallspring.factory.support;
 
-import pri.hongweihao.smallspring.registry.SingletonBeanRegistry;
+import pri.hongweihao.smallspring.factory.config.SingletonBeanRegistry;
 
 import java.util.HashMap;
 import java.util.Map;

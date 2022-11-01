@@ -1,9 +1,7 @@
-package pri.hongweihao.smallspring.factory;
+package pri.hongweihao.smallspring.factory.support;
 
-import pri.hongweihao.smallspring.BeanDefinition;
+import pri.hongweihao.smallspring.factory.config.BeanDefinition;
 import pri.hongweihao.smallspring.BeanException;
-import pri.hongweihao.smallspring.factory.strategy.CglibInstantiationStrategyImpl;
-import pri.hongweihao.smallspring.factory.strategy.JDKInstantiationStrategyImpl;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;

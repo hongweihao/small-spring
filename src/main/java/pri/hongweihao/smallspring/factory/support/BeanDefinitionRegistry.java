@@ -1,6 +1,6 @@
-package pri.hongweihao.smallspring.registry;
+package pri.hongweihao.smallspring.factory.support;
 
-import pri.hongweihao.smallspring.BeanDefinition;
+import pri.hongweihao.smallspring.factory.config.BeanDefinition;
 
 /**
  * <p>
