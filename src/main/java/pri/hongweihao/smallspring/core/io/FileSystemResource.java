@@ -1,7 +1,9 @@
 package pri.hongweihao.smallspring.core.io;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 
 /**
  * <p>
@@ -12,14 +14,20 @@ import java.io.InputStream;
  * @date 2022/11/16 13:36
  */
 public class FileSystemResource implements Resource {
+    private final String path;
+    private final File file;
 
-    private String path;
-    private File file;
-
-
+    public FileSystemResource(String path) {
+        this.path = path;
+        this.file = new File(path);
+    }
 
     @Override
-    public InputStream getInputSteam() {
-        return null;
+    public InputStream getInputSteam() throws IOException {
+        return Files.newInputStream(file.toPath());
+    }
+
+    public String getPath() {
+        return path;
     }
 }
