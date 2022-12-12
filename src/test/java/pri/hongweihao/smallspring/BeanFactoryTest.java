@@ -1,15 +1,12 @@
 package pri.hongweihao.smallspring;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.NoOp;
 import org.junit.Test;
-import pri.hongweihao.smallspring.bean.Test2Service;
 import pri.hongweihao.smallspring.bean.TestService;
-import pri.hongweihao.smallspring.factory.config.BeanReference;
-import pri.hongweihao.smallspring.factory.config.PropertyValue;
-import pri.hongweihao.smallspring.factory.config.PropertyValues;
+import pri.hongweihao.smallspring.factory.support.BeanDefinitionReader;
 import pri.hongweihao.smallspring.factory.support.DefaultListableBeanFactory;
-import pri.hongweihao.smallspring.factory.config.BeanDefinition;
+import pri.hongweihao.smallspring.factory.support.XmlBeanDefinitionReader;
+
+import java.io.IOException;
 
 /**
  * <p>
@@ -24,32 +21,24 @@ public class BeanFactoryTest {
 
     /**
      * <p>
-     * 测试属性自动填充
+     * 测试读取spring.xml并自动注册进registry
      * </p>
      *
      * @author Karl
      * @date 2022/11/12 14:53
      */
     @Test
-    public void test() {
+    public void test() throws IOException {
         DefaultListableBeanFactory defaultListableBeanFactory = new DefaultListableBeanFactory();
 
-        // 注册bean
-        PropertyValue propertyValue = new PropertyValue("name", "KARL");
-        PropertyValues propertyValues = new PropertyValues(propertyValue);
-        BeanDefinition beanDefinition = new BeanDefinition(TestService.class, propertyValues);
-        defaultListableBeanFactory.register("testService", beanDefinition);
+        // 读取配置文件并自动注册
+        BeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(defaultListableBeanFactory);
+        beanDefinitionReader.loadBeanDefinitions("classpath:spring.xml");
 
-        PropertyValue serviceProperty = new PropertyValue("testService", new BeanReference("testService"));
-        BeanDefinition test2Definition = new BeanDefinition(Test2Service.class, new PropertyValues(serviceProperty));
-        defaultListableBeanFactory.register("test2Service", test2Definition);
 
         // 从工厂中获取bean对象
-        TestService service = (TestService) defaultListableBeanFactory.getBean("testService", "karl");
+        TestService service = (TestService) defaultListableBeanFactory.getBean("testService", "", null);
         service.test();
-
-        Test2Service service2 = (Test2Service) defaultListableBeanFactory.getBean("test2Service");
-        service2.test();
     }
 
 }

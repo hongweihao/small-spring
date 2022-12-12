@@ -10,12 +10,17 @@ package pri.hongweihao.smallspring.bean;
  */
 public class TestService {
     private final String name;
-    public TestService(String name) {
+
+    private final TestDao testDao;
+
+    public TestService(String name, TestDao testDao) {
         this.name = name;
+        this.testDao = testDao;
     }
 
     public void test() {
-        System.out.println("test  -> " + this.name);
+        System.out.println("testService.name" + this.name);
+        this.testDao.test();
     }
 
 }

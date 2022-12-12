@@ -1,14 +1,14 @@
 package pri.hongweihao.smallspring.factory.support;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.XmlUtil;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
+import pri.hongweihao.smallspring.BeanException;
 import pri.hongweihao.smallspring.core.io.DefaultResourceLoader;
 import pri.hongweihao.smallspring.core.io.Resource;
 import pri.hongweihao.smallspring.core.io.ResourceLoader;
 import pri.hongweihao.smallspring.factory.config.BeanDefinition;
+import pri.hongweihao.smallspring.factory.config.BeanReference;
 import pri.hongweihao.smallspring.factory.config.PropertyValue;
 import pri.hongweihao.smallspring.factory.config.PropertyValues;
 
@@ -16,7 +16,11 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class XmlBeanDefinitionReader implements BeanDefinitionReader {
-    private final BeanDefinitionRegistry beanDefinitionRegistry = new DefaultListableBeanFactory();
+    private final BeanDefinitionRegistry beanDefinitionRegistry;
+
+    public XmlBeanDefinitionReader(BeanDefinitionRegistry beanDefinitionRegistry) {
+        this.beanDefinitionRegistry = beanDefinitionRegistry;
+    }
 
     @Override
     public void loadBeanDefinitions(String location) throws IOException {
@@ -39,23 +43,54 @@ public class XmlBeanDefinitionReader implements BeanDefinitionReader {
         Document document = XmlUtil.readXML(inputStream);
         Element root = document.getDocumentElement();
 
+        NodeList childNodes = root.getChildNodes();
+        for (int i = 0; i < childNodes.getLength(); i++) {
+            Node item = childNodes.item(i);
+            if (!(item instanceof Element)) continue;
+            if (!"bean".equals(item.getNodeName())) continue;
 
+            // bean 信息
+            Element element = (Element) item;
+            String id = element.getAttribute("id");
+            String name = element.getAttribute("name");
+            String className = element.getAttribute("class");
 
+            String beanName = StrUtil.isNotBlank(id) ? id : name;
+            Class<?> clazz;
+            try {
+                clazz = Class.forName(className);
+            } catch (ClassNotFoundException e) {
+                throw new BeanException(e.getMessage());
+            }
 
+            PropertyValues propertyValues = new PropertyValues();
+            BeanDefinition beanDefinition = new BeanDefinition(clazz, propertyValues);
 
+            // properties 信息
+            NodeList propertyNodes = element.getChildNodes();
+            for (int j = 0; j < propertyNodes.getLength(); j++) {
+                Node property = propertyNodes.item(j);
+                if (!(property instanceof Element)) continue;
+                if (!"property".equals(property.getNodeName())) continue;
 
+                Element propertyElement = (Element) property;
 
+                String propertyName = propertyElement.getAttribute("name");
+                String value = propertyElement.getAttribute("value");
+                String ref = propertyElement.getAttribute("ref");
 
-        /*Class<?> clazz = null;
-        try {
-            clazz = Class.forName("");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+                PropertyValue propertyValue;
+                if (StrUtil.isNotBlank(ref)) {
+                    BeanReference beanReference = new BeanReference(ref);
+                    propertyValue = new PropertyValue(propertyName, beanReference);
+                } else {
+                    propertyValue = new PropertyValue(propertyName, value);
+                }
+                propertyValues.addPropertyValues(propertyValue);
+            }
+
+            // 注册
+            beanDefinitionRegistry.register(beanName, beanDefinition);
         }
-        PropertyValue propertyValue = new PropertyValue("name", "value");
-        PropertyValues propertyValues = new PropertyValues(propertyValue);
-        BeanDefinition beanDefinition = new BeanDefinition(clazz, propertyValues);
-
-        beanDefinitionRegistry.register("", beanDefinition);*/
     }
 }
