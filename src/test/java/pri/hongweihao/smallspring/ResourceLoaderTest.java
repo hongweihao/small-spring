@@ -13,7 +13,6 @@ import java.io.IOException;
  * 资源加载测试
  * </p>
  *
- * @author Karl
  * @date 2022/12/12 13:39
  */
 public class ResourceLoaderTest {

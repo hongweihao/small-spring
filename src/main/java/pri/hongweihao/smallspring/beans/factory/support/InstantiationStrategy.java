@@ -1,6 +1,6 @@
-package pri.hongweihao.smallspring.factory.support;
+package pri.hongweihao.smallspring.beans.factory.support;
 
-import pri.hongweihao.smallspring.factory.config.BeanDefinition;
+import pri.hongweihao.smallspring.beans.factory.config.BeanDefinition;
 
 import java.lang.reflect.Constructor;
 
@@ -9,7 +9,6 @@ import java.lang.reflect.Constructor;
  * 初始化对象策略
  * </p>
  *
- * @author Karl
  * @date 2022/10/27 13:43
  */
 public interface InstantiationStrategy {

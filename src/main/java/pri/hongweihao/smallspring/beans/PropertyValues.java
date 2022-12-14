@@ -1,4 +1,4 @@
-package pri.hongweihao.smallspring.factory.config;
+package pri.hongweihao.smallspring.beans;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
  * 属性列表
  * </p>
  *
- * @author Karl
  * @date 2022/11/1 13:53
  */
 public class PropertyValues {

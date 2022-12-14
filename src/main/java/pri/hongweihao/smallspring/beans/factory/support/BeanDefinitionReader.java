@@ -1,4 +1,4 @@
-package pri.hongweihao.smallspring.factory.support;
+package pri.hongweihao.smallspring.beans.factory.support;
 
 import java.io.IOException;
 

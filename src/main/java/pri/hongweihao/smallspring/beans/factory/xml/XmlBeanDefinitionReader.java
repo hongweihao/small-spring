@@ -1,16 +1,18 @@
-package pri.hongweihao.smallspring.factory.support;
+package pri.hongweihao.smallspring.beans.factory.xml;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.XmlUtil;
 import org.w3c.dom.*;
-import pri.hongweihao.smallspring.BeanException;
+import pri.hongweihao.smallspring.beans.BeanException;
+import pri.hongweihao.smallspring.beans.PropertyValue;
+import pri.hongweihao.smallspring.beans.PropertyValues;
+import pri.hongweihao.smallspring.beans.factory.config.BeanDefinition;
+import pri.hongweihao.smallspring.beans.factory.config.BeanReference;
+import pri.hongweihao.smallspring.beans.factory.support.BeanDefinitionReader;
+import pri.hongweihao.smallspring.beans.factory.support.BeanDefinitionRegistry;
 import pri.hongweihao.smallspring.core.io.DefaultResourceLoader;
 import pri.hongweihao.smallspring.core.io.Resource;
 import pri.hongweihao.smallspring.core.io.ResourceLoader;
-import pri.hongweihao.smallspring.factory.config.BeanDefinition;
-import pri.hongweihao.smallspring.factory.config.BeanReference;
-import pri.hongweihao.smallspring.factory.config.PropertyValue;
-import pri.hongweihao.smallspring.factory.config.PropertyValues;
 
 import java.io.IOException;
 import java.io.InputStream;

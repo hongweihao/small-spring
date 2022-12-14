@@ -8,7 +8,6 @@ import java.io.InputStream;
  * TODO
  * </p>
  *
- * @author Karl
  * @date 2022/11/16 13:34
  */
 public interface Resource {

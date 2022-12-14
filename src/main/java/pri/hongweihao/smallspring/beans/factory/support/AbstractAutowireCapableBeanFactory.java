@@ -1,13 +1,12 @@
-package pri.hongweihao.smallspring.factory.support;
+package pri.hongweihao.smallspring.beans.factory.support;
 
 import cn.hutool.core.bean.BeanUtil;
-import pri.hongweihao.smallspring.factory.config.BeanDefinition;
-import pri.hongweihao.smallspring.BeanException;
-import pri.hongweihao.smallspring.factory.config.BeanReference;
-import pri.hongweihao.smallspring.factory.config.PropertyValue;
-import pri.hongweihao.smallspring.factory.config.PropertyValues;
+import pri.hongweihao.smallspring.beans.BeanException;
+import pri.hongweihao.smallspring.beans.PropertyValue;
+import pri.hongweihao.smallspring.beans.PropertyValues;
+import pri.hongweihao.smallspring.beans.factory.config.BeanDefinition;
+import pri.hongweihao.smallspring.beans.factory.config.BeanReference;
 
-import javax.xml.bind.ValidationEvent;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.Optional;
@@ -17,7 +16,6 @@ import java.util.Optional;
  * 实现创建并存储bean
  * </p>
  *
- * @author Karl
  * @date 2022/10/26 13:52
  */
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory {
@@ -42,7 +40,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
      * @param beanDefinition beanDefinition
      * @param args           args
      * @return java.lang.Object
-     * @author Karl
+     * 
      * @date 2022/11/12 14:31
      */
     private Object createInstance(String beanName, BeanDefinition beanDefinition, Object... args) {

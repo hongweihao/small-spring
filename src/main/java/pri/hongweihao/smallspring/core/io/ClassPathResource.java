@@ -10,7 +10,6 @@ import java.util.Objects;
  * 根据 class path 读取配置文件内容
  * </p>
  *
- * @author Karl
  * @date 2022/11/16 13:36
  */
 public class ClassPathResource implements Resource {

@@ -11,7 +11,6 @@ import java.net.URLConnection;
  * TODO
  * </p>
  *
- * @author Karl
  * @date 2022/11/16 13:37
  */
 public class UrlResource implements Resource {

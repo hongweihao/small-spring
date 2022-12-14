@@ -2,9 +2,9 @@ package pri.hongweihao.smallspring;
 
 import org.junit.Test;
 import pri.hongweihao.smallspring.bean.TestService;
-import pri.hongweihao.smallspring.factory.support.BeanDefinitionReader;
-import pri.hongweihao.smallspring.factory.support.DefaultListableBeanFactory;
-import pri.hongweihao.smallspring.factory.support.XmlBeanDefinitionReader;
+import pri.hongweihao.smallspring.beans.factory.support.BeanDefinitionReader;
+import pri.hongweihao.smallspring.beans.factory.support.DefaultListableBeanFactory;
+import pri.hongweihao.smallspring.beans.factory.xml.XmlBeanDefinitionReader;
 
 import java.io.IOException;
 
@@ -13,7 +13,6 @@ import java.io.IOException;
  * BeanFactoryTest
  * </p>
  *
- * @author Karl
  * @date 2022/10/25 13:34
  */
 
@@ -24,7 +23,7 @@ public class BeanFactoryTest {
      * 测试读取spring.xml并自动注册进registry
      * </p>
      *
-     * @author Karl
+     * 
      * @date 2022/11/12 14:53
      */
     @Test

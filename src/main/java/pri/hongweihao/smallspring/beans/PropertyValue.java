@@ -1,11 +1,10 @@
-package pri.hongweihao.smallspring.factory.config;
+package pri.hongweihao.smallspring.beans;
 
 /**
  * <p>
  * PropertyValue
  * </p>
  *
- * @author Karl
  * @date 2022/11/1 13:53
  */
 public class PropertyValue {

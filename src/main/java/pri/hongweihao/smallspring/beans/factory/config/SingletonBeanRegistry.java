@@ -1,11 +1,10 @@
-package pri.hongweihao.smallspring.factory.config;
+package pri.hongweihao.smallspring.beans.factory.config;
 
 /**
  * <p>
  * 单例对象注册接口
  * </p>
  *
- * @author Karl
  * @date 2022/10/26 13:45
  */
 public interface SingletonBeanRegistry {

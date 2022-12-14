@@ -1,8 +1,8 @@
-package pri.hongweihao.smallspring.factory.support;
+package pri.hongweihao.smallspring.beans.factory.support;
 
-import pri.hongweihao.smallspring.factory.BeanFactory;
-import pri.hongweihao.smallspring.factory.config.BeanDefinition;
-import pri.hongweihao.smallspring.BeanException;
+import pri.hongweihao.smallspring.beans.factory.BeanFactory;
+import pri.hongweihao.smallspring.beans.factory.config.BeanDefinition;
+import pri.hongweihao.smallspring.beans.BeanException;
 
 import java.util.Objects;
 
@@ -16,7 +16,6 @@ import java.util.Objects;
  * 4.返回单例对象
  * </p>
  *
- * @author Karl
  * @date 2022/10/26 13:45
  */
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {

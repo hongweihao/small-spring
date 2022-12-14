@@ -10,7 +10,6 @@ import java.nio.file.Files;
  * TODO
  * </p>
  *
- * @author Karl
  * @date 2022/11/16 13:36
  */
 public class FileSystemResource implements Resource {

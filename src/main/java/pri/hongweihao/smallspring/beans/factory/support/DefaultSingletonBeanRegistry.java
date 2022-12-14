@@ -1,6 +1,6 @@
-package pri.hongweihao.smallspring.factory.support;
+package pri.hongweihao.smallspring.beans.factory.support;
 
-import pri.hongweihao.smallspring.factory.config.SingletonBeanRegistry;
+import pri.hongweihao.smallspring.beans.factory.config.SingletonBeanRegistry;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +11,6 @@ import java.util.Map;
  * 负责单例对象的存储和获取
  * </p>
  *
- * @author Karl
  * @date 2022/10/26 13:46
  */
 public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {

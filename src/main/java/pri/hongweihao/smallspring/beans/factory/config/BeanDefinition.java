@@ -1,11 +1,12 @@
-package pri.hongweihao.smallspring.factory.config;
+package pri.hongweihao.smallspring.beans.factory.config;
+
+import pri.hongweihao.smallspring.beans.PropertyValues;
 
 /**
  * <p>
  * Bean定义对象
  * </p>
  *
- * @author Karl
  * @date 2022/10/25 13:29
  */
 public class BeanDefinition {

@@ -1,11 +1,10 @@
-package pri.hongweihao.smallspring.factory.config;
+package pri.hongweihao.smallspring.beans.factory.config;
 
 /**
  * <p>
  * BeanFactory 管理的对象
  * </p>
  *
- * @author Karl
  * @date 2022/11/1 13:54
  */
 public class BeanReference {
