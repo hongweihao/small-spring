@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import pri.hongweihao.smallspring.beans.BeanException;
 import pri.hongweihao.smallspring.beans.PropertyValue;
 import pri.hongweihao.smallspring.beans.PropertyValues;
+import pri.hongweihao.smallspring.beans.factory.AutowireCapableBeanFactory;
 import pri.hongweihao.smallspring.beans.factory.config.BeanDefinition;
 import pri.hongweihao.smallspring.beans.factory.config.BeanReference;
 
@@ -16,9 +17,8 @@ import java.util.Optional;
  * 实现创建并存储bean
  * </p>
  *
- * @date 2022/10/26 13:52
  */
-public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory {
+public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory implements AutowireCapableBeanFactory {
     //private final InstantiationStrategy instantiationStrategy = new JDKInstantiationStrategyImpl();
     private final InstantiationStrategy instantiationStrategy = new CglibInstantiationStrategyImpl();
 

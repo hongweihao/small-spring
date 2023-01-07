@@ -15,8 +15,6 @@ import java.util.Objects;
  * 3.创建 beanName 对应的单例对象，并调用 registry 的注册方法存储
  * 4.返回单例对象
  * </p>
- *
- * @date 2022/10/26 13:45
  */
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
     @Override
