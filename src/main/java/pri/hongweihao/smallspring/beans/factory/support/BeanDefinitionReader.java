@@ -1,8 +1,20 @@
 package pri.hongweihao.smallspring.beans.factory.support;
 
-import java.io.IOException;
+import pri.hongweihao.smallspring.beans.BeansException;
+import pri.hongweihao.smallspring.core.io.Resource;
+import pri.hongweihao.smallspring.core.io.ResourceLoader;
 
 public interface BeanDefinitionReader {
-    void loadBeanDefinitions(String location) throws IOException;
+    BeanDefinitionRegistry getRegistry();
+
+    ResourceLoader getResourceLoader();
+
+    void loadBeanDefinitions(Resource resource) throws BeansException;
+
+    void loadBeanDefinitions(Resource... resources) throws BeansException;
+
+    void loadBeanDefinitions(String location) throws BeansException;
+
+    void loadBeanDefinitions(String[] locations) throws BeansException;
 
 }

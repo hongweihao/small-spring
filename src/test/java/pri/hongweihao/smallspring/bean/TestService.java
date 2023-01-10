@@ -4,22 +4,31 @@ package pri.hongweihao.smallspring.bean;
  * <p>
  * TestService
  * </p>
- *
- * @date 2022/10/25 13:35
  */
 public class TestService {
-    private final String name;
+    private String name;
 
-    private final TestDao testDao;
+    private Integer age;
 
-    public TestService(String name, TestDao testDao) {
+    private TestDao testDao;
+
+   /* public TestService(String name, Integer age, TestDao testDao) {
         this.name = name;
+        this.age = age;
         this.testDao = testDao;
-    }
+    }*/
 
     public void test() {
-        System.out.println("testService.name" + this.name);
+        System.out.println("testService.name: " + this.name);
+        System.out.println("testService.age: " + this.age);
         this.testDao.test();
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 }

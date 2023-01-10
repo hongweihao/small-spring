@@ -5,7 +5,11 @@
 
     <bean id="testService" class="pri.hongweihao.smallspring.bean.TestService">
         <property name="name" value="karl"/>
+        <property name="age" value="30"/>
         <property name="testDao" ref="testDao"/>
     </bean>
+
+    <bean id="myPostBeanFactoryProcessor" class="pri.hongweihao.smallspring.MyBeanFactoryPostProcessor"/>
+    <bean id="myBeanPostProcessor" class="pri.hongweihao.smallspring.MyBeanPostProcessor"/>
 
 </beans>

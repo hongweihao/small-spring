@@ -2,46 +2,58 @@ package pri.hongweihao.smallspring.beans.factory.xml;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.XmlUtil;
-import org.w3c.dom.*;
-import pri.hongweihao.smallspring.beans.BeanException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import pri.hongweihao.smallspring.beans.BeansException;
 import pri.hongweihao.smallspring.beans.PropertyValue;
 import pri.hongweihao.smallspring.beans.PropertyValues;
 import pri.hongweihao.smallspring.beans.factory.config.BeanDefinition;
 import pri.hongweihao.smallspring.beans.factory.config.BeanReference;
-import pri.hongweihao.smallspring.beans.factory.support.BeanDefinitionReader;
+import pri.hongweihao.smallspring.beans.factory.support.AbstractBeanDefinitionReader;
 import pri.hongweihao.smallspring.beans.factory.support.BeanDefinitionRegistry;
-import pri.hongweihao.smallspring.core.io.DefaultResourceLoader;
 import pri.hongweihao.smallspring.core.io.Resource;
-import pri.hongweihao.smallspring.core.io.ResourceLoader;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-public class XmlBeanDefinitionReader implements BeanDefinitionReader {
-    private final BeanDefinitionRegistry beanDefinitionRegistry;
+public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
     public XmlBeanDefinitionReader(BeanDefinitionRegistry beanDefinitionRegistry) {
-        this.beanDefinitionRegistry = beanDefinitionRegistry;
+        super(beanDefinitionRegistry);
     }
 
     @Override
-    public void loadBeanDefinitions(String location) throws IOException {
-        ResourceLoader resourceLoader = new DefaultResourceLoader();
+    public void loadBeanDefinitions(String location) throws BeansException {
         loadBeanDefinitions(resourceLoader.getResource(location));
     }
 
-    private void loadBeanDefinitions(Resource resource) throws IOException {
-        InputStream inputSteam = resource.getInputSteam();
-        doLoadBeanDefinitions(inputSteam);
+    @Override
+    public void loadBeanDefinitions(String[] locations) throws BeansException {
+        for (String location : locations) {
+            loadBeanDefinitions(location);
+        }
     }
 
-    private void loadBeanDefinitions(Resource... resources) throws IOException {
+    @Override
+    public void loadBeanDefinitions(Resource resource) throws BeansException {
+        try {
+            InputStream inputSteam = resource.getInputSteam();
+            doLoadBeanDefinitions(inputSteam);
+        } catch (IOException | ClassNotFoundException e) {
+            throw new BeansException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void loadBeanDefinitions(Resource... resources) throws BeansException {
         for (Resource resource : resources) {
             loadBeanDefinitions(resource);
         }
     }
 
-    private void doLoadBeanDefinitions(InputStream inputStream) {
+    private void doLoadBeanDefinitions(InputStream inputStream) throws ClassNotFoundException {
         Document document = XmlUtil.readXML(inputStream);
         Element root = document.getDocumentElement();
 
@@ -58,12 +70,7 @@ public class XmlBeanDefinitionReader implements BeanDefinitionReader {
             String className = element.getAttribute("class");
 
             String beanName = StrUtil.isNotBlank(id) ? id : name;
-            Class<?> clazz;
-            try {
-                clazz = Class.forName(className);
-            } catch (ClassNotFoundException e) {
-                throw new BeanException(e.getMessage());
-            }
+            Class<?> clazz = Class.forName(className);
 
             PropertyValues propertyValues = new PropertyValues();
             BeanDefinition beanDefinition = new BeanDefinition(clazz, propertyValues);

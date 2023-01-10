@@ -1,9 +1,12 @@
 package pri.hongweihao.smallspring.beans.factory.support;
 
-import pri.hongweihao.smallspring.beans.factory.BeanFactory;
 import pri.hongweihao.smallspring.beans.factory.config.BeanDefinition;
-import pri.hongweihao.smallspring.beans.BeanException;
+import pri.hongweihao.smallspring.beans.BeansException;
+import pri.hongweihao.smallspring.beans.factory.config.BeanPostProcessor;
+import pri.hongweihao.smallspring.beans.factory.config.ConfigurableBeanFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -16,7 +19,14 @@ import java.util.Objects;
  * 4.返回单例对象
  * </p>
  */
-public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
+public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
+    private final List<BeanPostProcessor> beanPostProcessorList = new ArrayList<>();
+
+    @Override
+    public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
+        return (T) getBean(name);
+    }
+
     @Override
     public Object getBean(String name, Object... args) {
         Object singletonBean = super.getSingletonBean(name);
@@ -28,7 +38,18 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
         return createBean(name, beanDefinition, args);
     }
 
-    protected abstract BeanDefinition getBeanDefinition(String beanName) throws BeanException;
+    protected abstract BeanDefinition getBeanDefinition(String beanName) throws BeansException;
 
-    protected abstract Object createBean(String beanName, BeanDefinition beanDefinition, Object... args) throws BeanException;
+    protected abstract Object createBean(String beanName, BeanDefinition beanDefinition, Object... args) throws BeansException;
+
+    @Override
+    public void addPostBeanProcessor(BeanPostProcessor beanPostProcessor) {
+        // 相当于调整了顺序，让新的往前放
+        this.beanPostProcessorList.remove(beanPostProcessor);
+        this.beanPostProcessorList.add(beanPostProcessor);
+    }
+
+    public List<BeanPostProcessor> getPostBeanProcessorList() {
+        return this.beanPostProcessorList;
+    }
 }
