@@ -1,15 +1,19 @@
 package pri.hongweihao.smallspring.beans.factory.support;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.StrUtil;
 import pri.hongweihao.smallspring.beans.BeansException;
 import pri.hongweihao.smallspring.beans.PropertyValue;
 import pri.hongweihao.smallspring.beans.PropertyValues;
 import pri.hongweihao.smallspring.beans.factory.AutowireCapableBeanFactory;
+import pri.hongweihao.smallspring.beans.factory.InitializingBean;
 import pri.hongweihao.smallspring.beans.factory.config.BeanDefinition;
 import pri.hongweihao.smallspring.beans.factory.config.BeanReference;
 import pri.hongweihao.smallspring.beans.factory.config.BeanPostProcessor;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -33,10 +37,16 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         // 执行初始化方法以及钩子方法
         Object wrapperBean = this.initializeBean(beanName, instance, beanDefinition);
 
+        registerDisposableBeanIfNecessary(beanName, wrapperBean, beanDefinition);
+
         // 放入Registry
         super.register(beanName, wrapperBean);
 
         return wrapperBean;
+    }
+
+    private void registerDisposableBeanIfNecessary(String beanName, Object wrapperBean, BeanDefinition beanDefinition) {
+        registerDisposableBean(beanName, new DisposableBeanAdapter(beanName, wrapperBean, beanDefinition));
     }
 
     /**
@@ -86,8 +96,11 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     private Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) {
         Object wrapperBean = this.applyBeanPostProcessorsBeforeInitialization(beanName, bean);
 
-        this.initMethods(beanName, wrapperBean, beanDefinition);
-
+        try {
+            this.initMethods(beanName, wrapperBean, beanDefinition);
+        } catch (InvocationTargetException | IllegalAccessException e) {
+            throw new BeansException("Failed to invoke the init method of bean " + beanName, e);
+        }
         return this.applyBeanPostProcessorsAfterInitialization(beanName, wrapperBean);
     }
 
@@ -98,8 +111,25 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         return bean;
     }
 
-    private void initMethods(String beanName, Object bean, BeanDefinition beanDefinition) {
+    private void initMethods(String beanName, Object bean, BeanDefinition beanDefinition) throws InvocationTargetException, IllegalAccessException {
+        if (bean instanceof InitializingBean) {
+            ((InitializingBean) bean).afterPropertiesSet();
 
+            // XML 配置的方法名相同，无需重复执行
+            if ("afterPropertiesSet".equals(beanDefinition.getInitMethodName())) {
+                return;
+            }
+        }
+
+        if (StrUtil.isNotBlank(beanDefinition.getInitMethodName())) {
+            Method method;
+            try {
+                method = bean.getClass().getMethod(beanDefinition.getInitMethodName());
+            } catch (NoSuchMethodException e) {
+                throw new BeansException("Could not find method " + beanDefinition.getInitMethodName() + " in bean " + beanName);
+            }
+            method.invoke(bean);
+        }
     }
 
     private Object applyBeanPostProcessorsAfterInitialization(String beanName, Object bean) {

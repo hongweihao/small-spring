@@ -7,12 +7,13 @@ import pri.hongweihao.smallspring.beans.PropertyValues;
  * Bean定义对象
  * </p>
  *
- * @date 2022/10/25 13:29
  */
 public class BeanDefinition {
     private final Class<?> beanClass;
-
     private final PropertyValues propertyValues;
+
+    private String initMethodName;
+    private String destroyMethodName;
 
     public BeanDefinition(Class<?> beanClass, PropertyValues propertyValues) {
         this.beanClass = beanClass;
@@ -25,5 +26,21 @@ public class BeanDefinition {
 
     public PropertyValues getPropertyValues() {
         return propertyValues;
+    }
+
+    public String getInitMethodName() {
+        return initMethodName;
+    }
+
+    public String getDestroyMethodName() {
+        return destroyMethodName;
+    }
+
+    public void setInitMethodName(String initMethodName) {
+        this.initMethodName = initMethodName;
+    }
+
+    public void setDestroyMethodName(String destroyMethodName) {
+        this.destroyMethodName = destroyMethodName;
     }
 }

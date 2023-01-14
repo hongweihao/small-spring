@@ -6,7 +6,7 @@ import pri.hongweihao.smallspring.beans.factory.config.BeanPostProcessor;
 import pri.hongweihao.smallspring.beans.factory.support.BeanDefinitionReader;
 import pri.hongweihao.smallspring.beans.factory.support.DefaultListableBeanFactory;
 import pri.hongweihao.smallspring.beans.factory.xml.XmlBeanDefinitionReader;
-import pri.hongweihao.smallspring.context.ApplicationContext;
+import pri.hongweihao.smallspring.context.ConfigurableApplicationContext;
 import pri.hongweihao.smallspring.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -88,9 +88,10 @@ public class BeanFactoryTest {
      */
     @Test
     public void test_application_context() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring.xml");
+        ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring.xml");
         TestService testService = context.getBean("testService", TestService.class);
         testService.test();
+        context.close();
     }
 
 }

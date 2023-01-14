@@ -37,6 +37,16 @@ public abstract class AbstractApplicationContext implements ConfigurableApplicat
         preInitializeSingletonObjects(beanFactory);
     }
 
+    @Override
+    public void registerShutdownHook() {
+        Runtime.getRuntime().addShutdownHook(new Thread(this::close));
+    }
+
+    @Override
+    public void close() {
+        getBeanFactory().destroySingletons();
+    }
+
     protected abstract void refreshBeanFactory();
 
     protected abstract ConfigurableListableBeanFactory getBeanFactory();
