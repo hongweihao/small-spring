@@ -5,8 +5,8 @@ import cn.hutool.core.util.StrUtil;
 import pri.hongweihao.smallspring.beans.BeansException;
 import pri.hongweihao.smallspring.beans.PropertyValue;
 import pri.hongweihao.smallspring.beans.PropertyValues;
-import pri.hongweihao.smallspring.beans.factory.AutowireCapableBeanFactory;
-import pri.hongweihao.smallspring.beans.factory.InitializingBean;
+import pri.hongweihao.smallspring.beans.factory.*;
+import pri.hongweihao.smallspring.beans.factory.config.AutowireCapableBeanFactory;
 import pri.hongweihao.smallspring.beans.factory.config.BeanDefinition;
 import pri.hongweihao.smallspring.beans.factory.config.BeanReference;
 import pri.hongweihao.smallspring.beans.factory.config.BeanPostProcessor;
@@ -94,6 +94,20 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     private Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) {
+        if (bean instanceof Aware) {
+            if (bean instanceof BeanFactoryAware) {
+                ((BeanFactoryAware) bean).setBeanFactory(this);
+            }
+
+            if (bean instanceof BeanClassLoaderAware) {
+                ((BeanClassLoaderAware) bean).setBeanClassLoader(getClassLoader());
+            }
+
+            if (bean instanceof BeanNameAware) {
+                ((BeanNameAware) bean).setBeanName(beanName);
+            }
+        }
+
         Object wrapperBean = this.applyBeanPostProcessorsBeforeInitialization(beanName, bean);
 
         try {

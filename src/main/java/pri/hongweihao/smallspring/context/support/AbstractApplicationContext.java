@@ -5,6 +5,7 @@ import pri.hongweihao.smallspring.beans.factory.ConfigurableListableBeanFactory;
 import pri.hongweihao.smallspring.beans.factory.ListableBeanFactory;
 import pri.hongweihao.smallspring.beans.factory.config.BeanFactoryPostProcessor;
 import pri.hongweihao.smallspring.beans.factory.config.BeanPostProcessor;
+import pri.hongweihao.smallspring.context.ApplicationContextAwareProcessor;
 import pri.hongweihao.smallspring.context.ConfigurableApplicationContext;
 
 import java.util.Map;
@@ -20,15 +21,18 @@ public abstract class AbstractApplicationContext implements ConfigurableApplicat
      * 定义刷新方法的流程：
      * 1.创建BeanFactory
      * 2.获取BeanFactory
-     * 3.执行扩展操作，修改BeanDefinition
-     * 4.注册Bean操作扩建接口 BeanPostProcessor
-     * 5.提前实例化单例Bean
+     * 3.注册context aware
+     * 4.执行扩展操作，修改BeanDefinition
+     * 5.注册Bean操作扩建接口 BeanPostProcessor
+     * 6.提前实例化单例Bean
      */
     @Override
     public void refresh() {
         refreshBeanFactory();
 
         ConfigurableListableBeanFactory beanFactory = getBeanFactory();
+
+        beanFactory.addPostBeanProcessor(new ApplicationContextAwareProcessor(this));
 
         invokePostBeanFactoryProcessor(beanFactory);
 

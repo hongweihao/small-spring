@@ -89,9 +89,9 @@ public class BeanFactoryTest {
     @Test
     public void test_application_context() {
         ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring.xml");
+        context.registerShutdownHook();
         TestService testService = context.getBean("testService", TestService.class);
         testService.test();
-        context.close();
     }
 
 }

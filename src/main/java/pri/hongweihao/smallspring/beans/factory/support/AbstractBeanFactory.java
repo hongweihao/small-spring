@@ -4,6 +4,7 @@ import pri.hongweihao.smallspring.beans.factory.config.BeanDefinition;
 import pri.hongweihao.smallspring.beans.BeansException;
 import pri.hongweihao.smallspring.beans.factory.config.BeanPostProcessor;
 import pri.hongweihao.smallspring.beans.factory.config.ConfigurableBeanFactory;
+import pri.hongweihao.smallspring.utils.ClassUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,8 @@ import java.util.Objects;
  */
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
     private final List<BeanPostProcessor> beanPostProcessorList = new ArrayList<>();
+
+    private final ClassLoader classLoader = ClassUtils.getDefaultClassLoader();
 
     @Override
     public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
@@ -51,5 +54,9 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
     public List<BeanPostProcessor> getPostBeanProcessorList() {
         return this.beanPostProcessorList;
+    }
+
+    public ClassLoader getClassLoader() {
+        return classLoader;
     }
 }
