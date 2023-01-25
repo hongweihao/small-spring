@@ -41,7 +41,7 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
         disposableBeanMap.clear();
     }
 
-    protected void register(String beanName, Object bean) {
+    protected void registerSingleton(String beanName, Object bean) {
         singletonBeanMap.put(beanName, bean);
     }
 }

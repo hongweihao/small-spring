@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
 
-    <bean id="testDao" class="pri.hongweihao.smallspring.bean.TestDao"/>
+    <bean id="testDao" class="pri.hongweihao.smallspring.bean.TestDao" scope="singleton"/>
 
-    <bean id="testService" class="pri.hongweihao.smallspring.bean.TestService" init-method="afterPropertiesSet2" destroy-method="destroy2">
+    <bean id="testService" class="pri.hongweihao.smallspring.bean.TestService"
+          init-method="afterPropertiesSet2"
+          destroy-method="destroy2"
+          scope="prototype">
         <property name="name" value="karl"/>
         <property name="age" value="30"/>
         <property name="testDao" ref="testDao"/>

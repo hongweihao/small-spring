@@ -40,13 +40,17 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         registerDisposableBeanIfNecessary(beanName, wrapperBean, beanDefinition);
 
         // 放入Registry
-        super.register(beanName, wrapperBean);
+        if (beanDefinition.isSingleton()) {
+            super.registerSingleton(beanName, wrapperBean);
+        }
 
         return wrapperBean;
     }
 
     private void registerDisposableBeanIfNecessary(String beanName, Object wrapperBean, BeanDefinition beanDefinition) {
-        registerDisposableBean(beanName, new DisposableBeanAdapter(beanName, wrapperBean, beanDefinition));
+        if (beanDefinition.isSingleton()) {
+            registerDisposableBean(beanName, new DisposableBeanAdapter(beanName, wrapperBean, beanDefinition));
+        }
     }
 
     /**
