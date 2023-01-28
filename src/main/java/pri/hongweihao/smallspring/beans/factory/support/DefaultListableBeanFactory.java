@@ -28,7 +28,10 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
     public void preInitializeSingletonObjects() {
         String[] beanDefinitionNames = getBeanDefinitionNames();
         for (String beanDefinitionName : beanDefinitionNames) {
-            getBean(beanDefinitionName);
+            BeanDefinition beanDefinition = getBeanDefinition(beanDefinitionName);
+            if (beanDefinition.isSingleton()) {
+                getBean(beanDefinitionName);
+            }
         }
     }
 

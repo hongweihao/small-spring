@@ -26,7 +26,7 @@ public class TestService implements InitializingBean, DisposableBean, BeanFactor
     public void test() {
         System.out.println("testService.name: " + this.name);
         System.out.println("testService.age: " + this.age);
-        this.testDao.test();
+        System.out.println("dao test: " + this.testDao.test());
 
         System.out.println("testService.factory: " + this.beanFactory);
         System.out.println("testService.context: " + this.context);

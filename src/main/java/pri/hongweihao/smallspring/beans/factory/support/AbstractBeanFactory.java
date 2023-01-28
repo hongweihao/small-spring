@@ -1,5 +1,6 @@
 package pri.hongweihao.smallspring.beans.factory.support;
 
+import pri.hongweihao.smallspring.beans.factory.FactoryBean;
 import pri.hongweihao.smallspring.beans.factory.config.BeanDefinition;
 import pri.hongweihao.smallspring.beans.BeansException;
 import pri.hongweihao.smallspring.beans.factory.config.BeanPostProcessor;
@@ -20,7 +21,7 @@ import java.util.Objects;
  * 4.返回单例对象
  * </p>
  */
-public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
+public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport implements ConfigurableBeanFactory {
     private final List<BeanPostProcessor> beanPostProcessorList = new ArrayList<>();
 
     private final ClassLoader classLoader = ClassUtils.getDefaultClassLoader();
@@ -32,13 +33,19 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
     @Override
     public Object getBean(String name, Object... args) {
+        return doGetBean(name, args);
+    }
+
+    private Object doGetBean(String name, Object... args) {
         Object singletonBean = super.getSingletonBean(name);
         if (Objects.nonNull(singletonBean)) {
-            return singletonBean;
+            // 查询到单例对象，直接返回
+            return getObjectForInstance(singletonBean, name);
         }
 
         BeanDefinition beanDefinition = getBeanDefinition(name);
-        return createBean(name, beanDefinition, args);
+        Object bean = createBean(name, beanDefinition, args);
+        return getObjectForInstance(bean, name);
     }
 
     protected abstract BeanDefinition getBeanDefinition(String beanName) throws BeansException;
@@ -58,5 +65,18 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
     public ClassLoader getClassLoader() {
         return classLoader;
+    }
+
+    private Object getObjectForInstance(Object instance, String beanName) {
+        if (!(instance instanceof FactoryBean)) {
+            return instance;
+        }
+
+        // 这里两次查询，因为getObject 方法内部会根据类型决定创建完是否加入缓存
+        Object object = super.getObjectFromCache(beanName);
+        if (Objects.isNull(object)) {
+            object = super.getObject((FactoryBean<?>) instance, beanName);
+        }
+        return object;
     }
 }
