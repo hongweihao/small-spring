@@ -10,6 +10,8 @@ import pri.hongweihao.smallspring.beans.factory.support.DisposableBeanAdapter;
 public interface SingletonBeanRegistry {
     Object getSingletonBean(String beanName);
 
+    void registerSingleton(String beanName, Object bean);
+
     void registerDisposableBean(String beanName, DisposableBeanAdapter adapter);
 
     void destroySingletons();

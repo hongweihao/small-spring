@@ -5,9 +5,13 @@ import pri.hongweihao.smallspring.beans.factory.ConfigurableListableBeanFactory;
 import pri.hongweihao.smallspring.beans.factory.ListableBeanFactory;
 import pri.hongweihao.smallspring.beans.factory.config.BeanFactoryPostProcessor;
 import pri.hongweihao.smallspring.beans.factory.config.BeanPostProcessor;
-import pri.hongweihao.smallspring.context.ApplicationContextAwareProcessor;
-import pri.hongweihao.smallspring.context.ConfigurableApplicationContext;
+import pri.hongweihao.smallspring.context.*;
+import pri.hongweihao.smallspring.context.event.ApplicationEventMulticaster;
+import pri.hongweihao.smallspring.context.event.ContextClosedEvent;
+import pri.hongweihao.smallspring.context.event.ContextRefreshedEvent;
+import pri.hongweihao.smallspring.context.event.SimpleApplicationEventMulticaster;
 
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -15,7 +19,10 @@ import java.util.Map;
  * 固定刷新方法的流程
  * 实现容器接口的方法
  */
-public abstract class AbstractApplicationContext implements ConfigurableApplicationContext {
+public abstract class AbstractApplicationContext implements ConfigurableApplicationContext, ApplicationEventPublisher {
+    private final String APPLICATION_EVENT_MULTICASTER_BEAN_NAME = "applicationEventMulticaster";
+
+    private ApplicationEventMulticaster applicationEventMulticaster;
 
     /**
      * 定义刷新方法的流程：
@@ -28,17 +35,49 @@ public abstract class AbstractApplicationContext implements ConfigurableApplicat
      */
     @Override
     public void refresh() {
+        // 刷新BeanFactory
         refreshBeanFactory();
 
+        // 获取BeanFactory
         ConfigurableListableBeanFactory beanFactory = getBeanFactory();
 
+        // 注册上下文感知对象
         beanFactory.addPostBeanProcessor(new ApplicationContextAwareProcessor(this));
 
+        // 调用BeanFactoryProcessor
         invokePostBeanFactoryProcessor(beanFactory);
 
+        // 注册BeanProcessor
         registerPostBeanProcessor(beanFactory);
 
+        // 预加载单例对象
         preInitializeSingletonObjects(beanFactory);
+
+        // 初始化事件广播对象
+        initApplicationEventMulticaster();
+
+        // 注册监听器
+        registerListeners();
+
+        // 刷新完成事件
+        finishRefresh();
+    }
+
+    private void finishRefresh() {
+        publishEvent(new ContextRefreshedEvent(this));
+    }
+
+    private void registerListeners() {
+        ConfigurableListableBeanFactory beanFactory = getBeanFactory();
+        Collection<ApplicationListener> listeners = beanFactory.getBeansOfType(ApplicationListener.class).values();
+        for (ApplicationListener listener : listeners) {
+            applicationEventMulticaster.addListener(listener);
+        }
+    }
+
+    private void initApplicationEventMulticaster() {
+        applicationEventMulticaster = new SimpleApplicationEventMulticaster();
+        getBeanFactory().registerSingleton(this.APPLICATION_EVENT_MULTICASTER_BEAN_NAME, applicationEventMulticaster);
     }
 
     @Override
@@ -48,6 +87,7 @@ public abstract class AbstractApplicationContext implements ConfigurableApplicat
 
     @Override
     public void close() {
+        publishEvent(new ContextClosedEvent(this));
         getBeanFactory().destroySingletons();
     }
 
@@ -95,5 +135,10 @@ public abstract class AbstractApplicationContext implements ConfigurableApplicat
     public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
         ListableBeanFactory beanFactory = getBeanFactory();
         return beanFactory.getBean(name, requiredType);
+    }
+
+    @Override
+    public void publishEvent(ApplicationEvent event) {
+        this.applicationEventMulticaster.multicastEvent(event);
     }
 }
