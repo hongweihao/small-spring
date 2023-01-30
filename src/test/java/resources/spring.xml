@@ -19,6 +19,6 @@
     <bean id="contextClosedListener" class="pri.hongweihao.smallspring.event.ContextClosedListener"/>
     <bean id="contextRefreshedListener" class="pri.hongweihao.smallspring.event.ContextRefreshedListener"/>
     <bean id="customerEvent" class="pri.hongweihao.smallspring.event.CustomerEvent"/>
-    <bean id="contextClosedListener" class="pri.hongweihao.smallspring.event.CustomerEventListener"/>
+    <bean id="CustomerEventListener" class="pri.hongweihao.smallspring.event.CustomerEventListener"/>
 
 </beans>
