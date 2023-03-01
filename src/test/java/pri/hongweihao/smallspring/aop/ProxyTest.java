@@ -27,8 +27,6 @@ public class ProxyTest {
      * 使用 Method 对象对目标对象进行调用
      * </p>
      *
-     * @param
-     * @return void
      * @author Karl
      * @date 2023/2/23 13:51
      */
@@ -64,8 +62,6 @@ public class ProxyTest {
      * 使用 Method 对象对目标对象进行调用
      * </p>
      *
-     * @param
-     * @return void
      * @author Karl
      * @date 2023/2/23 13:50
      */
@@ -85,8 +81,7 @@ public class ProxyTest {
                 // 3.定义代理逻辑
                 System.out.println("proxy method start");
 
-
-                Object invoke = method.invoke(target, args);
+                Object invoke = methodProxy.invoke(target, args);
 
                 System.out.println("proxy method end");
 
@@ -104,8 +99,6 @@ public class ProxyTest {
      * 使用 AspectJ 对目标对象进行调用
      * </p>
      *
-     * @param
-     * @return void
      * @author Karl
      * @date 2023/2/23 13:51
      */
@@ -171,8 +164,6 @@ public class ProxyTest {
      * 使用 AspectJ 对目标对象进行调用
      * </p>
      *
-     * @param
-     * @return void
      * @author Karl
      * @date 2023/2/23 13:51
      */
