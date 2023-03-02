@@ -24,13 +24,11 @@ public class CGlibAopProxy implements AopProxy {
         enhancer.setCallback(new MethodInterceptor() {
             @Override
             public Object intercept(Object o, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
+                CGlibMethodInvocation methodInvocation = new CGlibMethodInvocation(adviseSupport.getTarget(), method, args, methodProxy);
                 if (adviseSupport.getMethodMatcher().matches(method, adviseSupport.getTarget().getClass())) {
-                    return adviseSupport.getMethodInterceptor().invoke(new ReflectiveMethodInvocation(adviseSupport.getTarget(), method, args));
+                    return adviseSupport.getMethodInterceptor().invoke(methodInvocation);
                 }
-
-                //return method.invoke(adviseSupport.getTarget(), args);
-                return new CGlibMethodInvocation(adviseSupport, method, args, methodProxy).proceed();
-
+                return methodInvocation.proceed();
             }
         });
         return enhancer.create();
