@@ -6,10 +6,7 @@ import pri.hongweihao.smallspring.beans.BeansException;
 import pri.hongweihao.smallspring.beans.PropertyValue;
 import pri.hongweihao.smallspring.beans.PropertyValues;
 import pri.hongweihao.smallspring.beans.factory.*;
-import pri.hongweihao.smallspring.beans.factory.config.AutowireCapableBeanFactory;
-import pri.hongweihao.smallspring.beans.factory.config.BeanDefinition;
-import pri.hongweihao.smallspring.beans.factory.config.BeanReference;
-import pri.hongweihao.smallspring.beans.factory.config.BeanPostProcessor;
+import pri.hongweihao.smallspring.beans.factory.config.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -28,23 +25,34 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
     @Override
     protected Object createBean(String beanName, BeanDefinition beanDefinition, Object... args) {
-        // 创建实例
-        Object instance = createInstance(beanName, beanDefinition, args);
+        Object bean;
 
-        // 属性填充
-        applyPropertyValue(beanName, instance, beanDefinition);
+        bean = resolveBeforeInstantiation(beanName, beanDefinition);
+        if (bean != null) {
+            return bean;
+        }
 
-        // 执行初始化方法以及钩子方法
-        Object wrapperBean = this.initializeBean(beanName, instance, beanDefinition);
+        try {
+            // 创建实例
+            bean = createInstance(beanName, beanDefinition, args);
 
-        registerDisposableBeanIfNecessary(beanName, wrapperBean, beanDefinition);
+            // 属性填充
+            applyPropertyValue(beanName, bean, beanDefinition);
+
+            // 执行初始化方法以及钩子方法
+            bean = this.initializeBean(beanName, bean, beanDefinition);
+        } catch (Exception e) {
+            throw new BeansException("Failed to initialize bean: " + beanName);
+        }
+
+        registerDisposableBeanIfNecessary(beanName, bean, beanDefinition);
 
         // 放入Registry
         if (beanDefinition.isSingleton()) {
-            super.registerSingleton(beanName, wrapperBean);
+            super.registerSingleton(beanName, bean);
         }
 
-        return wrapperBean;
+        return bean;
     }
 
     private void registerDisposableBeanIfNecessary(String beanName, Object wrapperBean, BeanDefinition beanDefinition) {
@@ -119,7 +127,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         } catch (InvocationTargetException | IllegalAccessException e) {
             throw new BeansException("Failed to invoke the init method of bean " + beanName, e);
         }
-        return this.applyBeanPostProcessorsAfterInitialization(beanName, wrapperBean);
+        return this.applyBeanPostProcessorAfterInitialization(beanName, wrapperBean);
     }
 
     private Object applyBeanPostProcessorsBeforeInitialization(String beanName, Object bean) {
@@ -150,9 +158,26 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         }
     }
 
-    private Object applyBeanPostProcessorsAfterInitialization(String beanName, Object bean) {
+    private Object applyBeanPostProcessorAfterInitialization(String beanName, Object bean) {
         for (BeanPostProcessor beanPostProcessor : getPostBeanProcessorList()) {
             bean = beanPostProcessor.postProcessAfterInitialization(bean, beanName);
+        }
+        return bean;
+    }
+
+    private Object resolveBeforeInstantiation(String beanName, BeanDefinition beanDefinition) {
+        Object bean = null;
+        for (BeanPostProcessor beanPostProcessor : this.getPostBeanProcessorList()) {
+            if (beanPostProcessor instanceof InstantiationAwareBeanPostProcessor) {
+                bean = ((InstantiationAwareBeanPostProcessor) beanPostProcessor).postProcessorBeforeInstantiation(beanDefinition.getBeanClass(), beanName);
+                if (bean != null) {
+                    break;
+                }
+            }
+        }
+
+        if (bean != null) {
+            applyBeanPostProcessorAfterInitialization(beanName, bean);
         }
         return bean;
     }

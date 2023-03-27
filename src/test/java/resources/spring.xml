@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
+    <bean id="methodBeforeAdvise" class="pri.hongweihao.smallspring.aop.spring.MyMethodBeforeAdvise"/>
 
-<!--    <bean id="testDao" class="pri.hongweihao.smallspring.bean.TestDao" scope="singleton"/>-->
-    <bean id="proxyTestDao" class="pri.hongweihao.smallspring.bean.ProxyTestDao" scope="singleton"/>
+    <bean id="target" class="pri.hongweihao.smallspring.aop.Target" />
 
-    <bean id="testService" class="pri.hongweihao.smallspring.bean.TestService"
-          init-method="afterPropertiesSet2"
-          destroy-method="destroy2"
-          scope="singleton">
-        <property name="name" value="karl"/>
-        <property name="age" value="30"/>
-        <property name="testDao" ref="proxyTestDao"/>
+    <bean class="pri.hongweihao.smallspring.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+    <bean id="methodInterceptor" class="pri.hongweihao.smallspring.aop.framework.adapter.MethodBeforeAdviceInterceptor">
+        <property name="methodBeforeAdvise" ref="methodBeforeAdvise"/>
     </bean>
 
-    <bean id="myPostBeanFactoryProcessor" class="pri.hongweihao.smallspring.MyBeanFactoryPostProcessor"/>
-    <bean id="myBeanPostProcessor" class="pri.hongweihao.smallspring.MyBeanPostProcessor"/>
-
-    <bean id="contextClosedListener" class="pri.hongweihao.smallspring.event.ContextClosedListener"/>
-    <bean id="contextRefreshedListener" class="pri.hongweihao.smallspring.event.ContextRefreshedListener"/>
-    <bean id="customerEvent" class="pri.hongweihao.smallspring.event.CustomerEvent"/>
-    <bean id="CustomerEventListener" class="pri.hongweihao.smallspring.event.CustomerEventListener"/>
+    <bean id="pointcutAdvisor" class="pri.hongweihao.smallspring.aop.aspectj.AspectJExpressionPointcutAdvisor">
+        <property name="expression" value="execution(* pri.hongweihao.smallspring.aop.ITarget.*(..))"/>
+        <property name="advice" ref="methodInterceptor"/>
+    </bean>
 
 </beans>

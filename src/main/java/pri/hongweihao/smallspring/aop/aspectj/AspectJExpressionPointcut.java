@@ -5,14 +5,14 @@ import org.aspectj.weaver.tools.PointcutParser;
 import org.aspectj.weaver.tools.PointcutPrimitive;
 import pri.hongweihao.smallspring.aop.ClassFilter;
 import pri.hongweihao.smallspring.aop.MethodMatcher;
-import pri.hongweihao.smallspring.aop.PointCut;
+import pri.hongweihao.smallspring.aop.Pointcut;
 
 import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
 
 
-public class AspectJExpressionPointCut implements ClassFilter, MethodMatcher, PointCut {
+public class AspectJExpressionPointcut implements ClassFilter, MethodMatcher, Pointcut {
 
     private static final Set<PointcutPrimitive> SUPPORTED_PRIMITIVES = new HashSet<>();
     private final PointcutExpression expression;
@@ -21,7 +21,7 @@ public class AspectJExpressionPointCut implements ClassFilter, MethodMatcher, Po
         SUPPORTED_PRIMITIVES.add(PointcutPrimitive.EXECUTION);
     }
 
-    public AspectJExpressionPointCut(String expression) {
+    public AspectJExpressionPointcut(String expression) {
         PointcutParser parser = PointcutParser.getPointcutParserSupportingSpecifiedPrimitivesAndUsingSpecifiedClassLoaderForResolution(SUPPORTED_PRIMITIVES, this.getClass().getClassLoader());
         this.expression = parser.parsePointcutExpression(expression);
     }
