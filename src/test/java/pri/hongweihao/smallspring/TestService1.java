@@ -8,12 +8,10 @@ package pri.hongweihao.smallspring;
  * @author Karl
  * @date 2022/10/25 13:35
  */
-public class TestService {
-    public TestService() {
-    }
+public class TestService1 {
 
     public void test() {
-        System.out.println("TestService");
+        System.out.println("TestService1");
     }
 
 }
