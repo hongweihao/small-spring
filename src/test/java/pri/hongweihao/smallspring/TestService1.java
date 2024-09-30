@@ -10,6 +10,11 @@ package pri.hongweihao.smallspring;
  */
 public class TestService1 {
 
+    public String field1 = "v1";
+    private String field2 = "v2";
+
+    private static final String field3 = "field3";
+
     public void test() {
         System.out.println("TestService1");
     }

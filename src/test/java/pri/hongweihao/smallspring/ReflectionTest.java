@@ -4,21 +4,19 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.function.ThrowingRunnable;
 
-import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 import java.util.Arrays;
 
 public class ReflectionTest {
 
     /*=================获取类对象=================*/
+
     /**
      * 获取类对象：通过全限定名字符串获取类对象
      */
     @Test
     public void get_class_test1() throws ClassNotFoundException {
-        Class<?> clazz = Class.forName("pri.hongweihao.smallspring.TestService");
+        Class<?> clazz = Class.forName("pri.hongweihao.smallspring.TestService1");
         Assert.assertNotNull(clazz);
     }
 
@@ -27,7 +25,7 @@ public class ReflectionTest {
      */
     @Test
     public void get_class_test2() {
-        Class<TestService> clazz = TestService.class;
+        Class<TestService1> clazz = TestService1.class;
         Assert.assertNotNull(clazz);
     }
 
@@ -36,10 +34,61 @@ public class ReflectionTest {
      */
     @Test
     public void get_class_test3() {
-        TestService testService = new TestService();
-        Class<? extends TestService> clazz = testService.getClass();
+        TestService1 testService = new TestService1();
+        Class<? extends TestService1> clazz = testService.getClass();
         Assert.assertNotNull(clazz);
     }
+
+
+    /*=====================获取类属性==================*/
+
+    /**
+     * <p>
+     * 获取共有属性
+     * </p>
+     */
+    @Test
+    public void test() throws NoSuchFieldException {
+        Class<TestService1> clazz = TestService1.class;
+
+        System.out.println("公有属性：");
+        Field[] fields = clazz.getFields();
+        for (Field field : fields) {
+            System.out.println(field.getName());
+        }
+
+
+        System.out.println("全部属性：");
+        Field[] declaredFields = clazz.getDeclaredFields();
+        for (Field declaredField : declaredFields) {
+            System.out.println(declaredField);
+        }
+
+        System.out.println("查询共有属性：");
+        Field field = clazz.getField("field1");
+        System.out.println(field);
+
+        System.out.println("clazz.getField查询私有属性报错");
+        Assert.assertThrows(NoSuchFieldException.class , () -> clazz.getField("field2"));
+
+        System.out.println("查询全部属性：");
+        Field declaredField1 = clazz.getDeclaredField("field1");
+        System.out.println(declaredField1);
+
+        Field declaredField2 = clazz.getDeclaredField("field2");
+        System.out.println(declaredField2);
+
+
+    }
+
+    /*=====================获取类方法==================*/
+
+
+
+
+
+
+
 
     /*=================创建实例=================*/
 
@@ -49,8 +98,8 @@ public class ReflectionTest {
      */
     @Test
     public void create_instance1_test1() throws InstantiationException, IllegalAccessException {
-        Class<TestService> clazz = TestService.class;
-        TestService testService = clazz.newInstance();
+        Class<TestService1> clazz = TestService1.class;
+        TestService1 testService = clazz.newInstance();
         Assert.assertNotNull(testService);
         testService.test();
     }
@@ -96,24 +145,16 @@ public class ReflectionTest {
     @Test
     public void create_instance2_test() throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         Class<TestService4> clazz = TestService4.class;
-        // 获取公共的构造方法
+        // 获取公有的构造方法
         Constructor<?>[] constructors = clazz.getConstructors();
         TestService4 testService4 = (TestService4) constructors[0].newInstance("fake");
         Assert.assertNotNull(testService4);
         testService4.test();
 
-
-        // 获取所有的构造方法
+        // 获取所有的构造方法,调用私有构造方法会报错
         Constructor<TestService4> declaredConstructor = clazz.getDeclaredConstructor(Integer.class);
-//        Constructor<?>[] declaredConstructors = clazz.getDeclaredConstructors();
-        TestService4 testService44 = (TestService4) declaredConstructor.newInstance(1);
-        Assert.assertNotNull(testService44);
-        testService44.test();
-
-
+        Assert.assertThrows(IllegalAccessException.class, () -> declaredConstructor.newInstance(1));
     }
-
-
 
 
 }
