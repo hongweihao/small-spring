@@ -19,4 +19,12 @@ public class TestService1 {
         System.out.println("TestService1");
     }
 
+    private void pri() {
+        System.out.println("pri");
+    }
+
+    protected static void pro() {
+        System.out.println("pro");
+    }
+
 }

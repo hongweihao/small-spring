@@ -9,10 +9,10 @@ import java.util.Arrays;
 
 public class ReflectionTest {
 
-    /*=================获取类对象=================*/
+    /*=================获取Class对象=================*/
 
     /**
-     * 获取类对象：通过全限定名字符串获取类对象
+     * 获取Class对象：通过全限定名字符串获取Class对象
      */
     @Test
     public void get_class_test1() throws ClassNotFoundException {
@@ -21,7 +21,7 @@ public class ReflectionTest {
     }
 
     /**
-     * 获取类对象：通过类.class获取类对象
+     * 获取Class对象：通过类.class获取Class对象
      */
     @Test
     public void get_class_test2() {
@@ -30,7 +30,7 @@ public class ReflectionTest {
     }
 
     /**
-     * 获取类对象：通过实例.getClass()获取类对象
+     * 获取Class对象：通过实例.getClass()获取Class对象
      */
     @Test
     public void get_class_test3() {
@@ -44,7 +44,7 @@ public class ReflectionTest {
 
     /**
      * <p>
-     * 获取共有属性
+     * 获取类属性
      * </p>
      */
     @Test
@@ -56,7 +56,6 @@ public class ReflectionTest {
         for (Field field : fields) {
             System.out.println(field.getName());
         }
-
 
         System.out.println("全部属性：");
         Field[] declaredFields = clazz.getDeclaredFields();
@@ -83,11 +82,25 @@ public class ReflectionTest {
 
     /*=====================获取类方法==================*/
 
+    /**
+     * 获取类方法
+     */
+    @Test
+    public void test1() throws NoSuchMethodException {
+        Class<TestService1> clazz = TestService1.class;
 
+        System.out.println("当前类以及父类的所有公有方法: ");
+        Method[] methods = clazz.getMethods();
+        for (Method method : methods) {
+            System.out.println(method);
+        }
 
-
-
-
+        System.out.println("\n当前类的所有方法: ");
+        Method[] declaredMethods = clazz.getDeclaredMethods();
+        for (Method method : declaredMethods) {
+            System.out.println(method);
+        }
+    }
 
 
     /*=================创建实例=================*/
@@ -154,6 +167,25 @@ public class ReflectionTest {
         // 获取所有的构造方法,调用私有构造方法会报错
         Constructor<TestService4> declaredConstructor = clazz.getDeclaredConstructor(Integer.class);
         Assert.assertThrows(IllegalAccessException.class, () -> declaredConstructor.newInstance(1));
+    }
+
+    @Test
+    public void direct_new_test() {
+        TestService1 testService1 = new TestService1();
+        testService1.test();
+    }
+
+    @Test
+    public void reflection_new_test() throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException {
+        Class<?> clazz = Class.forName("pri.hongweihao.smallspring.TestService1");
+
+        // 获取构造方法，初始化实例
+        Constructor<?>[] constructors = clazz.getConstructors();
+        Object o = constructors[0].newInstance();
+
+        // 获取方法对象并调用
+        Method method = clazz.getMethod("test");
+        method.invoke(o);
     }
 
 
