@@ -68,7 +68,7 @@ public class ReflectionTest {
         System.out.println(field);
 
         System.out.println("clazz.getField查询私有属性报错");
-        Assert.assertThrows(NoSuchFieldException.class , () -> clazz.getField("field2"));
+        Assert.assertThrows(NoSuchFieldException.class, () -> clazz.getField("field2"));
 
         System.out.println("查询全部属性：");
         Field declaredField1 = clazz.getDeclaredField("field1");
@@ -156,7 +156,7 @@ public class ReflectionTest {
      * TestService4定义了共有有参构造方法和私有无参构造方法
      */
     @Test
-    public void create_instance2_test() throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+    public void create_instance2_test() throws Exception {
         Class<TestService4> clazz = TestService4.class;
         // 获取公有的构造方法
         Constructor<?>[] constructors = clazz.getConstructors();
@@ -176,17 +176,20 @@ public class ReflectionTest {
     }
 
     @Test
-    public void reflection_new_test() throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException {
-        Class<?> clazz = Class.forName("pri.hongweihao.smallspring.TestService1");
+    public void reflection_new_test() throws Exception {
+        reflection("pri.hongweihao.smallspring.TestService1", "test");
+    }
+
+    private void reflection(String className, String methodName) throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException {
+        Class<?> clazz = Class.forName(className);
 
         // 获取构造方法，初始化实例
         Constructor<?>[] constructors = clazz.getConstructors();
         Object o = constructors[0].newInstance();
 
         // 获取方法对象并调用
-        Method method = clazz.getMethod("test");
+        Method method = clazz.getMethod(methodName);
         method.invoke(o);
     }
-
 
 }
