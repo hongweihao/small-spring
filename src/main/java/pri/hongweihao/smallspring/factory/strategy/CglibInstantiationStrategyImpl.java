@@ -1,13 +1,11 @@
 package pri.hongweihao.smallspring.factory.strategy;
 
-import net.sf.cglib.proxy.Callback;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.NoOp;
 import pri.hongweihao.smallspring.BeanDefinition;
 import pri.hongweihao.smallspring.factory.InstantiationStrategy;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
 /**
@@ -19,6 +17,7 @@ import java.util.Objects;
  * @date 2022/10/27 13:44
  */
 public class CglibInstantiationStrategyImpl implements InstantiationStrategy {
+    @SuppressWarnings("rawtypes")
     @Override
     public Object createBean(BeanDefinition beanDefinition, Constructor constructor, Object[] args) {
         Enhancer enhancer = new Enhancer();

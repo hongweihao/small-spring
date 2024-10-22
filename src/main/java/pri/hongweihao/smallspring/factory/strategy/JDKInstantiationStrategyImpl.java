@@ -1,7 +1,6 @@
 package pri.hongweihao.smallspring.factory.strategy;
 
 import pri.hongweihao.smallspring.BeanDefinition;
-import pri.hongweihao.smallspring.BeanException;
 import pri.hongweihao.smallspring.factory.InstantiationStrategy;
 
 import java.lang.reflect.Constructor;
@@ -16,6 +15,7 @@ import java.lang.reflect.InvocationTargetException;
  * @date 2022/10/27 13:44
  */
 public class JDKInstantiationStrategyImpl implements InstantiationStrategy {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public Object createBean(BeanDefinition beanDefinition, Constructor constructor, Object[] args) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Class beanClass = beanDefinition.getBeanClass();

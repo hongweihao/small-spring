@@ -18,31 +18,44 @@ import java.util.Optional;
  * @date 2022/10/26 13:52
  */
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory {
-
-    //private final InstantiationStrategy instantiationStrategy = new JDKInstantiationStrategyImpl();
-    private final InstantiationStrategy instantiationStrategy = new CglibInstantiationStrategyImpl();
+    // private final InstantiationStrategy strategy = new
+    // JDKInstantiationStrategyImpl();
+    private final InstantiationStrategy strategy = new CglibInstantiationStrategyImpl();
 
     @Override
     protected Object createBean(String beanName, BeanDefinition beanDefinition, Object... args) {
         Object instance;
-        instance = createInstance(beanDefinition, args);
-
-        super.register(beanName, instance);
+        try {
+            instance = createInstance(beanDefinition, args);
+        } catch (Exception e) {
+            throw new BeanException("Failed to initialize:" + beanDefinition.getBeanClass().getName(), e);
+        }
+        addSingleton(beanName, instance);
         return instance;
     }
 
+    @SuppressWarnings("rawtypes")
     private Object createInstance(BeanDefinition beanDefinition, Object... args) {
         Constructor[] constructors = beanDefinition.getBeanClass().getDeclaredConstructors();
-        Optional<Constructor> first = Arrays.stream(constructors)
-                .filter(constructor -> constructor.getParameterTypes().length == args.length)
-                .findFirst();
+        Optional<Constructor> matchingConstructor = Arrays.stream(constructors)
+                .filter(constructor -> {
+                    // 通过构造方法参数列表长度和类型选择对应的构造方法
+                    Class<?>[] parameterTypes = constructor.getParameterTypes();
+                    if (parameterTypes.length != args.length) {
+                        return false;
+                    }
+                    for (int i = 0; i < parameterTypes.length; i++) {
+                        if (args[i] != null && !parameterTypes[i].isAssignableFrom(args[i].getClass())) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }).findFirst();
 
         try {
-            return instantiationStrategy.createBean(beanDefinition, first.orElse(null), args);
+            return strategy.createBean(beanDefinition, matchingConstructor.orElse(null), args);
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new BeanException("Failed to initialize for this class: " + beanDefinition.getBeanClass().getName());
+            throw new BeanException("Failed to initialize " + beanDefinition.getBeanClass().getName(), e);
         }
-
     }
 }

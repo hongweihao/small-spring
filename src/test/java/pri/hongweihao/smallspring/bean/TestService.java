@@ -14,6 +14,10 @@ public class TestService {
         this.name = name;
     }
 
+    public TestService(Integer age) {
+        this.name = "age";
+    }
+
     public void test() {
         System.out.println("test  -> " + this.name);
     }

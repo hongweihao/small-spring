@@ -1,7 +1,5 @@
 package pri.hongweihao.smallspring.registry;
 
-import pri.hongweihao.smallspring.registry.SingletonBeanRegistry;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +21,7 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
         return singletonBeanMap.get(beanName);
     }
 
-    protected void register(String beanName, Object bean){
+    protected void addSingleton(String beanName, Object bean) {
         singletonBeanMap.put(beanName, bean);
     }
 }

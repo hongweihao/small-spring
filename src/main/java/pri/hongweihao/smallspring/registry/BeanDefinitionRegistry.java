@@ -11,5 +11,5 @@ import pri.hongweihao.smallspring.BeanDefinition;
  * @date 2022/10/26 13:59
  */
 public interface BeanDefinitionRegistry {
-    void register(String beanName, BeanDefinition beanDefinition);
+    void registerBeanDefinition(String beanName, BeanDefinition beanDefinition);
 }

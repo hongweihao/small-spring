@@ -1,6 +1,5 @@
 package pri.hongweihao.smallspring;
 
-import net.sf.cglib.proxy.Callback;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.NoOp;
 import org.junit.Test;
@@ -21,18 +20,21 @@ public class BeanFactoryTest {
 
     @Test
     public void test() {
-        DefaultListableBeanFactory defaultListableBeanFactory = new DefaultListableBeanFactory();
-
-        // 注册bean
+        // 准备BeanDefinition
         BeanDefinition beanDefinition = new BeanDefinition(TestService.class);
-        defaultListableBeanFactory.register("testService", beanDefinition);
-
         BeanDefinition test2Definition = new BeanDefinition(Test2Service.class);
-        defaultListableBeanFactory.register("test2Service", test2Definition);
 
-        // 从工厂中获取bean对象
+        DefaultListableBeanFactory defaultListableBeanFactory = new DefaultListableBeanFactory();
+        // 注册Bean
+        defaultListableBeanFactory.registerBeanDefinition("testService", beanDefinition);
+        defaultListableBeanFactory.registerBeanDefinition("test2Service", test2Definition);
+
+        // 从工厂中获取Bean对象
         TestService service = (TestService) defaultListableBeanFactory.getBean("testService", "karl");
         service.test();
+
+        service = (TestService) defaultListableBeanFactory.getBean("testService", 18);
+        service.test(); // 单例不会再次执行实例化方法
 
         Test2Service service2 = (Test2Service) defaultListableBeanFactory.getBean("test2Service");
         service2.test();
