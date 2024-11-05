@@ -17,6 +17,7 @@ import java.util.Objects;
  * @date 2022/10/27 13:44
  */
 public class CglibInstantiationStrategyImpl implements InstantiationStrategy {
+    @SuppressWarnings("rawtypes")
     @Override
     public Object createBean(BeanDefinition beanDefinition, Constructor constructor, Object[] args) {
         Enhancer enhancer = new Enhancer();

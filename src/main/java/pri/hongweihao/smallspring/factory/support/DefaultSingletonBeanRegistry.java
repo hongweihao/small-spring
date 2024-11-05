@@ -1,9 +1,9 @@
 package pri.hongweihao.smallspring.factory.support;
 
-import pri.hongweihao.smallspring.factory.config.SingletonBeanRegistry;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import pri.hongweihao.smallspring.factory.config.SingletonBeanRegistry;
 
 /**
  * <p>
@@ -23,7 +23,7 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
         return singletonBeanMap.get(beanName);
     }
 
-    protected void register(String beanName, Object bean){
+    protected void addSingleton(String beanName, Object bean) {
         singletonBeanMap.put(beanName, bean);
     }
 }

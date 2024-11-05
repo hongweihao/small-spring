@@ -16,5 +16,4 @@ public class Test2Service {
         System.out.print("test2  -> ");
         testService.test();
     }
-
 }
