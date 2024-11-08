@@ -37,11 +37,11 @@ public class BeanFactoryTest {
         PropertyValue propertyValue = new PropertyValue("name", "KARL");
         PropertyValues propertyValues = new PropertyValues(propertyValue);
         BeanDefinition beanDefinition = new BeanDefinition(TestService.class, propertyValues);
-        defaultListableBeanFactory.register("testService", beanDefinition);
+        defaultListableBeanFactory.registerBeanDefinition("testService", beanDefinition);
 
         PropertyValue serviceProperty = new PropertyValue("testService", new BeanReference("testService"));
         BeanDefinition test2Definition = new BeanDefinition(Test2Service.class, new PropertyValues(serviceProperty));
-        defaultListableBeanFactory.register("test2Service", test2Definition);
+        defaultListableBeanFactory.registerBeanDefinition("test2Service", test2Definition);
 
         // 从工厂中获取Bean对象
         TestService service = (TestService) defaultListableBeanFactory.getBean("testService", "karl");
