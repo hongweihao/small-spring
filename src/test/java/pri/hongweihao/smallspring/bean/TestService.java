@@ -17,6 +17,10 @@ public class TestService {
         this.testDao = testDao;
     }
 
+    public TestService(Integer age) {
+        this.name = "age";
+    }
+
     public void test() {
         System.out.println("testService.name" + this.name);
         this.testDao.test();
