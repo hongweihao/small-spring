@@ -1,7 +1,5 @@
 package pri.hongweihao.smallspring.beans.factory.config;
 
-import pri.hongweihao.smallspring.beans.PropertyValues;
-
 /**
  * <p>
  * Bean定义对象

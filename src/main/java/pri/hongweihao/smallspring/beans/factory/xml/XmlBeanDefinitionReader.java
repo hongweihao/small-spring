@@ -4,8 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.XmlUtil;
 import org.w3c.dom.*;
 import pri.hongweihao.smallspring.beans.BeanException;
-import pri.hongweihao.smallspring.beans.PropertyValue;
-import pri.hongweihao.smallspring.beans.PropertyValues;
+import pri.hongweihao.smallspring.beans.factory.config.PropertyValue;
+import pri.hongweihao.smallspring.beans.factory.config.PropertyValues;
 import pri.hongweihao.smallspring.beans.factory.config.BeanDefinition;
 import pri.hongweihao.smallspring.beans.factory.config.BeanReference;
 import pri.hongweihao.smallspring.beans.factory.support.BeanDefinitionReader;
@@ -92,7 +92,7 @@ public class XmlBeanDefinitionReader implements BeanDefinitionReader {
             }
 
             // 注册
-            beanDefinitionRegistry.register(beanName, beanDefinition);
+            beanDefinitionRegistry.registerBeanDefinition(beanName, beanDefinition);
         }
     }
 }

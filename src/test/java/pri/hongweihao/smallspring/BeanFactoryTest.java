@@ -1,15 +1,14 @@
 package pri.hongweihao.smallspring;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.NoOp;
 import org.junit.Test;
-import pri.hongweihao.smallspring.bean.Test2Service;
 import pri.hongweihao.smallspring.bean.TestService;
-import pri.hongweihao.smallspring.factory.config.BeanReference;
-import pri.hongweihao.smallspring.factory.config.PropertyValue;
-import pri.hongweihao.smallspring.factory.config.PropertyValues;
-import pri.hongweihao.smallspring.factory.support.DefaultListableBeanFactory;
-import pri.hongweihao.smallspring.factory.config.BeanDefinition;
+import pri.hongweihao.smallspring.beans.factory.support.BeanDefinitionReader;
+import pri.hongweihao.smallspring.beans.factory.support.DefaultListableBeanFactory;
+import pri.hongweihao.smallspring.beans.factory.xml.XmlBeanDefinitionReader;
+
+
+
+import java.io.IOException;
 
 /**
  * <p>

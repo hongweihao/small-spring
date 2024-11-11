@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 /**
  * <p>
  * 核心实现类。实现了 BeanFactory 接口和 BeanDefinitionRegistry 接口
- *
  * </p>
  *
  * @date 2022/10/26 13:57
@@ -30,7 +29,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
     }
 
     @Override
-    public void register(String beanName, BeanDefinition beanDefinition) {
+    public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition) {
         beanDefinitionMap.put(beanName, beanDefinition);
     }
 
