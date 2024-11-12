@@ -8,7 +8,7 @@ import java.net.URLConnection;
 
 /**
  * <p>
- * TODO
+ * UrlResource
  * </p>
  *
  * @date 2022/11/16 13:37

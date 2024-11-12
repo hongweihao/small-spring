@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-
     <bean id="testDao" class="pri.hongweihao.smallspring.bean.TestDao"/>
-
     <bean id="testService" class="pri.hongweihao.smallspring.bean.TestService">
         <property name="name" value="karl"/>
         <property name="testDao" ref="testDao"/>
     </bean>
-
 </beans>

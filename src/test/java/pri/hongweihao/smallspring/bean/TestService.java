@@ -18,8 +18,7 @@ public class TestService {
     }
 
     public void test() {
-        System.out.println("testService.name" + this.name);
+        System.out.println("testService.name: " + this.name);
         this.testDao.test();
     }
-
 }
