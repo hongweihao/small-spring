@@ -2,9 +2,9 @@ package pri.hongweihao.smallspring;
 
 import org.junit.Test;
 import pri.hongweihao.smallspring.bean.TestService;
-import pri.hongweihao.smallspring.beans.factory.support.BeanDefinitionReader;
-import pri.hongweihao.smallspring.beans.factory.support.DefaultListableBeanFactory;
-import pri.hongweihao.smallspring.beans.factory.xml.XmlBeanDefinitionReader;
+import pri.hongweihao.smallspring.ioc.factory.BeanFactoryImpl;
+import pri.hongweihao.smallspring.ioc.resource.reader.BeanDefinitionReader;
+import pri.hongweihao.smallspring.ioc.resource.reader.BeanDefinitionReaderXmlImpl;
 
 
 
@@ -30,10 +30,10 @@ public class BeanFactoryTest {
      */
     @Test
     public void test() throws IOException {
-        DefaultListableBeanFactory defaultListableBeanFactory = new DefaultListableBeanFactory();
+        BeanFactoryImpl defaultListableBeanFactory = new BeanFactoryImpl();
 
         // 读取配置文件并自动注册
-        BeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(defaultListableBeanFactory);
+        BeanDefinitionReader beanDefinitionReader = new BeanDefinitionReaderXmlImpl(defaultListableBeanFactory);
         beanDefinitionReader.loadBeanDefinitions("classpath:spring.xml");
 
 
