@@ -12,11 +12,14 @@
     <modules>
         <module>ss01</module>
         <module>ss02</module>
+        <module>ss03</module>
+        <module>ss04</module>
     </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <java.version>17</java.version>
     </properties>
 
 </project>
