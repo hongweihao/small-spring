@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <bean id="testDao" class="io.github.hongweihao.ss05.bean.TestDao"/>
+    <bean id="testService" class="io.github.hongweihao.ss05.bean.TestService">
+        <property name="name" value="karl"/>
+        <property name="testDao" ref="testDao"/>
+    </bean>
+</beans>
