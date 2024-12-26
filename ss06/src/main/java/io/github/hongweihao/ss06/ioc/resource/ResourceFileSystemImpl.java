@@ -1,4 +1,4 @@
-package io.github.hongweihao.ss05.ioc.resource;
+package io.github.hongweihao.ss06.ioc.resource;
 
 import java.io.File;
 import java.io.IOException;

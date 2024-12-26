@@ -1,13 +1,13 @@
-package io.github.hongweihao.ss05.ioc.factory;
+package io.github.hongweihao.ss06.ioc.factory;
 
 import cn.hutool.core.bean.BeanUtil;
-import io.github.hongweihao.ss05.ioc.factory.instantiation.InstantiationStrategy;
-import io.github.hongweihao.ss05.ioc.factory.instantiation.InstantiationStrategyCglibImpl;
-import io.github.hongweihao.ss05.ioc.factory.registry.BeanDefinition;
-import io.github.hongweihao.ss05.ioc.factory.registry.BeanReference;
-import io.github.hongweihao.ss05.ioc.factory.registry.PropertyValue;
-import io.github.hongweihao.ss05.ioc.factory.registry.PropertyValues;
-import io.github.hongweihao.ss05.ioc.factory.registry.singleton.SingletonBeanRegistryImpl;
+import io.github.hongweihao.ss06.ioc.factory.instantiation.InstantiationStrategy;
+import io.github.hongweihao.ss06.ioc.factory.instantiation.InstantiationStrategyCglibImpl;
+import io.github.hongweihao.ss06.ioc.factory.registry.BeanDefinition;
+import io.github.hongweihao.ss06.ioc.factory.registry.BeanReference;
+import io.github.hongweihao.ss06.ioc.factory.registry.PropertyValue;
+import io.github.hongweihao.ss06.ioc.factory.registry.PropertyValues;
+import io.github.hongweihao.ss06.ioc.factory.registry.singleton.SingletonBeanRegistryImpl;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
@@ -39,6 +39,11 @@ public abstract class BeanFactoryBase extends SingletonBeanRegistryImpl implemen
 
         BeanDefinition beanDefinition = getBeanDefinition(name);
         return createBean(name, beanDefinition, args);
+    }
+
+    @Override
+    public <T> T getBean(String name, Class<T> requiredType) throws BeanException {
+        return (T) getBean(name);
     }
 
     protected abstract BeanDefinition getBeanDefinition(String beanName) throws BeanException;

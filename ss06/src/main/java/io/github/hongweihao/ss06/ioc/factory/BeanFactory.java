@@ -1,4 +1,6 @@
-package io.github.hongweihao.ss05.ioc.factory;
+package io.github.hongweihao.ss06.ioc.factory;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -10,4 +12,10 @@ package io.github.hongweihao.ss05.ioc.factory;
 public interface BeanFactory {
     //Object getBean(String name);
     Object getBean(String name, Object... args);
+
+    <T> T getBean(String name, Class<T> requiredType) throws BeanException;
+
+    <T> Map<String, T> getBeansOfType(Class<T> type);
+
+    String[] getBeanDefinitionNames();
 }

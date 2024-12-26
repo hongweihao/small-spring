@@ -1,6 +1,6 @@
-package io.github.hongweihao.ss05.ioc.factory.instantiation;
+package io.github.hongweihao.ss06.ioc.factory.instantiation;
 
-import io.github.hongweihao.ss05.ioc.factory.registry.BeanDefinition;
+import io.github.hongweihao.ss06.ioc.factory.registry.BeanDefinition;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

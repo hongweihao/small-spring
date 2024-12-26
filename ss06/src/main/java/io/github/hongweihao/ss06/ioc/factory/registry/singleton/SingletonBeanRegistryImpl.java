@@ -1,4 +1,4 @@
-package io.github.hongweihao.ss05.ioc.factory.registry.singleton;
+package io.github.hongweihao.ss06.ioc.factory.registry.singleton;
 
 
 import java.util.HashMap;

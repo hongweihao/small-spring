@@ -1,7 +1,21 @@
-package io.github.hongweihao.ss05.ioc.resource.reader;
+package io.github.hongweihao.ss06.ioc.resource.reader;
 
-import java.io.IOException;
+import io.github.hongweihao.ss06.ioc.factory.BeanException;
+import io.github.hongweihao.ss06.ioc.factory.registry.BeanDefinitionRegistry;
+import io.github.hongweihao.ss06.ioc.resource.Resource;
+import io.github.hongweihao.ss06.ioc.resource.loader.ResourceLoader;
 
 public interface BeanDefinitionReader {
-    void loadBeanDefinitions(String location) throws IOException;
+
+    BeanDefinitionRegistry getRegistry();
+
+    ResourceLoader getResourceLoader();
+
+    void loadBeanDefinitions(Resource resource) throws BeanException;
+
+    void loadBeanDefinitions(Resource... resources) throws BeanException;
+
+    void loadBeanDefinitions(String location) throws BeanException;
+
+    void loadBeanDefinitions(String[] locations) throws BeanException;
 }

@@ -1,6 +1,6 @@
-package io.github.hongweihao.ss05.ioc.factory.instantiation;
+package io.github.hongweihao.ss06.ioc.factory.instantiation;
 
-import io.github.hongweihao.ss05.ioc.factory.registry.BeanDefinition;
+import io.github.hongweihao.ss06.ioc.factory.registry.BeanDefinition;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.NoOp;
 

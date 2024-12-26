@@ -15,6 +15,7 @@
         <module>ss03</module>
         <module>ss04</module>
         <module>ss05</module>
+        <module>ss06</module>
     </modules>
 
     <properties>

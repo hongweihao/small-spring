@@ -1,7 +1,7 @@
-package io.github.hongweihao.ss05.ioc.factory;
+package io.github.hongweihao.ss06.ioc.factory;
 
-import io.github.hongweihao.ss05.ioc.factory.registry.BeanDefinition;
-import io.github.hongweihao.ss05.ioc.factory.registry.BeanDefinitionRegistry;
+import io.github.hongweihao.ss06.ioc.factory.registry.BeanDefinition;
+import io.github.hongweihao.ss06.ioc.factory.registry.BeanDefinitionRegistry;
 
 import java.util.Map;
 import java.util.Objects;

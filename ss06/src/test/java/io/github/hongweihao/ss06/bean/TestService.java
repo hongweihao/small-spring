@@ -1,4 +1,4 @@
-package pri.hongweihao.smallspring.bean;
+package io.github.hongweihao.ss06.bean;
 
 /**
  * <p>

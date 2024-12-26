@@ -1,10 +1,10 @@
-package io.github.hongweihao.ss05.ioc.resource.loader;
+package io.github.hongweihao.ss06.ioc.resource.loader;
 
 import cn.hutool.core.util.ClassUtil;
-import io.github.hongweihao.ss05.ioc.resource.Resource;
-import io.github.hongweihao.ss05.ioc.resource.ResourceClassPathImpl;
-import io.github.hongweihao.ss05.ioc.resource.ResourceFileSystemImpl;
-import io.github.hongweihao.ss05.ioc.resource.ResourceUrlImpl;
+import io.github.hongweihao.ss06.ioc.resource.Resource;
+import io.github.hongweihao.ss06.ioc.resource.ResourceClassPathImpl;
+import io.github.hongweihao.ss06.ioc.resource.ResourceFileSystemImpl;
+import io.github.hongweihao.ss06.ioc.resource.ResourceUrlImpl;
 
 import java.net.MalformedURLException;
 import java.net.URL;

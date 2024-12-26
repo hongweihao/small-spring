@@ -1,13 +1,12 @@
-package pri.hongweihao.smallspring;
+package io.github.hongweihao.ss06;
 
+import io.github.hongweihao.ss06.bean.TestService;
+import io.github.hongweihao.ss06.ioc.context.ApplicationContext;
+import io.github.hongweihao.ss06.ioc.context.ApplicationContextClassPathXmlImpl;
+import io.github.hongweihao.ss06.ioc.factory.BeanFactoryImpl;
+import io.github.hongweihao.ss06.ioc.resource.reader.BeanDefinitionReader;
+import io.github.hongweihao.ss06.ioc.resource.reader.BeanDefinitionReaderXmlImpl;
 import org.junit.Test;
-import pri.hongweihao.smallspring.bean.TestService;
-import pri.hongweihao.smallspring.beans.factory.config.BeanPostProcessor;
-import pri.hongweihao.smallspring.beans.factory.support.BeanDefinitionReader;
-import pri.hongweihao.smallspring.beans.factory.support.DefaultListableBeanFactory;
-import pri.hongweihao.smallspring.beans.factory.xml.XmlBeanDefinitionReader;
-import pri.hongweihao.smallspring.context.ApplicationContext;
-import pri.hongweihao.smallspring.context.support.ClassPathXmlApplicationContext;
 
 /**
  * <p>
@@ -24,10 +23,10 @@ public class BeanFactoryTest {
      */
     @Test
     public void test() {
-        DefaultListableBeanFactory defaultListableBeanFactory = new DefaultListableBeanFactory();
+        BeanFactoryImpl defaultListableBeanFactory = new BeanFactoryImpl();
 
         // 读取配置文件并自动注册
-        BeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(defaultListableBeanFactory);
+        BeanDefinitionReader beanDefinitionReader = new BeanDefinitionReaderXmlImpl(defaultListableBeanFactory);
         beanDefinitionReader.loadBeanDefinitions("classpath:spring.xml");
 
         // 从工厂中获取bean对象
@@ -42,15 +41,15 @@ public class BeanFactoryTest {
      */
     @Test
     public void test_with_post_bean_factory_processors() {
-        DefaultListableBeanFactory defaultListableBeanFactory = new DefaultListableBeanFactory();
+        BeanFactoryImpl defaultListableBeanFactory = new BeanFactoryImpl();
 
         // 读取配置文件并自动注册
-        BeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(defaultListableBeanFactory);
+        BeanDefinitionReader beanDefinitionReader = new BeanDefinitionReaderXmlImpl(defaultListableBeanFactory);
         beanDefinitionReader.loadBeanDefinitions("classpath:spring.xml");
 
         // 手动执行扩展对象
-        MyBeanFactoryPostProcessor myPostBeanFactoryProcessor = new MyBeanFactoryPostProcessor();
-        myPostBeanFactoryProcessor.postProcessBeanFactory(defaultListableBeanFactory);
+        //MyBeanFactoryPostProcessor myPostBeanFactoryProcessor = new MyBeanFactoryPostProcessor();
+        //myPostBeanFactoryProcessor.postProcessBeanFactory(defaultListableBeanFactory);
 
         // 从工厂中获取bean对象
         TestService service = defaultListableBeanFactory.getBean("testService", TestService.class);
@@ -62,20 +61,20 @@ public class BeanFactoryTest {
      */
     @Test
     public void test_with_all_processors() {
-        DefaultListableBeanFactory defaultListableBeanFactory = new DefaultListableBeanFactory();
+        BeanFactoryImpl defaultListableBeanFactory = new BeanFactoryImpl();
 
         // 读取配置文件并自动注册
-        BeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(defaultListableBeanFactory);
+        BeanDefinitionReader beanDefinitionReader = new BeanDefinitionReaderXmlImpl(defaultListableBeanFactory);
         beanDefinitionReader.loadBeanDefinitions("classpath:spring.xml");
 
         // 手动执行扩展对象
-        MyBeanFactoryPostProcessor myPostBeanFactoryProcessor = new MyBeanFactoryPostProcessor();
-        myPostBeanFactoryProcessor.postProcessBeanFactory(defaultListableBeanFactory);
+        //MyBeanFactoryPostProcessor myPostBeanFactoryProcessor = new MyBeanFactoryPostProcessor();
+        //myPostBeanFactoryProcessor.postProcessBeanFactory(defaultListableBeanFactory);
 
         // 手动将 PostBeanProcess 注册进容器
         // getBean的时候会执行这些扩展对象
-        BeanPostProcessor myBeanPostProcessor = new MyBeanPostProcessor();
-        defaultListableBeanFactory.addPostBeanProcessor(myBeanPostProcessor);
+        //BeanPostProcessor myBeanPostProcessor = new MyBeanPostProcessor();
+        //defaultListableBeanFactory.addPostBeanProcessor(myBeanPostProcessor);
 
         // 从工厂中获取bean对象
         TestService service = defaultListableBeanFactory.getBean("testService", TestService.class);
@@ -88,7 +87,7 @@ public class BeanFactoryTest {
      */
     @Test
     public void test_application_context() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring.xml");
+        ApplicationContext context = new ApplicationContextClassPathXmlImpl("classpath:spring.xml");
         TestService testService = context.getBean("testService", TestService.class);
         testService.test();
     }

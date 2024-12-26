@@ -1,18 +1,19 @@
-package pri.hongweihao.smallspring.beans.factory.support;
+package io.github.hongweihao.ss06.ioc.resource.reader;
 
-import pri.hongweihao.smallspring.core.io.DefaultResourceLoader;
-import pri.hongweihao.smallspring.core.io.ResourceLoader;
+import io.github.hongweihao.ss06.ioc.factory.registry.BeanDefinitionRegistry;
+import io.github.hongweihao.ss06.ioc.resource.loader.ResourceLoader;
+import io.github.hongweihao.ss06.ioc.resource.loader.ResourceLoaderImpl;
 
 /**
  * 实现通用的方法
  */
-public abstract class AbstractBeanDefinitionReader implements BeanDefinitionReader {
+public abstract class BeanDefinitionReaderBase implements BeanDefinitionReader {
     protected final BeanDefinitionRegistry beanDefinitionRegistry;
     protected final ResourceLoader resourceLoader;
 
-    protected AbstractBeanDefinitionReader(BeanDefinitionRegistry beanDefinitionRegistry) {
+    protected BeanDefinitionReaderBase(BeanDefinitionRegistry beanDefinitionRegistry) {
         this.beanDefinitionRegistry = beanDefinitionRegistry;
-        this.resourceLoader = new DefaultResourceLoader();
+        this.resourceLoader = new ResourceLoaderImpl();
     }
 
     @Override

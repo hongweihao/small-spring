@@ -9,6 +9,7 @@
 
 	<artifactId>ss01</artifactId>
 	<modelVersion>4.0.0</modelVersion>
+	<name>ss01 简单的spring容器</name>
 
 	<dependencies>
 		<dependency>

@@ -1,11 +1,9 @@
-package pri.hongweihao.smallspring.context.support;
+package io.github.hongweihao.ss06.ioc.context;
 
-import pri.hongweihao.smallspring.beans.BeansException;
-import pri.hongweihao.smallspring.beans.factory.ConfigurableListableBeanFactory;
-import pri.hongweihao.smallspring.beans.factory.ListableBeanFactory;
-import pri.hongweihao.smallspring.beans.factory.config.BeanFactoryPostProcessor;
-import pri.hongweihao.smallspring.beans.factory.config.BeanPostProcessor;
-import pri.hongweihao.smallspring.context.ConfigurableApplicationContext;
+import io.github.hongweihao.ss06.ioc.factory.BeanException;
+import io.github.hongweihao.ss06.ioc.factory.BeanFactoryImpl;
+import io.github.hongweihao.ss06.ioc.resource.reader.BeanDefinitionReader;
+import io.github.hongweihao.ss06.ioc.resource.reader.BeanDefinitionReaderXmlImpl;
 
 import java.util.Map;
 
@@ -14,7 +12,9 @@ import java.util.Map;
  * 固定刷新方法的流程
  * 实现容器接口的方法
  */
-public abstract class AbstractApplicationContext implements ConfigurableApplicationContext {
+public abstract class ApplicationContextBase implements ApplicationContext {
+
+    private BeanFactoryImpl beanFactory;
 
     /**
      * 定义刷新方法的流程：
@@ -28,58 +28,78 @@ public abstract class AbstractApplicationContext implements ConfigurableApplicat
     public void refresh() {
         refreshBeanFactory();
 
-        ConfigurableListableBeanFactory beanFactory = getBeanFactory();
+        BeanFactoryImpl beanFactory = getBeanFactory();
 
-        invokePostBeanFactoryProcessor(beanFactory);
+        /*invokePostBeanFactoryProcessor(beanFactory);
 
         registerPostBeanProcessor(beanFactory);
 
-        preInitializeSingletonObjects(beanFactory);
+        preInitializeSingletonObjects(beanFactory);*/
     }
 
-    protected abstract void refreshBeanFactory();
-
-    protected abstract ConfigurableListableBeanFactory getBeanFactory();
-
-    private void invokePostBeanFactoryProcessor(ConfigurableListableBeanFactory beanFactory) {
+    /*private void invokePostBeanFactoryProcessor(BeanFactoryImpl beanFactory) {
         Map<String, BeanFactoryPostProcessor> beans = beanFactory.getBeansOfType(BeanFactoryPostProcessor.class);
         for (BeanFactoryPostProcessor beanFactoryPostProcessor : beans.values()) {
             beanFactoryPostProcessor.postProcessBeanFactory(getBeanFactory());
         }
-    }
+    }*/
 
-    private void registerPostBeanProcessor(ConfigurableListableBeanFactory beanFactory) {
+    /*private void registerPostBeanProcessor(BeanFactoryImpl beanFactory) {
         Map<String, BeanPostProcessor> beans = beanFactory.getBeansOfType(BeanPostProcessor.class);
         for (BeanPostProcessor beanPostProcessor : beans.values()) {
             beanFactory.addPostBeanProcessor(beanPostProcessor);
         }
-    }
+    }*/
 
-    private void preInitializeSingletonObjects(ConfigurableListableBeanFactory beanFactory) {
+    /*private void preInitializeSingletonObjects(BeanFactoryImpl beanFactory) {
         beanFactory.preInitializeSingletonObjects();
-    }
+    }*/
 
     @Override
     public Object getBean(String name, Object... args) {
-        ListableBeanFactory beanFactory = getBeanFactory();
+        BeanFactoryImpl beanFactory = getBeanFactory();
         return beanFactory.getBean(name);
     }
 
     @Override
     public <T> Map<String, T> getBeansOfType(Class<T> type) {
-        ListableBeanFactory beanFactory = getBeanFactory();
+        BeanFactoryImpl beanFactory = getBeanFactory();
         return beanFactory.getBeansOfType(type);
     }
 
     @Override
     public String[] getBeanDefinitionNames() {
-        ListableBeanFactory beanFactory = getBeanFactory();
+        BeanFactoryImpl beanFactory = getBeanFactory();
         return beanFactory.getBeanDefinitionNames();
     }
 
     @Override
-    public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
-        ListableBeanFactory beanFactory = getBeanFactory();
+    public <T> T getBean(String name, Class<T> requiredType) throws BeanException {
+        BeanFactoryImpl beanFactory = getBeanFactory();
         return beanFactory.getBean(name, requiredType);
     }
+
+
+    protected void refreshBeanFactory() {
+        this.beanFactory = createBeanFactory();
+        loadBeanDefinitions(this.beanFactory);
+    }
+
+    private BeanFactoryImpl createBeanFactory() {
+        return new BeanFactoryImpl();
+    }
+
+    protected BeanFactoryImpl getBeanFactory() {
+        return this.beanFactory;
+    }
+
+    protected void loadBeanDefinitions(BeanFactoryImpl beanFactory) {
+        BeanDefinitionReader beanDefinitionReader = new BeanDefinitionReaderXmlImpl(beanFactory);
+        String[] configurations = getConfigurations();
+        if (configurations != null) {
+            beanDefinitionReader.loadBeanDefinitions(configurations);
+        }
+    }
+
+    protected abstract String[] getConfigurations();
 }

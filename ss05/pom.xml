@@ -10,7 +10,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>ss05</artifactId>
-    <name>ss05</name>
+    <name>ss05 资源加载</name>
 
     <dependencies>
         <dependency>

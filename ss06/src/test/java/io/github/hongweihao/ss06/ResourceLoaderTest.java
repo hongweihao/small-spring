@@ -1,10 +1,10 @@
-package pri.hongweihao.smallspring;
+package io.github.hongweihao.ss06;
 
 import cn.hutool.core.io.IoUtil;
+import io.github.hongweihao.ss06.ioc.resource.Resource;
+import io.github.hongweihao.ss06.ioc.resource.loader.ResourceLoader;
+import io.github.hongweihao.ss06.ioc.resource.loader.ResourceLoaderImpl;
 import org.junit.Test;
-import pri.hongweihao.smallspring.core.io.DefaultResourceLoader;
-import pri.hongweihao.smallspring.core.io.Resource;
-import pri.hongweihao.smallspring.core.io.ResourceLoader;
 
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ import java.io.IOException;
  */
 public class ResourceLoaderTest {
 
-    private final ResourceLoader resourceLoader = new DefaultResourceLoader();
+    private final ResourceLoader resourceLoader = new ResourceLoaderImpl();
 
     @Test
     public void classpath_test() throws IOException {

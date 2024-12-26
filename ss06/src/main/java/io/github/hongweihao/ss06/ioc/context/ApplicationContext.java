@@ -1,9 +1,11 @@
-package pri.hongweihao.smallspring.context;
+package io.github.hongweihao.ss06.ioc.context;
 
-import pri.hongweihao.smallspring.beans.factory.ListableBeanFactory;
+
+import io.github.hongweihao.ss06.ioc.factory.BeanFactory;
 
 /**
  * 应用上下文顶层接口
  */
-public interface ApplicationContext extends ListableBeanFactory {
+public interface ApplicationContext extends BeanFactory {
+    void refresh();
 }

@@ -10,7 +10,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>ss04</artifactId>
-    <name>ss04</name>
+    <name>ss04 属性注入</name>
 
     <dependencies>
         <dependency>

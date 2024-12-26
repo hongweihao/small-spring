@@ -1,4 +1,4 @@
-package io.github.hongweihao.ss05.ioc.factory;
+package io.github.hongweihao.ss06.ioc.factory;
 
 /**
  * <p>

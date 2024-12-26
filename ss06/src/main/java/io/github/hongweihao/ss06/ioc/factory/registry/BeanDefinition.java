@@ -1,4 +1,6 @@
-package io.github.hongweihao.ss05.ioc.factory.registry;
+package io.github.hongweihao.ss06.ioc.factory.registry;
+
+import io.github.hongweihao.ss06.ioc.factory.registry.PropertyValues;
 
 /**
  * <p>
