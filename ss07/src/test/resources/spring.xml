@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <bean id="testDao" class="io.github.hongweihao.ss07.bean.TestDao"/>
+
+    <bean id="testService" class="io.github.hongweihao.ss07.bean.TestService">
+        <property name="name" value="karl"/>
+        <property name="age" value="30"/>
+        <property name="testDao" ref="testDao"/>
+    </bean>
+
+<!--    <bean id="myPostBeanFactoryProcessor" class="io.github.hongweihao.ss07.MyBeanFactoryPostProcessor"/>-->
+<!--    <bean id="myBeanPostProcessor" class="io.github.hongweihao.ss07.MyBeanPostProcessor"/>-->
+
+</beans>
