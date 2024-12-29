@@ -7,8 +7,4 @@
         <property name="age" value="30"/>
         <property name="testDao" ref="testDao"/>
     </bean>
-
-<!--    <bean id="myPostBeanFactoryProcessor" class="io.github.hongweihao.ss06.MyBeanFactoryPostProcessor"/>-->
-<!--    <bean id="myBeanPostProcessor" class="io.github.hongweihao.ss06.MyBeanPostProcessor"/>-->
-
 </beans>

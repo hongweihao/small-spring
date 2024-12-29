@@ -27,58 +27,27 @@ public abstract class ApplicationContextBase implements ApplicationContext {
     @Override
     public void refresh() {
         refreshBeanFactory();
-
-        BeanFactoryImpl beanFactory = getBeanFactory();
-
-        /*invokePostBeanFactoryProcessor(beanFactory);
-
-        registerPostBeanProcessor(beanFactory);
-
-        preInitializeSingletonObjects(beanFactory);*/
     }
-
-    /*private void invokePostBeanFactoryProcessor(BeanFactoryImpl beanFactory) {
-        Map<String, BeanFactoryPostProcessor> beans = beanFactory.getBeansOfType(BeanFactoryPostProcessor.class);
-        for (BeanFactoryPostProcessor beanFactoryPostProcessor : beans.values()) {
-            beanFactoryPostProcessor.postProcessBeanFactory(getBeanFactory());
-        }
-    }*/
-
-    /*private void registerPostBeanProcessor(BeanFactoryImpl beanFactory) {
-        Map<String, BeanPostProcessor> beans = beanFactory.getBeansOfType(BeanPostProcessor.class);
-        for (BeanPostProcessor beanPostProcessor : beans.values()) {
-            beanFactory.addPostBeanProcessor(beanPostProcessor);
-        }
-    }*/
-
-    /*private void preInitializeSingletonObjects(BeanFactoryImpl beanFactory) {
-        beanFactory.preInitializeSingletonObjects();
-    }*/
 
     @Override
     public Object getBean(String name, Object... args) {
-        BeanFactoryImpl beanFactory = getBeanFactory();
         return beanFactory.getBean(name);
     }
 
     @Override
     public <T> Map<String, T> getBeansOfType(Class<T> type) {
-        BeanFactoryImpl beanFactory = getBeanFactory();
         return beanFactory.getBeansOfType(type);
     }
 
     @Override
     public String[] getBeanDefinitionNames() {
-        BeanFactoryImpl beanFactory = getBeanFactory();
         return beanFactory.getBeanDefinitionNames();
     }
 
     @Override
     public <T> T getBean(String name, Class<T> requiredType) throws BeanException {
-        BeanFactoryImpl beanFactory = getBeanFactory();
         return beanFactory.getBean(name, requiredType);
     }
-
 
     protected void refreshBeanFactory() {
         this.beanFactory = createBeanFactory();
@@ -89,17 +58,7 @@ public abstract class ApplicationContextBase implements ApplicationContext {
         return new BeanFactoryImpl();
     }
 
-    protected BeanFactoryImpl getBeanFactory() {
-        return this.beanFactory;
-    }
-
-    protected void loadBeanDefinitions(BeanFactoryImpl beanFactory) {
-        BeanDefinitionReader beanDefinitionReader = new BeanDefinitionReaderXmlImpl(beanFactory);
-        String[] configurations = getConfigurations();
-        if (configurations != null) {
-            beanDefinitionReader.loadBeanDefinitions(configurations);
-        }
-    }
+    protected abstract void loadBeanDefinitions(BeanFactoryImpl beanFactory);
 
     protected abstract String[] getConfigurations();
 }
