@@ -1,6 +1,6 @@
-package io.github.hongweihao.ss06.ioc.factory.instantiation;
+package io.github.hongweihao.ss04.ioc.factory.strategy;
 
-import io.github.hongweihao.ss06.ioc.factory.registry.BeanDefinition;
+import io.github.hongweihao.ss04.ioc.factory.registry.BeanDefinition;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.NoOp;
 
@@ -12,9 +12,10 @@ import java.util.Objects;
  * cglib 初始化对象
  * </p>
  *
+ * @author Karl
  * @date 2022/10/27 13:44
  */
-public class InstantiationStrategyCglibImpl implements InstantiationStrategy {
+public class InstantiationStrategyCglib implements InstantiationStrategy {
     @SuppressWarnings("rawtypes")
     @Override
     public Object createBean(BeanDefinition beanDefinition, Constructor constructor, Object[] args) {

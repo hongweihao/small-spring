@@ -1,7 +1,7 @@
-package io.github.hongweihao.ss06.ioc.factory;
+package io.github.hongweihao.ss05.ioc.factory;
 
-import io.github.hongweihao.ss06.ioc.factory.registry.BeanDefinition;
-import io.github.hongweihao.ss06.ioc.factory.registry.BeanDefinitionRegistry;
+import io.github.hongweihao.ss05.ioc.factory.registry.BeanDefinition;
+import io.github.hongweihao.ss05.ioc.factory.registry.BeanDefinitionRegistry;
 
 import java.util.Map;
 import java.util.Objects;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  *
  * @date 2022/10/26 13:57
  */
-public class BeanFactoryImpl extends BeanFactoryBase implements BeanDefinitionRegistry {
+public class BeanFactoryDefault extends BeanFactoryBase implements BeanDefinitionRegistry {
     private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
 
     @Override

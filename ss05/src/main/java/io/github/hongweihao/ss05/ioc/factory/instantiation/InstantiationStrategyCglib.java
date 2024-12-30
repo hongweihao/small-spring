@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * @date 2022/10/27 13:44
  */
-public class InstantiationStrategyCglibImpl implements InstantiationStrategy {
+public class InstantiationStrategyCglib implements InstantiationStrategy {
     @SuppressWarnings("rawtypes")
     @Override
     public Object createBean(BeanDefinition beanDefinition, Constructor constructor, Object[] args) {

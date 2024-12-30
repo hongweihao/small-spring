@@ -10,7 +10,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>ss06</artifactId>
-    <name>ss06 应用上下文</name>
+    <name>ss06 扩展接口</name>
 
     <dependencies>
         <dependency>

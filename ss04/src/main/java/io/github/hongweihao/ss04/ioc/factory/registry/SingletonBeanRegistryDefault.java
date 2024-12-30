@@ -1,4 +1,4 @@
-package io.github.hongweihao.ss03.ioc.factory.registry;
+package io.github.hongweihao.ss04.ioc.factory.registry;
 
 
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import java.util.Map;
  * @author Karl
  * @date 2022/10/26 13:46
  */
-public class SingletonBeanRegistryImpl implements SingletonBeanRegistry {
+public class SingletonBeanRegistryDefault implements SingletonBeanRegistry {
 
     Map<String, Object> singletonBeanMap = new HashMap<>();
 

@@ -1,9 +1,9 @@
 package io.github.hongweihao.ss05;
 
 import io.github.hongweihao.ss05.bean.TestService;
-import io.github.hongweihao.ss05.ioc.factory.BeanFactoryImpl;
+import io.github.hongweihao.ss05.ioc.factory.BeanFactoryDefault;
 import io.github.hongweihao.ss05.ioc.resource.reader.BeanDefinitionReader;
-import io.github.hongweihao.ss05.ioc.resource.reader.BeanDefinitionReaderXmlImpl;
+import io.github.hongweihao.ss05.ioc.resource.reader.BeanDefinitionReaderXml;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -28,10 +28,10 @@ public class BeanFactoryTest {
      */
     @Test
     public void test() throws IOException {
-        BeanFactoryImpl defaultListableBeanFactory = new BeanFactoryImpl();
+        BeanFactoryDefault defaultListableBeanFactory = new BeanFactoryDefault();
 
         // 读取配置文件并自动注册
-        BeanDefinitionReader beanDefinitionReader = new BeanDefinitionReaderXmlImpl(defaultListableBeanFactory);
+        BeanDefinitionReader beanDefinitionReader = new BeanDefinitionReaderXml(defaultListableBeanFactory);
         beanDefinitionReader.loadBeanDefinitions("classpath:spring.xml");
 
 

@@ -3,7 +3,7 @@ package io.github.hongweihao.ss02.ioc.factory;
 
 
 import io.github.hongweihao.ss02.ioc.factory.registry.BeanDefinition;
-import io.github.hongweihao.ss02.ioc.factory.registry.SingletonBeanRegistryImpl;
+import io.github.hongweihao.ss02.ioc.factory.registry.SingletonBeanRegistryDefault;
 
 import java.util.Objects;
 
@@ -20,7 +20,7 @@ import java.util.Objects;
  * @author Karl
  * @date 2022/10/26 13:45
  */
-public abstract class BeanFactoryBaseImpl extends SingletonBeanRegistryImpl implements BeanFactory {
+public abstract class BeanFactoryBase extends SingletonBeanRegistryDefault implements BeanFactory {
     @Override
     public Object getBean(String name) {
         Object singletonBean = super.getSingletonBean(name);

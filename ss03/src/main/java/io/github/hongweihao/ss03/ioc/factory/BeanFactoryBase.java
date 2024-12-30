@@ -2,9 +2,9 @@ package io.github.hongweihao.ss03.ioc.factory;
 
 
 import io.github.hongweihao.ss03.ioc.factory.registry.BeanDefinition;
-import io.github.hongweihao.ss03.ioc.factory.registry.SingletonBeanRegistryImpl;
+import io.github.hongweihao.ss03.ioc.factory.registry.SingletonBeanRegistryDefault;
 import io.github.hongweihao.ss03.ioc.factory.strategy.InstantiationStrategy;
-import io.github.hongweihao.ss03.ioc.factory.strategy.InstantiationStrategyCglibImpl;
+import io.github.hongweihao.ss03.ioc.factory.strategy.InstantiationStrategyCglib;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
@@ -24,10 +24,10 @@ import java.util.Optional;
  * @author Karl
  * @date 2022/10/26 13:45
  */
-public abstract class BeanFactoryBase extends SingletonBeanRegistryImpl implements BeanFactory {
+public abstract class BeanFactoryBase extends SingletonBeanRegistryDefault implements BeanFactory {
     // private final InstantiationStrategy strategy = new
     // JDKInstantiationStrategyImpl();
-    private final InstantiationStrategy strategy = new InstantiationStrategyCglibImpl();
+    private final InstantiationStrategy strategy = new InstantiationStrategyCglib();
 
 
     @Override

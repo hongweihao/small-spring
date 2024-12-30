@@ -2,7 +2,7 @@ package io.github.hongweihao.ss04;
 
 import io.github.hongweihao.ss04.bean.Test2Service;
 import io.github.hongweihao.ss04.bean.TestService;
-import io.github.hongweihao.ss04.ioc.factory.BeanFactoryImpl;
+import io.github.hongweihao.ss04.ioc.factory.BeanFactoryDefault;
 import io.github.hongweihao.ss04.ioc.factory.registry.BeanDefinition;
 import io.github.hongweihao.ss04.ioc.factory.registry.BeanReference;
 import io.github.hongweihao.ss04.ioc.factory.registry.PropertyValue;
@@ -31,7 +31,7 @@ public class BeanFactoryTest {
      */
     @Test
     public void test() {
-        BeanFactoryImpl defaultListableBeanFactory = new BeanFactoryImpl();
+        BeanFactoryDefault defaultListableBeanFactory = new BeanFactoryDefault();
 
         // 注册bean
         PropertyValue propertyValue = new PropertyValue("name", "KARL");

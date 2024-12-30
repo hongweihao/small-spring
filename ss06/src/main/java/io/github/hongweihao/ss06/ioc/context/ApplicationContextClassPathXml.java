@@ -1,22 +1,22 @@
 package io.github.hongweihao.ss06.ioc.context;
 
 
-import io.github.hongweihao.ss06.ioc.factory.BeanFactoryImpl;
+import io.github.hongweihao.ss06.ioc.factory.BeanFactoryDefault;
 import io.github.hongweihao.ss06.ioc.resource.reader.BeanDefinitionReader;
-import io.github.hongweihao.ss06.ioc.resource.reader.BeanDefinitionReaderXmlImpl;
+import io.github.hongweihao.ss06.ioc.resource.reader.BeanDefinitionReaderXml;
 
 /**
  * 上下文应用实现类
  * 用户入口类
  */
-public class ApplicationContextClassPathXmlImpl extends ApplicationContextBase {
+public class ApplicationContextClassPathXml extends ApplicationContextBase {
     private final String[] configurations;
 
-    public ApplicationContextClassPathXmlImpl(String configuration) {
+    public ApplicationContextClassPathXml(String configuration) {
         this(new String[]{configuration});
     }
 
-    public ApplicationContextClassPathXmlImpl(String[] configurations) {
+    public ApplicationContextClassPathXml(String[] configurations) {
         this.configurations = configurations;
         refresh();
     }
@@ -25,8 +25,8 @@ public class ApplicationContextClassPathXmlImpl extends ApplicationContextBase {
         return this.configurations;
     }
 
-    protected void loadBeanDefinitions(BeanFactoryImpl beanFactory) {
-        BeanDefinitionReader beanDefinitionReader = new BeanDefinitionReaderXmlImpl(beanFactory);
+    protected void loadBeanDefinitions(BeanFactoryDefault beanFactory) {
+        BeanDefinitionReader beanDefinitionReader = new BeanDefinitionReaderXml(beanFactory);
         String[] configurations = getConfigurations();
         if (configurations != null) {
             beanDefinitionReader.loadBeanDefinitions(configurations);

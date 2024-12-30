@@ -1,4 +1,4 @@
-package io.github.hongweihao.ss06.ioc.resource;
+package io.github.hongweihao.ss05.ioc.resource;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,11 +13,11 @@ import java.net.URLConnection;
  *
  * @date 2022/11/16 13:37
  */
-public class ResourceUrlImpl implements Resource {
+public class ResourceUrl implements Resource {
 
     private final URL url;
 
-    public ResourceUrlImpl(URL url) {
+    public ResourceUrl(URL url) {
         this.url = url;
     }
 

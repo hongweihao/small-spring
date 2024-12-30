@@ -2,12 +2,12 @@ package io.github.hongweihao.ss05.ioc.factory;
 
 import cn.hutool.core.bean.BeanUtil;
 import io.github.hongweihao.ss05.ioc.factory.instantiation.InstantiationStrategy;
-import io.github.hongweihao.ss05.ioc.factory.instantiation.InstantiationStrategyCglibImpl;
+import io.github.hongweihao.ss05.ioc.factory.instantiation.InstantiationStrategyCglib;
 import io.github.hongweihao.ss05.ioc.factory.registry.BeanDefinition;
 import io.github.hongweihao.ss05.ioc.factory.registry.BeanReference;
 import io.github.hongweihao.ss05.ioc.factory.registry.PropertyValue;
 import io.github.hongweihao.ss05.ioc.factory.registry.PropertyValues;
-import io.github.hongweihao.ss05.ioc.factory.registry.singleton.SingletonBeanRegistryImpl;
+import io.github.hongweihao.ss05.ioc.factory.registry.singleton.SingletonBeanRegistryDefault;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
@@ -26,9 +26,9 @@ import java.util.Optional;
  *
  * @date 2022/10/26 13:45
  */
-public abstract class BeanFactoryBase extends SingletonBeanRegistryImpl implements BeanFactory {
+public abstract class BeanFactoryBase extends SingletonBeanRegistryDefault implements BeanFactory {
     // private final InstantiationStrategy strategy = new JDKInstantiationStrategyImpl();
-    private final InstantiationStrategy strategy = new InstantiationStrategyCglibImpl();
+    private final InstantiationStrategy strategy = new InstantiationStrategyCglib();
 
     @Override
     public Object getBean(String name, Object... args) {

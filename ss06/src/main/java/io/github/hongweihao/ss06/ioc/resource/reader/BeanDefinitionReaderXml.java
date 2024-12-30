@@ -1,12 +1,12 @@
-package io.github.hongweihao.ss05.ioc.resource.reader;
+package io.github.hongweihao.ss06.ioc.resource.reader;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.XmlUtil;
-import io.github.hongweihao.ss05.ioc.factory.BeanException;
-import io.github.hongweihao.ss05.ioc.factory.registry.*;
-import io.github.hongweihao.ss05.ioc.resource.Resource;
-import io.github.hongweihao.ss05.ioc.resource.loader.ResourceLoader;
-import io.github.hongweihao.ss05.ioc.resource.loader.ResourceLoaderImpl;
+import io.github.hongweihao.ss06.ioc.factory.BeanException;
+import io.github.hongweihao.ss06.ioc.factory.registry.*;
+import io.github.hongweihao.ss06.ioc.resource.Resource;
+import io.github.hongweihao.ss06.ioc.resource.loader.ResourceLoader;
+import io.github.hongweihao.ss06.ioc.resource.loader.ResourceLoaderDefault;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -15,31 +15,41 @@ import org.w3c.dom.NodeList;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class BeanDefinitionReaderXmlImpl implements BeanDefinitionReader {
-    private final BeanDefinitionRegistry beanDefinitionRegistry;
+public class BeanDefinitionReaderXml extends BeanDefinitionReaderBase {
 
-    public BeanDefinitionReaderXmlImpl(BeanDefinitionRegistry beanDefinitionRegistry) {
-        this.beanDefinitionRegistry = beanDefinitionRegistry;
+    public BeanDefinitionReaderXml(BeanDefinitionRegistry beanDefinitionRegistry) {
+        super(beanDefinitionRegistry);
     }
 
     @Override
-    public void loadBeanDefinitions(String location) throws IOException {
-        ResourceLoader resourceLoader = new ResourceLoaderImpl();
+    public void loadBeanDefinitions(String location) {
+        ResourceLoader resourceLoader = new ResourceLoaderDefault();
         loadBeanDefinitions(resourceLoader.getResource(location));
     }
 
-    private void loadBeanDefinitions(Resource resource) throws IOException {
-        InputStream inputSteam = resource.getInputSteam();
-        doLoadBeanDefinitions(inputSteam);
+    @Override
+    public void loadBeanDefinitions(String[] locations) throws BeanException {
+        for (String location : locations) {
+            loadBeanDefinitions(location);
+        }
     }
 
-    private void loadBeanDefinitions(Resource... resources) throws IOException {
+    public void loadBeanDefinitions(Resource resource) {
+        try {
+            InputStream inputSteam = resource.getInputSteam();
+            doLoadBeanDefinitions(inputSteam);
+        } catch (IOException | ClassNotFoundException e) {
+            throw new BeanException(e.getMessage());
+        }
+    }
+
+    public void loadBeanDefinitions(Resource... resources) {
         for (Resource resource : resources) {
             loadBeanDefinitions(resource);
         }
     }
 
-    private void doLoadBeanDefinitions(InputStream inputStream) {
+    private void doLoadBeanDefinitions(InputStream inputStream) throws ClassNotFoundException {
         Document document = XmlUtil.readXML(inputStream);
         Element root = document.getDocumentElement();
 
@@ -55,12 +65,7 @@ public class BeanDefinitionReaderXmlImpl implements BeanDefinitionReader {
             String className = element.getAttribute("class");
 
             String beanName = StrUtil.isNotBlank(id) ? id : name;
-            Class<?> clazz;
-            try {
-                clazz = Class.forName(className);
-            } catch (ClassNotFoundException e) {
-                throw new BeanException(e.getMessage());
-            }
+            Class<?> clazz = Class.forName(className);
 
             PropertyValues propertyValues = new PropertyValues();
             BeanDefinition beanDefinition = new BeanDefinition(clazz, propertyValues);
@@ -69,10 +74,8 @@ public class BeanDefinitionReaderXmlImpl implements BeanDefinitionReader {
             NodeList propertyNodes = element.getChildNodes();
             for (int j = 0; j < propertyNodes.getLength(); j++) {
                 Node property = propertyNodes.item(j);
-                if (!(property instanceof Element)) continue;
+                if (!(property instanceof Element propertyElement)) continue;
                 if (!"property".equals(property.getNodeName())) continue;
-
-                Element propertyElement = (Element) property;
 
                 String propertyName = propertyElement.getAttribute("name");
                 String value = propertyElement.getAttribute("value");

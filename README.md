@@ -16,9 +16,9 @@ ss04 为Bean对象注入属性和依赖Bean
 
 ss05 资源加载器
 
-ss06 应用上下文
+ss06 扩展接口：BeanFactoryPostProcessor/BeanPostProcessor
 
-ss07 扩展机制：BeanFactoryPostProcessor/BeanPostProcessor
+ss07 应用上下文
 
 ss08 初始化和销毁方法
 

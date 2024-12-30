@@ -1,7 +1,7 @@
 package io.github.hongweihao.ss02;
 
 import io.github.hongweihao.ss02.ioc.factory.registry.BeanDefinition;
-import io.github.hongweihao.ss02.ioc.factory.BeanFactoryImplImpl;
+import io.github.hongweihao.ss02.ioc.factory.BeanFactoryDefault;
 import org.junit.Test;
 
 /**
@@ -18,7 +18,7 @@ public class BeanFactoryTest {
     @Test
     public void test() {
         // 大杂烩把工厂准备好
-        BeanFactoryImplImpl defaultListableBeanFactory = new BeanFactoryImplImpl();
+        BeanFactoryDefault defaultListableBeanFactory = new BeanFactoryDefault();
 
         // 登记
         BeanDefinition beanDefinition = new BeanDefinition(SuperMungBean.class);

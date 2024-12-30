@@ -2,7 +2,7 @@ package io.github.hongweihao.ss03;
 
 import io.github.hongweihao.ss03.bean.Test2Service;
 import io.github.hongweihao.ss03.bean.TestService;
-import io.github.hongweihao.ss03.ioc.factory.BeanFactoryImpl;
+import io.github.hongweihao.ss03.ioc.factory.BeanFactoryDefault;
 import io.github.hongweihao.ss03.ioc.factory.registry.BeanDefinition;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.NoOp;
@@ -26,7 +26,7 @@ public class BeanFactoryTest {
         BeanDefinition beanDefinition = new BeanDefinition(TestService.class);
         BeanDefinition test2Definition = new BeanDefinition(Test2Service.class);
 
-        BeanFactoryImpl beanFactory = new BeanFactoryImpl();
+        BeanFactoryDefault beanFactory = new BeanFactoryDefault();
         // 注册Bean
         beanFactory.register("testService", beanDefinition);
         beanFactory.register("test2Service", test2Definition);

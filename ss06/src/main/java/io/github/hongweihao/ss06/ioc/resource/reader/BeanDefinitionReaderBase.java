@@ -2,7 +2,7 @@ package io.github.hongweihao.ss06.ioc.resource.reader;
 
 import io.github.hongweihao.ss06.ioc.factory.registry.BeanDefinitionRegistry;
 import io.github.hongweihao.ss06.ioc.resource.loader.ResourceLoader;
-import io.github.hongweihao.ss06.ioc.resource.loader.ResourceLoaderImpl;
+import io.github.hongweihao.ss06.ioc.resource.loader.ResourceLoaderDefault;
 
 /**
  * 实现通用的方法
@@ -13,7 +13,7 @@ public abstract class BeanDefinitionReaderBase implements BeanDefinitionReader {
 
     protected BeanDefinitionReaderBase(BeanDefinitionRegistry beanDefinitionRegistry) {
         this.beanDefinitionRegistry = beanDefinitionRegistry;
-        this.resourceLoader = new ResourceLoaderImpl();
+        this.resourceLoader = new ResourceLoaderDefault();
     }
 
     @Override

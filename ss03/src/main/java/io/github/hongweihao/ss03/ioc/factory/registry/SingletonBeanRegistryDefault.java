@@ -1,9 +1,8 @@
-package io.github.hongweihao.ss06.ioc.factory.registry.singleton;
+package io.github.hongweihao.ss03.ioc.factory.registry;
 
 
 import java.util.HashMap;
 import java.util.Map;
-
 
 /**
  * <p>
@@ -11,9 +10,10 @@ import java.util.Map;
  * 负责单例对象的存储和获取
  * </p>
  *
+ * @author Karl
  * @date 2022/10/26 13:46
  */
-public class SingletonBeanRegistryImpl implements SingletonBeanRegistry {
+public class SingletonBeanRegistryDefault implements SingletonBeanRegistry {
 
     Map<String, Object> singletonBeanMap = new HashMap<>();
 
@@ -22,7 +22,7 @@ public class SingletonBeanRegistryImpl implements SingletonBeanRegistry {
         return singletonBeanMap.get(beanName);
     }
 
-    protected void addSingleton(String beanName, Object bean) {
+    protected void register(String beanName, Object bean){
         singletonBeanMap.put(beanName, bean);
     }
 }

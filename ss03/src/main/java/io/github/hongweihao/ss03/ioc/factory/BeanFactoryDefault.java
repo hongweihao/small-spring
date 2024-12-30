@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Karl
  * @date 2022/10/26 13:57
  */
-public class BeanFactoryImpl extends BeanFactoryBase implements BeanDefinitionRegistry {
+public class BeanFactoryDefault extends BeanFactoryBase implements BeanDefinitionRegistry {
     private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
 
     @Override

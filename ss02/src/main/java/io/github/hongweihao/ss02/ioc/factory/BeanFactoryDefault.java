@@ -1,7 +1,9 @@
-package io.github.hongweihao.ss04.ioc.factory;
+package io.github.hongweihao.ss02.ioc.factory;
 
-import io.github.hongweihao.ss04.ioc.factory.registry.BeanDefinition;
-import io.github.hongweihao.ss04.ioc.factory.registry.BeanDefinitionRegistry;
+
+
+import io.github.hongweihao.ss02.ioc.factory.registry.BeanDefinition;
+import io.github.hongweihao.ss02.ioc.factory.registry.BeanDefinitionRegistry;
 
 import java.util.Map;
 import java.util.Objects;
@@ -10,12 +12,13 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * <p>
  * 核心实现类。实现了 BeanFactory 接口和 BeanDefinitionRegistry 接口
+ *
  * </p>
  *
  * @author Karl
  * @date 2022/10/26 13:57
  */
-public class BeanFactoryImpl extends BeanFactoryBase implements BeanDefinitionRegistry {
+public class BeanFactoryDefault extends BeanFactoryBase implements BeanDefinitionRegistry {
     private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
 
     @Override
