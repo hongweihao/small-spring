@@ -1,7 +1,7 @@
 package io.github.hongweihao.ss06.ioc.context;
 
 import io.github.hongweihao.ss06.ioc.factory.BeanException;
-import io.github.hongweihao.ss06.ioc.factory.BeanFactoryDefault;
+import io.github.hongweihao.ss06.ioc.factory.DefaultBeanFactory;
 
 import java.util.Map;
 
@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public abstract class ApplicationContextBase implements ApplicationContext {
 
-    private BeanFactoryDefault beanFactory;
+    private DefaultBeanFactory beanFactory;
 
     /**
      * 定义刷新方法的流程：
@@ -52,11 +52,11 @@ public abstract class ApplicationContextBase implements ApplicationContext {
         loadBeanDefinitions(this.beanFactory);
     }
 
-    private BeanFactoryDefault createBeanFactory() {
-        return new BeanFactoryDefault();
+    private DefaultBeanFactory createBeanFactory() {
+        return new DefaultBeanFactory();
     }
 
-    protected abstract void loadBeanDefinitions(BeanFactoryDefault beanFactory);
+    protected abstract void loadBeanDefinitions(DefaultBeanFactory beanFactory);
 
     protected abstract String[] getConfigurations();
 }

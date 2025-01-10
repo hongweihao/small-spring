@@ -3,7 +3,7 @@ package io.github.hongweihao.ss06;
 import io.github.hongweihao.ss06.bean.TestService;
 import io.github.hongweihao.ss06.ioc.context.ApplicationContext;
 import io.github.hongweihao.ss06.ioc.context.ApplicationContextClassPathXml;
-import io.github.hongweihao.ss06.ioc.factory.BeanFactoryDefault;
+import io.github.hongweihao.ss06.ioc.factory.DefaultBeanFactory;
 import io.github.hongweihao.ss06.ioc.resource.reader.BeanDefinitionReader;
 import io.github.hongweihao.ss06.ioc.resource.reader.BeanDefinitionReaderXml;
 import org.junit.Test;
@@ -23,7 +23,7 @@ public class BeanFactoryTest {
      */
     @Test
     public void test() {
-        BeanFactoryDefault defaultListableBeanFactory = new BeanFactoryDefault();
+        DefaultBeanFactory defaultListableBeanFactory = new DefaultBeanFactory();
 
         // 读取配置文件并自动注册
         BeanDefinitionReader beanDefinitionReader = new BeanDefinitionReaderXml(defaultListableBeanFactory);
