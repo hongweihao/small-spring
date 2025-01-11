@@ -2,7 +2,7 @@
 <beans>
     <bean id="testDao" class="io.github.hongweihao.ss06.bean.TestDao"/>
 
-    <bean id="testService" class="io.github.hongweihao.ss06.bean.TestService">
+    <bean id="x" class="io.github.hongweihao.ss06.bean.TestService">
         <property name="name" value="karl"/>
         <property name="age" value="30"/>
         <property name="testDao" ref="testDao"/>

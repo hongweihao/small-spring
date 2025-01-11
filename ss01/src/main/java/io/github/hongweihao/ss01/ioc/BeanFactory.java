@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class BeanFactory {
     Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
 
-    public void register(String name, BeanDefinition beanDefinition) {
+    public void registerBeanDefinition(String name, BeanDefinition beanDefinition) {
         beanDefinitionMap.put(name, beanDefinition);
     }
 
