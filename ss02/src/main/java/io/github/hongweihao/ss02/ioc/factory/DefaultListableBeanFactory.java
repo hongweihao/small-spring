@@ -11,14 +11,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <p>
- * 核心实现类。实现了 BeanFactory 接口和 BeanDefinitionRegistry 接口
- *
+ * 核心实现类，实现了 BeanFactory 接口和 BeanDefinitionRegistry 接口
  * </p>
  *
  * @author Karl
  * @date 2022/10/26 13:57
  */
-public class BeanFactoryDefault extends BeanFactoryBase implements BeanDefinitionRegistry {
+public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory implements BeanDefinitionRegistry {
     private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
 
     @Override
@@ -31,7 +30,7 @@ public class BeanFactoryDefault extends BeanFactoryBase implements BeanDefinitio
     }
 
     @Override
-    public void register(String beanName, BeanDefinition beanDefinition) {
+    public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition) {
         beanDefinitionMap.put(beanName, beanDefinition);
     }
 }

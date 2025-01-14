@@ -13,7 +13,7 @@ import java.util.Map;
  * @author Karl
  * @date 2022/10/26 13:46
  */
-public class SingletonBeanRegistryDefault implements SingletonBeanRegistry {
+public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
 
     Map<String, Object> singletonBeanMap = new HashMap<>();
 
