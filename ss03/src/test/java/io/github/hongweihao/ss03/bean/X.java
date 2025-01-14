@@ -8,8 +8,8 @@ package io.github.hongweihao.ss03.bean;
  * @author Karl
  * @date 2022/10/25 13:35
  */
-public class Test2Service {
-    public void test() {
-        System.out.println("test2  -> ");
+public class X {
+    public void x() {
+        System.out.println("x");
     }
 }

@@ -12,7 +12,7 @@ import java.lang.reflect.InvocationTargetException;
  * @author Karl
  * @date 2022/10/27 13:44
  */
-public class InstantiationStrategyJdk implements InstantiationStrategy {
+public class JDKInstantiationStrategy implements InstantiationStrategy {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public Object createBean(BeanDefinition beanDefinition, Constructor constructor, Object[] args) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {

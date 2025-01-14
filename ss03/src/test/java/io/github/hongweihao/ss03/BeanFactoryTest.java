@@ -1,8 +1,8 @@
 package io.github.hongweihao.ss03;
 
-import io.github.hongweihao.ss03.bean.Test2Service;
-import io.github.hongweihao.ss03.bean.TestService;
-import io.github.hongweihao.ss03.ioc.factory.BeanFactoryDefault;
+import io.github.hongweihao.ss03.bean.X;
+import io.github.hongweihao.ss03.bean.Y;
+import io.github.hongweihao.ss03.ioc.factory.DefaultListableBeanFactory;
 import io.github.hongweihao.ss03.ioc.factory.registry.BeanDefinition;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.NoOp;
@@ -23,38 +23,37 @@ public class BeanFactoryTest {
     @Test
     public void test() {
         // 准备BeanDefinition
-        BeanDefinition beanDefinition = new BeanDefinition(TestService.class);
-        BeanDefinition test2Definition = new BeanDefinition(Test2Service.class);
+        BeanDefinition xBeanDefinition = new BeanDefinition(X.class);
+        BeanDefinition yBeanDefinition = new BeanDefinition(Y.class);
 
-        BeanFactoryDefault beanFactory = new BeanFactoryDefault();
         // 注册Bean
-        beanFactory.register("testService", beanDefinition);
-        beanFactory.register("test2Service", test2Definition);
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+        beanFactory.registerBeanDefinition("x", xBeanDefinition);
+        beanFactory.registerBeanDefinition("y", yBeanDefinition);
 
         // 从工厂中获取Bean对象
-        TestService service = (TestService) beanFactory.getBean("testService", "karl");
-        service.test();
+        X x = (X) beanFactory.getBean("x");
+        x.x();
 
-        service = (TestService) beanFactory.getBean("testService", 18);
-        service.test(); // 单例不会再次执行实例化方法
-
-        Test2Service service2 = (Test2Service) beanFactory.getBean("test2Service");
-        service2.test();
+        Y y = (Y) beanFactory.getBean("y", "karl");
+        y.y();
+        y = (Y) beanFactory.getBean("y", 18);
+        y.y(); // 单例不会再次执行实例化方法
     }
 
     @Test
     public void test1() {
         Enhancer enhancer = new Enhancer();
-        enhancer.setSuperclass(Test2Service.class);
+        enhancer.setSuperclass(X.class);
         enhancer.setCallback(new NoOp() {
             @Override
             public int hashCode() {
                 return super.hashCode();
             }
         });
-        Object o= enhancer.create();
-        Test2Service service = (Test2Service) o;
-        service.test();
+        Object o = enhancer.create();
+        X x = (X) o;
+        x.x();
     }
 
 }

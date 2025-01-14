@@ -8,18 +8,18 @@ package io.github.hongweihao.ss03.bean;
  * @author Karl
  * @date 2022/10/25 13:35
  */
-public class TestService {
+public class Y {
     private final String name;
-    public TestService(String name) {
+    public Y(String name) {
         this.name = name;
     }
 
-    public TestService(Integer age) {
+    public Y(Integer age) {
         this.name = "age";
     }
 
-    public void test() {
-        System.out.println("test  -> " + this.name);
+    public void y() {
+        System.out.println("Y " + this.name);
     }
 
 }
