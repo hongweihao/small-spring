@@ -52,7 +52,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
                 }).findFirst();
 
         try {
-            return instantiationStrategy.createBean(beanDefinition, matchingConstructor.orElse(null), args);
+            return instantiationStrategy.instantiate(beanDefinition, matchingConstructor.orElse(null), args);
         } catch (Exception e) {
             throw new BeanException("Failed to initialize " + beanDefinition.getBeanClass().getName(), e);
         }

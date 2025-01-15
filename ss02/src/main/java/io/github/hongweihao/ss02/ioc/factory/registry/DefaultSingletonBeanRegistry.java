@@ -22,7 +22,7 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
         return singletonBeanMap.get(beanName);
     }
 
-    protected void register(String beanName, Object bean){
+    protected void addSingletonBean(String beanName, Object bean){
         singletonBeanMap.put(beanName, bean);
     }
 }

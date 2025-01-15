@@ -18,7 +18,7 @@ import java.util.Objects;
 public class CglibInstantiationStrategy implements InstantiationStrategy {
     @SuppressWarnings("rawtypes")
     @Override
-    public Object createBean(BeanDefinition beanDefinition, Constructor constructor, Object[] args) {
+    public Object instantiate(BeanDefinition beanDefinition, Constructor constructor, Object[] args) {
         Enhancer enhancer = new Enhancer();
 
         enhancer.setSuperclass(beanDefinition.getBeanClass());

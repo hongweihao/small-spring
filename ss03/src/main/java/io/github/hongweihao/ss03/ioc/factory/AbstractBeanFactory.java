@@ -20,14 +20,14 @@ import java.util.Objects;
  */
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
     @Override
-    public Object getBean(String name, Object... args) {
-        Object singletonBean = super.getSingletonBean(name);
+    public Object getBean(String beanName, Object... args) {
+        Object singletonBean = super.getSingletonBean(beanName);
         if (Objects.nonNull(singletonBean)) {
             return singletonBean;
         }
 
-        BeanDefinition beanDefinition = getBeanDefinition(name);
-        return createBean(name, beanDefinition, args);
+        BeanDefinition beanDefinition = getBeanDefinition(beanName);
+        return createBean(beanName, beanDefinition, args);
     }
 
     protected abstract Object createBean(String beanName, BeanDefinition beanDefinition, Object[] args);

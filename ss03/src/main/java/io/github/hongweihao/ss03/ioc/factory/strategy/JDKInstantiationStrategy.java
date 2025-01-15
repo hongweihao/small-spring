@@ -15,7 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 public class JDKInstantiationStrategy implements InstantiationStrategy {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    public Object createBean(BeanDefinition beanDefinition, Constructor constructor, Object[] args) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public Object instantiate(BeanDefinition beanDefinition, Constructor constructor, Object[] args) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Class beanClass = beanDefinition.getBeanClass();
         if (constructor == null) {
             return beanClass.getConstructor().newInstance();

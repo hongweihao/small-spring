@@ -14,5 +14,5 @@ import java.lang.reflect.Constructor;
  */
 public interface InstantiationStrategy {
     @SuppressWarnings("rawtypes")
-    Object createBean(BeanDefinition beanDefinition, Constructor constructor, Object[] args) throws Exception;
+    Object instantiate(BeanDefinition beanDefinition, Constructor constructor, Object[] args) throws Exception;
 }
