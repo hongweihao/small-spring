@@ -28,7 +28,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         } catch (Exception e) {
             throw new BeanException("Failed to initialize:" + beanDefinition.getBeanClass().getName(), e);
         }
-        register(beanName, instance);
+        addSingletonBean(beanName, instance);
         return instance;
     }
 
