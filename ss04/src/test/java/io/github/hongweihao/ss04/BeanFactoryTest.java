@@ -2,7 +2,6 @@ package io.github.hongweihao.ss04;
 
 import io.github.hongweihao.ss04.bean.Test2Service;
 import io.github.hongweihao.ss04.bean.TestService;
-import io.github.hongweihao.ss04.ioc.factory.BeanFactoryDefault;
 import io.github.hongweihao.ss04.ioc.factory.registry.BeanDefinition;
 import io.github.hongweihao.ss04.ioc.factory.registry.BeanReference;
 import io.github.hongweihao.ss04.ioc.factory.registry.PropertyValue;

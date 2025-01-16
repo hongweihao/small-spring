@@ -9,5 +9,5 @@ package io.github.hongweihao.ss04.ioc.factory.registry;
  * @date 2022/10/26 13:59
  */
 public interface BeanDefinitionRegistry {
-    void register(String beanName, BeanDefinition beanDefinition);
+    void registerBeanDefinition(String beanName, BeanDefinition beanDefinition);
 }
