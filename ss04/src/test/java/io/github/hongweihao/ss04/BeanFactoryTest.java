@@ -1,7 +1,8 @@
 package io.github.hongweihao.ss04;
 
-import io.github.hongweihao.ss04.bean.Test2Service;
-import io.github.hongweihao.ss04.bean.TestService;
+import io.github.hongweihao.ss04.bean.Y;
+import io.github.hongweihao.ss04.bean.X;
+import io.github.hongweihao.ss04.ioc.factory.DefaultListableBeanFactory;
 import io.github.hongweihao.ss04.ioc.factory.registry.BeanDefinition;
 import io.github.hongweihao.ss04.ioc.factory.registry.BeanReference;
 import io.github.hongweihao.ss04.ioc.factory.registry.PropertyValue;
@@ -30,27 +31,26 @@ public class BeanFactoryTest {
      */
     @Test
     public void test() {
-        BeanFactoryDefault defaultListableBeanFactory = new BeanFactoryDefault();
+        DefaultListableBeanFactory defaultListableBeanFactory = new DefaultListableBeanFactory();
 
         // 注册bean
-        PropertyValue propertyValue = new PropertyValue("name", "KARL");
+        PropertyValue propertyValue = new PropertyValue("name", "x");
         PropertyValues propertyValues = new PropertyValues(propertyValue);
-        BeanDefinition beanDefinition = new BeanDefinition(TestService.class, propertyValues);
-        defaultListableBeanFactory.register("testService", beanDefinition);
+        BeanDefinition beanDefinition = new BeanDefinition(X.class, propertyValues);
+        defaultListableBeanFactory.registerBeanDefinition("x", beanDefinition);
 
-        PropertyValue serviceProperty = new PropertyValue("testService", new BeanReference("testService"));
-        BeanDefinition test2Definition = new BeanDefinition(Test2Service.class, new PropertyValues(serviceProperty));
-        defaultListableBeanFactory.register("test2Service", test2Definition);
+
+        PropertyValue xProperty = new PropertyValue("x", new BeanReference("x"));
+        PropertyValue nameProperty = new PropertyValue("name", "y");
+        BeanDefinition test2Definition = new BeanDefinition(Y.class, new PropertyValues(xProperty, nameProperty));
+        defaultListableBeanFactory.registerBeanDefinition("y", test2Definition);
 
         // 从工厂中获取Bean对象
-        TestService service = (TestService) defaultListableBeanFactory.getBean("testService", "karl");
-        service.test();
+        X x = (X) defaultListableBeanFactory.getBean("x");
+        x.x();
 
-        service = (TestService) defaultListableBeanFactory.getBean("testService", 18);
-        service.test(); // 单例不会再次执行实例化方法
-
-        Test2Service service2 = (Test2Service) defaultListableBeanFactory.getBean("test2Service");
-        service2.test();
+        Y y = (Y) defaultListableBeanFactory.getBean("y");
+        y.y();
     }
 
 }

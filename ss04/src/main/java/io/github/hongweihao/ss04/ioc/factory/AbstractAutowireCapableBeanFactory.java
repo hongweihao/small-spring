@@ -1,6 +1,8 @@
 package io.github.hongweihao.ss04.ioc.factory;
 
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.ClassUtil;
 import io.github.hongweihao.ss04.ioc.factory.registry.BeanDefinition;
 import io.github.hongweihao.ss04.ioc.factory.registry.BeanReference;
 import io.github.hongweihao.ss04.ioc.factory.registry.PropertyValue;
@@ -28,10 +30,10 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         Object instance;
         try {
             instance = createInstance(beanDefinition, args);
-            applyPropertyValues(beanName, instance, beanDefinition);
         } catch (Exception e) {
             throw new BeanException("Failed to initialize:" + beanDefinition.getBeanClass().getName(), e);
         }
+        applyPropertyValues(beanName, instance, beanDefinition);
         addSingletonBean(beanName, instance);
         return instance;
     }
@@ -64,21 +66,20 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
     private void applyPropertyValues(String beanName, Object bean, BeanDefinition beanDefinition) {
         // 实现属性填充逻辑
-        for (PropertyValue propertyValue : beanDefinition.getPropertyValues().getPropertyValues()) {
-            if (propertyValue.getValue() instanceof BeanReference) {
-                Field field = bean.getClass().getField(propertyValue.getName());
-                field.set(bean, propertyValue.getValue());
-            }
-        }
-    }
-
-    private void setFieldValue(Object bean, String name, Object value) {
         try {
-            Field field = bean.getClass().getDeclaredField(name);
-            field.setAccessible(true);
-            field.set(bean, value);
+            for (PropertyValue propertyValue : beanDefinition.getPropertyValues().getPropertyValues()) {
+                Object value = propertyValue.getValue();
+                if (value instanceof BeanReference) {
+                    BeanReference beanReference = (BeanReference) value;
+                    value = getBean(beanReference.getBeanName());
+                }
+
+                // 这是hutool工具类的方法
+                BeanUtil.setFieldValue(bean, propertyValue.getName(), value);
+            }
         } catch (Exception e) {
-            throw new BeanException("Failed to set property " + name + " on object of type " + bean.getClass().getName(), e);
+            throw new BeanException("Failed to set property values:" + beanName, e);
         }
+
     }
 }
