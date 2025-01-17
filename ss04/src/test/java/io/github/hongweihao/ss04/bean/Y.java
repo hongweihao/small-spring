@@ -10,13 +10,13 @@ package io.github.hongweihao.ss04.bean;
  */
 public class Y {
 
-    private String name;
-    private X x;
+    protected String name;
+    protected X x;
 
     public void y() {
-        System.out.println("-YYY");
+        System.out.println("-Y");
         System.out.println("Y name: " + name);
         x.x();
-        System.out.println("YYY-");
+        System.out.println("Y-");
     }
 }

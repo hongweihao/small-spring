@@ -2,6 +2,8 @@ package io.github.hongweihao.ss04;
 
 import io.github.hongweihao.ss04.bean.Y;
 import io.github.hongweihao.ss04.bean.X;
+import io.github.hongweihao.ss04.bean.XX;
+import io.github.hongweihao.ss04.bean.YY;
 import io.github.hongweihao.ss04.ioc.factory.DefaultListableBeanFactory;
 import io.github.hongweihao.ss04.ioc.factory.registry.BeanDefinition;
 import io.github.hongweihao.ss04.ioc.factory.registry.BeanReference;
@@ -34,16 +36,26 @@ public class BeanFactoryTest {
         DefaultListableBeanFactory defaultListableBeanFactory = new DefaultListableBeanFactory();
 
         // 注册bean
-        PropertyValue propertyValue = new PropertyValue("name", "x");
-        PropertyValues propertyValues = new PropertyValues(propertyValue);
-        BeanDefinition beanDefinition = new BeanDefinition(X.class, propertyValues);
-        defaultListableBeanFactory.registerBeanDefinition("x", beanDefinition);
+        PropertyValues xPropertyValues = new PropertyValues();
+        xPropertyValues.add(new PropertyValue("name", "x name"));
+        defaultListableBeanFactory.registerBeanDefinition("x", new BeanDefinition(X.class, xPropertyValues));
 
+        PropertyValues yPropertyValues = new PropertyValues();
+        yPropertyValues.add(new PropertyValue("x", new BeanReference("x")));
+        yPropertyValues.add(new PropertyValue("name", "y name"));
+        defaultListableBeanFactory.registerBeanDefinition("y",  new BeanDefinition(Y.class, yPropertyValues));
 
-        PropertyValue xProperty = new PropertyValue("x", new BeanReference("x"));
-        PropertyValue nameProperty = new PropertyValue("name", "y");
-        BeanDefinition test2Definition = new BeanDefinition(Y.class, new PropertyValues(xProperty, nameProperty));
-        defaultListableBeanFactory.registerBeanDefinition("y", test2Definition);
+        PropertyValues xxPropertyValues = new PropertyValues();
+        xxPropertyValues.add(new PropertyValue("name", "xx name"));
+        xxPropertyValues.add(new PropertyValue("description", "xx description"));
+        defaultListableBeanFactory.registerBeanDefinition("xx", new BeanDefinition(XX.class, xxPropertyValues));
+
+        PropertyValues yyPropertyValues = new PropertyValues();
+        yyPropertyValues.add(new PropertyValue("x", new BeanReference("x")));
+        yyPropertyValues.add(new PropertyValue("name", "yy name"));
+        yyPropertyValues.add(new PropertyValue("description", "yy description"));
+        defaultListableBeanFactory.registerBeanDefinition("yy",  new BeanDefinition(YY.class, yyPropertyValues));
+
 
         // 从工厂中获取Bean对象
         X x = (X) defaultListableBeanFactory.getBean("x");
@@ -51,6 +63,12 @@ public class BeanFactoryTest {
 
         Y y = (Y) defaultListableBeanFactory.getBean("y");
         y.y();
+
+        XX xx = (XX) defaultListableBeanFactory.getBean("xx");
+        xx.xx();
+
+        YY yy = (YY) defaultListableBeanFactory.getBean("yy");
+        yy.yy();
     }
 
 }
