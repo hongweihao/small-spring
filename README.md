@@ -6,22 +6,23 @@
 --add-opens java.base/java.lang=ALL-UNNAMED
 ```
 
-ss01 创建简单的spring容器
+ss01 创建简单的Bean容器
 
-ss02 实现bean的定义、注册、获取
+ss02 实现Bean的定义、注册、获取
 
 ss03 基于Cglib实现含构造函数的类实例化策略
 
-ss04 为Bean对象注入属性和依赖Bean
+ss04 为Bean进行依赖注入，属性注入
 
-ss05 资源加载器
+ss05 从配置文件中加载BeanDefinition
 
-ss06 扩展接口：BeanFactoryPostProcessor/BeanPostProcessor
+ss06 扩展接口：BeanFactoryPostProcessor/BeanPostProcessor/InitializingBean/DisposableBean
 
 ss07 应用上下文
 
-ss08 初始化和销毁方法
+ss08 容器对象感知
 
+ss09 对象作用域
 
 
 
