@@ -1,5 +1,6 @@
 package io.github.hongweihao.ss04.ioc.factory.registry;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,11 +16,19 @@ import java.util.stream.Collectors;
 public class PropertyValues {
     private final List<PropertyValue> propertyValues;
 
+    public PropertyValues() {
+        this.propertyValues = new ArrayList<>();
+    }
+
     public PropertyValues(PropertyValue... propertyValues) {
         this.propertyValues = Arrays.stream(propertyValues).collect(Collectors.toList());
     }
 
     public List<PropertyValue> getPropertyValues() {
         return propertyValues;
+    }
+
+    public void add(PropertyValue propertyValue) {
+        this.propertyValues.add(propertyValue);
     }
 }
