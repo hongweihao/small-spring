@@ -8,12 +8,12 @@ package io.github.hongweihao.ss01;
  * @author Karl
  * @date 2022/10/25 13:35
  */
-public class X {
-    public X() {
+public class TestModel {
+    public TestModel() {
     }
 
     public void test() {
-        System.out.println("xx");
+        System.out.println("TestModel");
     }
 
 }

@@ -19,13 +19,13 @@ public class BeanFactoryTest {
     public void test() {
         BeanFactory beanFactory = new BeanFactory();
 
-        X x = new X();
+        TestModel x = new TestModel();
         BeanDefinition beanDefinition = new BeanDefinition(x);
 
         beanFactory.registerBeanDefinition("x", beanDefinition);
 
         BeanDefinition xBeanDefinition = beanFactory.getBean("x");
-        X x1 = (X) xBeanDefinition.getBean();
+        TestModel x1 = (TestModel) xBeanDefinition.getBean();
         x1.test();
     }
 
