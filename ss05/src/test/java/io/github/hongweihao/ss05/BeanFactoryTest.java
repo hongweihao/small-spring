@@ -38,10 +38,5 @@ public class BeanFactoryTest {
         // 从工厂中获取bean对象
         TestService service = (TestService) defaultListableBeanFactory.getBean("testService", "", null);
         service.test();
-        /*
-        打印结果
-        testService.namekarl
-        testDao
-         */
     }
 }

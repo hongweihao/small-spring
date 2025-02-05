@@ -8,14 +8,14 @@ package io.github.hongweihao.ss04.bean;
  * @author Karl
  * @date 2022/10/25 13:35
  */
-public class XX extends X {
+public class TestSubBean extends TestBean {
     private String description;
 
-    public void xx() {
-        System.out.println("-XX");
+    public void test() {
+        System.out.println("TestSubBean+++");
         System.out.println(name);
         System.out.println(description);
-        System.out.println("XX-");
+        System.out.println("TestSubBean---");
     }
 
 }

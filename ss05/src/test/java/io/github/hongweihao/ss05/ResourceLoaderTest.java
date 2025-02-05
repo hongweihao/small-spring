@@ -30,7 +30,7 @@ public class ResourceLoaderTest {
     public void file_test()throws IOException {
 //        Resource resource = resourceLoader.getResource("D:\\code\\small-spring\\src\\test\\java\\resources\\important.properties");
 //        Resource resource = resourceLoader.getResource("D:\\workspace\\small-spring\\src\\test\\java\\resources\\important.properties");
-        Resource resource = resourceLoader.getResource("D:\\workspace\\small-spring\\ss05\\src\\test\\java\\resources\\important.properties");
+        Resource resource = resourceLoader.getResource("D:\\workspace\\small-spring\\ss05\\src\\test\\resources\\important.properties");
         String s = IoUtil.readUtf8(resource.getInputSteam());
         System.out.println(s);
     }

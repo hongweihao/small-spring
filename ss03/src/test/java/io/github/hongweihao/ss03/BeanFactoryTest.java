@@ -1,7 +1,7 @@
 package io.github.hongweihao.ss03;
 
-import io.github.hongweihao.ss03.bean.X;
-import io.github.hongweihao.ss03.bean.Y;
+import io.github.hongweihao.ss03.bean.TestBean;
+import io.github.hongweihao.ss03.bean.TestBean2;
 import io.github.hongweihao.ss03.ioc.factory.DefaultListableBeanFactory;
 import io.github.hongweihao.ss03.ioc.factory.registry.BeanDefinition;
 import net.sf.cglib.proxy.Enhancer;
@@ -23,28 +23,28 @@ public class BeanFactoryTest {
     @Test
     public void test() {
         // 准备BeanDefinition
-        BeanDefinition xBeanDefinition = new BeanDefinition(X.class);
-        BeanDefinition yBeanDefinition = new BeanDefinition(Y.class);
+        BeanDefinition beanDefinition = new BeanDefinition(TestBean.class);
+        BeanDefinition beanDefinition2 = new BeanDefinition(TestBean2.class);
 
         // 注册Bean
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
-        beanFactory.registerBeanDefinition("x", xBeanDefinition);
-        beanFactory.registerBeanDefinition("y", yBeanDefinition);
+        beanFactory.registerBeanDefinition("testBean", beanDefinition);
+        beanFactory.registerBeanDefinition("testBean2", beanDefinition2);
 
         // 从工厂中获取Bean对象
-        X x = (X) beanFactory.getBean("x");
-        x.x();
+        TestBean testBean = (TestBean) beanFactory.getBean("testBean");
+        testBean.test();
 
-        Y y = (Y) beanFactory.getBean("y", "karl");
-        y.y();
-        y = (Y) beanFactory.getBean("y", 18);
-        y.y(); // 单例不会再次执行实例化方法
+        TestBean2 testBean2 = (TestBean2) beanFactory.getBean("testBean2", "karl");
+        testBean2.test();
+        testBean2 = (TestBean2) beanFactory.getBean("testBean2", 18);
+        testBean2.test(); // 单例不会再次执行实例化方法
     }
 
     @Test
     public void test1() {
         Enhancer enhancer = new Enhancer();
-        enhancer.setSuperclass(X.class);
+        enhancer.setSuperclass(TestBean.class);
         enhancer.setCallback(new NoOp() {
             @Override
             public int hashCode() {
@@ -52,8 +52,8 @@ public class BeanFactoryTest {
             }
         });
         Object o = enhancer.create();
-        X x = (X) o;
-        x.x();
+        TestBean testBean = (TestBean) o;
+        testBean.test();
     }
 
 }

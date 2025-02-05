@@ -1,9 +1,9 @@
 package io.github.hongweihao.ss04;
 
-import io.github.hongweihao.ss04.bean.Y;
-import io.github.hongweihao.ss04.bean.X;
-import io.github.hongweihao.ss04.bean.XX;
-import io.github.hongweihao.ss04.bean.YY;
+import io.github.hongweihao.ss04.bean.TestBean2;
+import io.github.hongweihao.ss04.bean.TestBean;
+import io.github.hongweihao.ss04.bean.TestSubBean;
+import io.github.hongweihao.ss04.bean.TestSubBean2;
 import io.github.hongweihao.ss04.ioc.factory.DefaultListableBeanFactory;
 import io.github.hongweihao.ss04.ioc.factory.registry.BeanDefinition;
 import io.github.hongweihao.ss04.ioc.factory.registry.BeanReference;
@@ -36,39 +36,39 @@ public class BeanFactoryTest {
         DefaultListableBeanFactory defaultListableBeanFactory = new DefaultListableBeanFactory();
 
         // 注册bean
-        PropertyValues xPropertyValues = new PropertyValues();
-        xPropertyValues.add(new PropertyValue("name", "x name"));
-        defaultListableBeanFactory.registerBeanDefinition("x", new BeanDefinition(X.class, xPropertyValues));
+        PropertyValues testBeanPropertyValues = new PropertyValues();
+        testBeanPropertyValues.add(new PropertyValue("name", "TestBean name"));
+        defaultListableBeanFactory.registerBeanDefinition("testBean", new BeanDefinition(TestBean.class, testBeanPropertyValues));
 
-        PropertyValues yPropertyValues = new PropertyValues();
-        yPropertyValues.add(new PropertyValue("x", new BeanReference("x")));
-        yPropertyValues.add(new PropertyValue("name", "y name"));
-        defaultListableBeanFactory.registerBeanDefinition("y",  new BeanDefinition(Y.class, yPropertyValues));
+        PropertyValues testBean2PropertyValues = new PropertyValues();
+        testBean2PropertyValues.add(new PropertyValue("testBean", new BeanReference("testBean")));
+        testBean2PropertyValues.add(new PropertyValue("name", "TestBean2 name"));
+        defaultListableBeanFactory.registerBeanDefinition("testBean2",  new BeanDefinition(TestBean2.class, testBean2PropertyValues));
 
-        PropertyValues xxPropertyValues = new PropertyValues();
-        xxPropertyValues.add(new PropertyValue("name", "xx name"));
-        xxPropertyValues.add(new PropertyValue("description", "xx description"));
-        defaultListableBeanFactory.registerBeanDefinition("xx", new BeanDefinition(XX.class, xxPropertyValues));
+        PropertyValues testSubBeanPropertyValues = new PropertyValues();
+        testSubBeanPropertyValues.add(new PropertyValue("name", "TestSubBean name"));
+        testSubBeanPropertyValues.add(new PropertyValue("description", "TestSubBean description"));
+        defaultListableBeanFactory.registerBeanDefinition("testSubBean", new BeanDefinition(TestSubBean.class, testSubBeanPropertyValues));
 
-        PropertyValues yyPropertyValues = new PropertyValues();
-        yyPropertyValues.add(new PropertyValue("x", new BeanReference("x")));
-        yyPropertyValues.add(new PropertyValue("name", "yy name"));
-        yyPropertyValues.add(new PropertyValue("description", "yy description"));
-        defaultListableBeanFactory.registerBeanDefinition("yy",  new BeanDefinition(YY.class, yyPropertyValues));
+        PropertyValues testSubBean2PropertyValues = new PropertyValues();
+        testSubBean2PropertyValues.add(new PropertyValue("testBean", new BeanReference("testBean")));
+        testSubBean2PropertyValues.add(new PropertyValue("name", "TestSubBean2 name"));
+        testSubBean2PropertyValues.add(new PropertyValue("description", "TestSubBean2 description"));
+        defaultListableBeanFactory.registerBeanDefinition("testSubBean2",  new BeanDefinition(TestSubBean2.class, testSubBean2PropertyValues));
 
 
         // 从工厂中获取Bean对象
-        X x = (X) defaultListableBeanFactory.getBean("x");
-        x.x();
+        TestBean testBean = (TestBean) defaultListableBeanFactory.getBean("testBean");
+        testBean.test();
 
-        Y y = (Y) defaultListableBeanFactory.getBean("y");
-        y.y();
+        TestBean2 testBean2 = (TestBean2) defaultListableBeanFactory.getBean("testBean2");
+        testBean2.test();
 
-        XX xx = (XX) defaultListableBeanFactory.getBean("xx");
-        xx.xx();
+        TestSubBean testSubBean = (TestSubBean) defaultListableBeanFactory.getBean("testSubBean");
+        testSubBean.test();
 
-        YY yy = (YY) defaultListableBeanFactory.getBean("yy");
-        yy.yy();
+        TestSubBean2 testSubBean2 = (TestSubBean2) defaultListableBeanFactory.getBean("testSubBean2");
+        testSubBean2.test();
     }
 
 }
