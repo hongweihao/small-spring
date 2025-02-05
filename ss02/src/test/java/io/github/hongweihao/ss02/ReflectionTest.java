@@ -1,5 +1,9 @@
 package io.github.hongweihao.ss02;
 
+import io.github.hongweihao.ss02.model.TestBean1;
+import io.github.hongweihao.ss02.model.TestBean2;
+import io.github.hongweihao.ss02.model.TestBean3;
+import io.github.hongweihao.ss02.model.TestBean4;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,7 +18,7 @@ public class ReflectionTest {
      */
     @Test
     public void get_class_test1() throws ClassNotFoundException {
-        Class<?> clazz = Class.forName("pri.hongweihao.smallspring.TestService1");
+        Class<?> clazz = Class.forName("io.github.hongweihao.ss02.model.TestBean1");
         Assert.assertNotNull(clazz);
     }
 
@@ -23,7 +27,7 @@ public class ReflectionTest {
      */
     @Test
     public void get_class_test2() {
-        Class<TestService1> clazz = TestService1.class;
+        Class<TestBean1> clazz = TestBean1.class;
         Assert.assertNotNull(clazz);
     }
 
@@ -32,8 +36,8 @@ public class ReflectionTest {
      */
     @Test
     public void get_class_test3() {
-        TestService1 testService = new TestService1();
-        Class<? extends TestService1> clazz = testService.getClass();
+        TestBean1 testService = new TestBean1();
+        Class<? extends TestBean1> clazz = testService.getClass();
         Assert.assertNotNull(clazz);
     }
 
@@ -47,7 +51,7 @@ public class ReflectionTest {
      */
     @Test
     public void test() throws NoSuchFieldException {
-        Class<TestService1> clazz = TestService1.class;
+        Class<TestBean1> clazz = TestBean1.class;
 
         System.out.println("公有属性：");
         Field[] fields = clazz.getFields();
@@ -74,8 +78,6 @@ public class ReflectionTest {
 
         Field declaredField2 = clazz.getDeclaredField("field2");
         System.out.println(declaredField2);
-
-
     }
 
     /*=====================获取类方法==================*/
@@ -85,7 +87,7 @@ public class ReflectionTest {
      */
     @Test
     public void test1() throws NoSuchMethodException {
-        Class<TestService1> clazz = TestService1.class;
+        Class<TestBean1> clazz = TestBean1.class;
 
         System.out.println("当前类以及父类的所有公有方法: ");
         Method[] methods = clazz.getMethods();
@@ -109,8 +111,8 @@ public class ReflectionTest {
      */
     @Test
     public void create_instance1_test1() throws InstantiationException, IllegalAccessException {
-        Class<TestService1> clazz = TestService1.class;
-        TestService1 testService = clazz.newInstance();
+        Class<TestBean1> clazz = TestBean1.class;
+        TestBean1 testService = clazz.newInstance();
         Assert.assertNotNull(testService);
         testService.test();
     }
@@ -121,10 +123,10 @@ public class ReflectionTest {
      */
     @Test
     public void create_instance1_test2() throws InstantiationException, IllegalAccessException {
-        Class<TestService1> clazz = TestService1.class;
-        TestService1 testService1 = clazz.newInstance();
-        Assert.assertNotNull(testService1);
-        testService1.test();
+        Class<TestBean1> clazz = TestBean1.class;
+        TestBean1 testBean1 = clazz.newInstance();
+        Assert.assertNotNull(testBean1);
+        testBean1.test();
     }
 
     /**
@@ -133,7 +135,7 @@ public class ReflectionTest {
      */
     @Test
     public void create_instance1_test3() {
-        Class<TestService2> clazz = TestService2.class;
+        Class<TestBean2> clazz = TestBean2.class;
         Assert.assertThrows(InstantiationException.class, clazz::newInstance);
     }
 
@@ -143,10 +145,10 @@ public class ReflectionTest {
      */
     @Test
     public void create_instance1_test4() throws InstantiationException, IllegalAccessException {
-        Class<TestService3> clazz = TestService3.class;
-        TestService3 testService3 = clazz.newInstance();
-        Assert.assertNotNull(testService3);
-        testService3.test();
+        Class<TestBean3> clazz = TestBean3.class;
+        TestBean3 testBean3 = clazz.newInstance();
+        Assert.assertNotNull(testBean3);
+        testBean3.test();
     }
 
     /**
@@ -155,27 +157,27 @@ public class ReflectionTest {
      */
     @Test
     public void create_instance2_test() throws Exception {
-        Class<TestService4> clazz = TestService4.class;
+        Class<TestBean4> clazz = TestBean4.class;
         // 获取公有的构造方法
         Constructor<?>[] constructors = clazz.getConstructors();
-        TestService4 testService4 = (TestService4) constructors[0].newInstance("fake");
-        Assert.assertNotNull(testService4);
-        testService4.test();
+        TestBean4 testBean4 = (TestBean4) constructors[0].newInstance("fake");
+        Assert.assertNotNull(testBean4);
+        testBean4.test();
 
         // 获取所有的构造方法,调用私有构造方法会报错
-        Constructor<TestService4> declaredConstructor = clazz.getDeclaredConstructor(Integer.class);
+        Constructor<TestBean4> declaredConstructor = clazz.getDeclaredConstructor(Integer.class);
         Assert.assertThrows(IllegalAccessException.class, () -> declaredConstructor.newInstance(1));
     }
 
     @Test
     public void direct_new_test() {
-        TestService1 testService1 = new TestService1();
-        testService1.test();
+        TestBean1 testBean1 = new TestBean1();
+        testBean1.test();
     }
 
     @Test
     public void reflection_new_test() throws Exception {
-        reflection("pri.hongweihao.smallspring.TestService1", "test");
+        reflection("io.github.hongweihao.ss02.model.TestBean1", "test");
     }
 
     private void reflection(String className, String methodName) throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException {

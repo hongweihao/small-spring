@@ -1,8 +1,8 @@
-package io.github.hongweihao.ss02;
+package io.github.hongweihao.ss02.model;
 
 /**
  * <p>
- * TestService
+ * SuperMungBean
  * </p>
  *
  * @author Karl

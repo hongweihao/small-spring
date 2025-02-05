@@ -2,6 +2,7 @@ package io.github.hongweihao.ss02;
 
 import io.github.hongweihao.ss02.ioc.factory.registry.BeanDefinition;
 import io.github.hongweihao.ss02.ioc.factory.DefaultListableBeanFactory;
+import io.github.hongweihao.ss02.model.SuperMungBean;
 import org.junit.Test;
 
 /**

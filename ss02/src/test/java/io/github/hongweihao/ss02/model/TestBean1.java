@@ -1,14 +1,14 @@
-package io.github.hongweihao.ss02;
+package io.github.hongweihao.ss02.model;
 
 /**
  * <p>
- * TestService
+ * TestBean1
  * </p>
  *
  * @author Karl
  * @date 2022/10/25 13:35
  */
-public class TestService1 {
+public class TestBean1 {
 
     public String field1 = "v1";
     private String field2 = "v2";
@@ -16,7 +16,7 @@ public class TestService1 {
     private static final String field3 = "field3";
 
     public void test() {
-        System.out.println("TestService1");
+        System.out.println("TestBean1.test()");
     }
 
     private void pri() {
