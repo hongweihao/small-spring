@@ -3,7 +3,7 @@ package io.github.hongweihao.ss05;
 import cn.hutool.core.io.IoUtil;
 import io.github.hongweihao.ss05.ioc.resource.Resource;
 import io.github.hongweihao.ss05.ioc.resource.loader.ResourceLoader;
-import io.github.hongweihao.ss05.ioc.resource.loader.ResourceLoaderDefault;
+import io.github.hongweihao.ss05.ioc.resource.loader.DefaultResourceLoader;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ import java.io.IOException;
  */
 public class ResourceLoaderTest {
 
-    private final ResourceLoader resourceLoader = new ResourceLoaderDefault();
+    private final ResourceLoader resourceLoader = new DefaultResourceLoader();
 
     @Test
     public void classpath_test() throws IOException {

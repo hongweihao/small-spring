@@ -6,7 +6,7 @@ import io.github.hongweihao.ss05.ioc.factory.BeanException;
 import io.github.hongweihao.ss05.ioc.factory.registry.*;
 import io.github.hongweihao.ss05.ioc.resource.Resource;
 import io.github.hongweihao.ss05.ioc.resource.loader.ResourceLoader;
-import io.github.hongweihao.ss05.ioc.resource.loader.ResourceLoaderDefault;
+import io.github.hongweihao.ss05.ioc.resource.loader.DefaultResourceLoader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -15,16 +15,16 @@ import org.w3c.dom.NodeList;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class BeanDefinitionReaderXml implements BeanDefinitionReader {
+public class XmlBeanDefinitionReader implements BeanDefinitionReader {
     private final BeanDefinitionRegistry beanDefinitionRegistry;
 
-    public BeanDefinitionReaderXml(BeanDefinitionRegistry beanDefinitionRegistry) {
+    public XmlBeanDefinitionReader(BeanDefinitionRegistry beanDefinitionRegistry) {
         this.beanDefinitionRegistry = beanDefinitionRegistry;
     }
 
     @Override
     public void loadBeanDefinitions(String location) throws IOException {
-        ResourceLoader resourceLoader = new ResourceLoaderDefault();
+        ResourceLoader resourceLoader = new DefaultResourceLoader();
         loadBeanDefinitions(resourceLoader.getResource(location));
     }
 

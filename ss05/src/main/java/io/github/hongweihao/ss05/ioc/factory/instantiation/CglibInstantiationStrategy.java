@@ -12,12 +12,13 @@ import java.util.Objects;
  * cglib 初始化对象
  * </p>
  *
+ * @author Karl
  * @date 2022/10/27 13:44
  */
-public class InstantiationStrategyCglib implements InstantiationStrategy {
+public class CglibInstantiationStrategy implements InstantiationStrategy {
     @SuppressWarnings("rawtypes")
     @Override
-    public Object createBean(BeanDefinition beanDefinition, Constructor constructor, Object[] args) {
+    public Object instantiate(BeanDefinition beanDefinition, Constructor constructor, Object[] args) {
         Enhancer enhancer = new Enhancer();
 
         enhancer.setSuperclass(beanDefinition.getBeanClass());
