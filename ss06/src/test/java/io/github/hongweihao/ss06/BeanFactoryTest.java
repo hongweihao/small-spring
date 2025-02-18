@@ -1,12 +1,13 @@
 package io.github.hongweihao.ss06;
 
 import io.github.hongweihao.ss06.bean.TestService;
-import io.github.hongweihao.ss06.ioc.context.ApplicationContext;
-import io.github.hongweihao.ss06.ioc.context.ApplicationContextClassPathXml;
-import io.github.hongweihao.ss06.ioc.factory.DefaultBeanFactory;
+import io.github.hongweihao.ss06.ioc.factory.BeanFactoryPostProcessor;
+import io.github.hongweihao.ss06.ioc.factory.DefaultListableBeanFactory;
 import io.github.hongweihao.ss06.ioc.resource.reader.BeanDefinitionReader;
-import io.github.hongweihao.ss06.ioc.resource.reader.BeanDefinitionReaderXml;
+import io.github.hongweihao.ss06.ioc.resource.reader.XmlBeanDefinitionReader;
 import org.junit.Test;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -16,32 +17,25 @@ import org.junit.Test;
 
 public class BeanFactoryTest {
 
-    /**
-     * <p>
-     * 不使用扩展对象
-     * </p>
-     */
     @Test
-    public void test() {
-        DefaultBeanFactory defaultListableBeanFactory = new DefaultBeanFactory();
+    public void test() throws Exception {
+        DefaultListableBeanFactory defaultListableBeanFactory = new DefaultListableBeanFactory();
 
         // 读取配置文件并自动注册
-        BeanDefinitionReader beanDefinitionReader = new BeanDefinitionReaderXml(defaultListableBeanFactory);
+        BeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(defaultListableBeanFactory);
         beanDefinitionReader.loadBeanDefinitions("classpath:spring.xml");
 
+        // 获取BeanFactoryPostProcessor的实现类并执行其方法
+        Map<String, BeanFactoryPostProcessor> beanMap = defaultListableBeanFactory.getBeansOfType(BeanFactoryPostProcessor.class);
+        beanMap.forEach((beanName, beanFactoryPostProcessor) -> {
+            beanFactoryPostProcessor.postProcessBeanFactory(defaultListableBeanFactory);
+        });
+
+
         // 从工厂中获取bean对象
-        TestService service = defaultListableBeanFactory.getBean("testService", TestService.class);
+        TestService service = (TestService) defaultListableBeanFactory.getBean("testService", TestService.class);
         service.test();
     }
 
-    /**
-     * 使用应用上下文测试
-     */
-    @Test
-    public void test_application_context() {
-        ApplicationContext context = new ApplicationContextClassPathXml("classpath:spring.xml");
-        TestService testService = context.getBean("testService", TestService.class);
-        testService.test();
-    }
 
 }

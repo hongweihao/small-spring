@@ -1,7 +1,5 @@
 package io.github.hongweihao.ss06.ioc.factory.registry;
 
-import io.github.hongweihao.ss06.ioc.factory.registry.PropertyValues;
-
 /**
  * <p>
  * Bean定义对象

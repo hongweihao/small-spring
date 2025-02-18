@@ -8,12 +8,24 @@ package io.github.hongweihao.ss06.ioc.factory;
 public interface BeanPostProcessor {
 
     /**
-     * 初始化之前调用
-     * @param bean
-     * @param beanName
-     * @return
+     * 执行自定义初始化接口的方法之前调用
+     *
+     * @param bean     bean
+     * @param beanName beanName
+     * @return bean
      */
     Object postProcessBeforeInitialization(Object bean, String beanName);
 
+    /**
+     * <p>
+     * 执行自定义初始化接口的方法之后调用
+     * </p>
+     *
+     * @param bean     bean
+     * @param beanName beanName
+     * @return java.lang.Object
+     * @author Karl
+     * @since 2025/2/18 17:01
+     */
     Object postProcessAfterInitialization(Object bean, String beanName);
 }

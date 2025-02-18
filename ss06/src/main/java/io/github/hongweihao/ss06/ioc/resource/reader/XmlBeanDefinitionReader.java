@@ -5,8 +5,8 @@ import cn.hutool.core.util.XmlUtil;
 import io.github.hongweihao.ss06.ioc.factory.BeanException;
 import io.github.hongweihao.ss06.ioc.factory.registry.*;
 import io.github.hongweihao.ss06.ioc.resource.Resource;
+import io.github.hongweihao.ss06.ioc.resource.loader.DefaultResourceLoader;
 import io.github.hongweihao.ss06.ioc.resource.loader.ResourceLoader;
-import io.github.hongweihao.ss06.ioc.resource.loader.ResourceLoaderDefault;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -15,41 +15,31 @@ import org.w3c.dom.NodeList;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class BeanDefinitionReaderXml extends BeanDefinitionReaderBase {
+public class XmlBeanDefinitionReader implements BeanDefinitionReader {
+    private final BeanDefinitionRegistry beanDefinitionRegistry;
 
-    public BeanDefinitionReaderXml(BeanDefinitionRegistry beanDefinitionRegistry) {
-        super(beanDefinitionRegistry);
+    public XmlBeanDefinitionReader(BeanDefinitionRegistry beanDefinitionRegistry) {
+        this.beanDefinitionRegistry = beanDefinitionRegistry;
     }
 
     @Override
-    public void loadBeanDefinitions(String location) {
-        ResourceLoader resourceLoader = new ResourceLoaderDefault();
+    public void loadBeanDefinitions(String location) throws IOException {
+        ResourceLoader resourceLoader = new DefaultResourceLoader();
         loadBeanDefinitions(resourceLoader.getResource(location));
     }
 
-    @Override
-    public void loadBeanDefinitions(String[] locations) throws BeanException {
-        for (String location : locations) {
-            loadBeanDefinitions(location);
-        }
+    private void loadBeanDefinitions(Resource resource) throws IOException {
+        InputStream inputSteam = resource.getInputSteam();
+        doLoadBeanDefinitions(inputSteam);
     }
 
-    public void loadBeanDefinitions(Resource resource) {
-        try {
-            InputStream inputSteam = resource.getInputSteam();
-            doLoadBeanDefinitions(inputSteam);
-        } catch (IOException | ClassNotFoundException e) {
-            throw new BeanException(e.getMessage());
-        }
-    }
-
-    public void loadBeanDefinitions(Resource... resources) {
+    private void loadBeanDefinitions(Resource... resources) throws IOException {
         for (Resource resource : resources) {
             loadBeanDefinitions(resource);
         }
     }
 
-    private void doLoadBeanDefinitions(InputStream inputStream) throws ClassNotFoundException {
+    private void doLoadBeanDefinitions(InputStream inputStream) {
         Document document = XmlUtil.readXML(inputStream);
         Element root = document.getDocumentElement();
 
@@ -65,7 +55,12 @@ public class BeanDefinitionReaderXml extends BeanDefinitionReaderBase {
             String className = element.getAttribute("class");
 
             String beanName = StrUtil.isNotBlank(id) ? id : name;
-            Class<?> clazz = Class.forName(className);
+            Class<?> clazz;
+            try {
+                clazz = Class.forName(className);
+            } catch (ClassNotFoundException e) {
+                throw new BeanException(e.getMessage());
+            }
 
             PropertyValues propertyValues = new PropertyValues();
             BeanDefinition beanDefinition = new BeanDefinition(clazz, propertyValues);
@@ -74,8 +69,10 @@ public class BeanDefinitionReaderXml extends BeanDefinitionReaderBase {
             NodeList propertyNodes = element.getChildNodes();
             for (int j = 0; j < propertyNodes.getLength(); j++) {
                 Node property = propertyNodes.item(j);
-                if (!(property instanceof Element propertyElement)) continue;
+                if (!(property instanceof Element)) continue;
                 if (!"property".equals(property.getNodeName())) continue;
+
+                Element propertyElement = (Element) property;
 
                 String propertyName = propertyElement.getAttribute("name");
                 String value = propertyElement.getAttribute("value");

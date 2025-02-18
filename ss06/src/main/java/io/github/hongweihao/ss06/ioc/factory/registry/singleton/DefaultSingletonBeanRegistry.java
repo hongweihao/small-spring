@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @date 2022/10/26 13:46
  */
-public class SingletonBeanRegistryDefault implements SingletonBeanRegistry {
+public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
 
     Map<String, Object> singletonBeanMap = new HashMap<>();
 
@@ -22,7 +22,7 @@ public class SingletonBeanRegistryDefault implements SingletonBeanRegistry {
         return singletonBeanMap.get(beanName);
     }
 
-    protected void addSingleton(String beanName, Object bean) {
+    protected void addSingletonBean(String beanName, Object bean) {
         singletonBeanMap.put(beanName, bean);
     }
 }

@@ -10,9 +10,10 @@ import java.lang.reflect.Constructor;
  * 初始化对象策略
  * </p>
  *
+ * @author Karl
  * @date 2022/10/27 13:43
  */
 public interface InstantiationStrategy {
     @SuppressWarnings("rawtypes")
-    Object createBean(BeanDefinition beanDefinition, Constructor constructor, Object[] args) throws Exception;
+    Object instantiate(BeanDefinition beanDefinition, Constructor constructor, Object[] args) throws Exception;
 }

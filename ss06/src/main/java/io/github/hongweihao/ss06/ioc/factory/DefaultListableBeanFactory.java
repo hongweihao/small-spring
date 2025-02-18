@@ -1,25 +1,28 @@
 package io.github.hongweihao.ss06.ioc.factory;
 
+
 import io.github.hongweihao.ss06.ioc.factory.registry.BeanDefinition;
 import io.github.hongweihao.ss06.ioc.factory.registry.BeanDefinitionRegistry;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 /**
  * <p>
- * 核心实现类。实现了 BeanFactory 接口和 BeanDefinitionRegistry 接口
+ * 核心实现类，实现了 BeanFactory 接口和 BeanDefinitionRegistry 接口
  * </p>
  *
+ * @author Karl
  * @date 2022/10/26 13:57
  */
-public class DefaultBeanFactory extends BeanFactoryBase implements BeanDefinitionRegistry {
+public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory implements BeanDefinitionRegistry {
     private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
 
     @Override
-    public BeanDefinition getBeanDefinition(String beanName) {
+    protected BeanDefinition getBeanDefinition(String beanName) {
         BeanDefinition beanDefinition = beanDefinitionMap.get(beanName);
         if (Objects.isNull(beanDefinition)) {
             throw new BeanException("Cannot found this bean name: " + beanName);
@@ -32,16 +35,16 @@ public class DefaultBeanFactory extends BeanFactoryBase implements BeanDefinitio
         beanDefinitionMap.put(beanName, beanDefinition);
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
     public <T> Map<String, T> getBeansOfType(Class<T> type) {
-        return beanDefinitionMap.entrySet().stream()
-                .filter(entry -> type.isAssignableFrom(entry.getValue().getBeanClass()))
-                .collect(Collectors.toMap(Map.Entry::getKey,
-                        entry -> type.cast(getBean(entry.getKey())),
-                        (k1, k2) -> k1));
-    }
-
-
-    public String[] getBeanDefinitionNames() {
-        return beanDefinitionMap.keySet().toArray(new String[0]);
+        Map<String, T> map = new HashMap<>();
+        beanDefinitionMap.forEach((beanName, beanDefinition) -> {
+            Class<?> beanClass = beanDefinition.getBeanClass();
+            if (type.isAssignableFrom(beanClass)) {
+                map.put(beanName, (T) getBean(beanName));
+            }
+        });
+        return map;
     }
 }

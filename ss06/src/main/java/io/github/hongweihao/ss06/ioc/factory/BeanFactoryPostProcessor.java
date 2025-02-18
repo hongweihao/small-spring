@@ -6,5 +6,5 @@ package io.github.hongweihao.ss06.ioc.factory;
  */
 public interface BeanFactoryPostProcessor {
 
-    void postProcessBeanFactory(DefaultBeanFactory beanFactory);
+    void postProcessBeanFactory(DefaultListableBeanFactory beanFactory);
 }

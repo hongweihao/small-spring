@@ -1,16 +1,16 @@
 package io.github.hongweihao.ss06.ioc.resource.loader;
 
 import cn.hutool.core.util.ClassUtil;
+import io.github.hongweihao.ss06.ioc.resource.ClassPathResource;
+import io.github.hongweihao.ss06.ioc.resource.FileSystemResource;
 import io.github.hongweihao.ss06.ioc.resource.Resource;
-import io.github.hongweihao.ss06.ioc.resource.ResourceClassPath;
-import io.github.hongweihao.ss06.ioc.resource.ResourceFileSystem;
-import io.github.hongweihao.ss06.ioc.resource.ResourceUrl;
+import io.github.hongweihao.ss06.ioc.resource.UrlResource;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Objects;
 
-public class ResourceLoaderDefault implements ResourceLoader {
+public class DefaultResourceLoader implements ResourceLoader {
     private static final String CLASS_PATH_PREFIX = "classpath:";
 
     @Override
@@ -19,14 +19,14 @@ public class ResourceLoaderDefault implements ResourceLoader {
 
         if (location.startsWith(CLASS_PATH_PREFIX)) {
             String name = location.substring(CLASS_PATH_PREFIX.length());
-            return new ResourceClassPath(name, getClassLoader());
+            return new ClassPathResource(name, getClassLoader());
         }
 
         try {
             URL url = new URL(location);
-            return new ResourceUrl(url);
+            return new UrlResource(url);
         } catch (MalformedURLException e) {
-            return new ResourceFileSystem(location);
+            return new FileSystemResource(location);
         }
     }
 

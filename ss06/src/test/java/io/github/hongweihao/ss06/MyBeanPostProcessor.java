@@ -1,0 +1,28 @@
+package io.github.hongweihao.ss06;
+
+import io.github.hongweihao.ss06.ioc.factory.BeanFactoryPostProcessor;
+import io.github.hongweihao.ss06.ioc.factory.BeanPostProcessor;
+import io.github.hongweihao.ss06.ioc.factory.DefaultListableBeanFactory;
+
+/**
+ * <p>
+ * MyPostBeanFactory
+ * </p>
+ *
+ * @author Karl
+ * @since 2025/2/18 17:24
+ */
+public class MyBeanPostProcessor implements BeanPostProcessor {
+
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String beanName) {
+        System.out.println(beanName + " -> MyBeanPostProcessor.postProcessBeforeInitialization()");
+        return bean;
+    }
+
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) {
+        System.out.println(beanName + " -> MyBeanPostProcessor.postProcessAfterInitialization()");
+        return bean;
+    }
+}
