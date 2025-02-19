@@ -9,7 +9,9 @@ import io.github.hongweihao.ss06.ioc.factory.registry.BeanReference;
 import io.github.hongweihao.ss06.ioc.factory.registry.PropertyValue;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -24,6 +26,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
     private final InstantiationStrategy instantiationStrategy = new CglibInstantiationStrategy();
 
+    private final List<BeanPostProcessor> beanPostProcessorList = new ArrayList<>();
+
     protected Object createBean(String beanName, BeanDefinition beanDefinition, Object... args) {
         Object instance;
         try {
@@ -34,10 +38,6 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         applyPropertyValues(beanName, instance, beanDefinition);
         instance = initializeBean(beanName, instance);
         addSingletonBean(beanName, instance);
-        return instance;
-    }
-
-    private Object initializeBean(String beanName, Object instance) {
         return instance;
     }
 
@@ -83,6 +83,48 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         } catch (Exception e) {
             throw new BeanException("Failed to set property values:" + beanName, e);
         }
+    }
 
+    private Object initializeBean(String beanName, Object instance) {
+
+
+
+
+
+    }
+
+    private Object applyBeanPostProcessorsBeforeInitialization(String beanName, Object instance) {
+        for (BeanPostProcessor beanPostProcessor : this.beanPostProcessorList) {
+            Object current = beanPostProcessor.postProcessBeforeInitialization(instance, beanName);
+            if (current == null) return instance;
+            instance = current;
+        }
+        return instance;
+    }
+
+    private Object applyBeanPostProcessorsAfterInitialization(String beanName, Object instance) {
+        for (BeanPostProcessor beanPostProcessor : this.beanPostProcessorList) {
+            Object current = beanPostProcessor.postProcessAfterInitialization(instance, beanName);
+            if (current == null) return instance;
+            instance = current;
+        }
+        return instance;
+    }
+
+    private Object invokeInitMethods(String beanName, Object instance, BeanDefinition beanDefinition) {
+        if (beanDefinition.getBeanClass().isAssignableFrom(InitializingBean.class)) {
+            try {
+                ((InitializingBean) instance).afterPropertiesSet();
+            } catch (Exception e) {
+                throw new BeanException("Failed to invoke afterPropertiesSet method on bean with name " + beanName, e);
+            }
+        }
+        return instance;
+    }
+
+
+
+    protected void addBeanPostProcessor(BeanPostProcessor beanPostProcessor) {
+        this.beanPostProcessorList.add(beanPostProcessor);
     }
 }
