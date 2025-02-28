@@ -31,6 +31,8 @@ public class BeanFactoryTest {
             beanFactoryPostProcessor.postProcessBeanFactory(defaultListableBeanFactory);
         });
 
+        // 添加BeanPostProcessor的实现类
+        defaultListableBeanFactory.addBeanPostProcessor(new MyBeanPostProcessor());
 
         // 从工厂中获取bean对象
         TestService service = (TestService) defaultListableBeanFactory.getBean("testService", TestService.class);

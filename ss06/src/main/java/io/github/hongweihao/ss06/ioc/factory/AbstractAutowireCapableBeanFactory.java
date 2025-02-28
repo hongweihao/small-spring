@@ -36,7 +36,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             throw new BeanException("Failed to initialize:" + beanDefinition.getBeanClass().getName(), e);
         }
         applyPropertyValues(beanName, instance, beanDefinition);
-        instance = initializeBean(beanName, instance);
+        instance = initializeBean(beanName, instance, beanDefinition);
         addSingletonBean(beanName, instance);
         return instance;
     }
@@ -85,12 +85,10 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         }
     }
 
-    private Object initializeBean(String beanName, Object instance) {
-
-
-
-
-
+    private Object initializeBean(String beanName, Object instance, BeanDefinition beanDefinition) {
+        instance = applyBeanPostProcessorsBeforeInitialization(beanName, instance);
+        invokeInitMethods(beanName, instance, beanDefinition);
+        return applyBeanPostProcessorsAfterInitialization(beanName, instance);
     }
 
     private Object applyBeanPostProcessorsBeforeInitialization(String beanName, Object instance) {
@@ -112,7 +110,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     private Object invokeInitMethods(String beanName, Object instance, BeanDefinition beanDefinition) {
-        if (beanDefinition.getBeanClass().isAssignableFrom(InitializingBean.class)) {
+        if (instance instanceof InitializingBean) {
             try {
                 ((InitializingBean) instance).afterPropertiesSet();
             } catch (Exception e) {
@@ -123,8 +121,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
 
-
-    protected void addBeanPostProcessor(BeanPostProcessor beanPostProcessor) {
+    public void addBeanPostProcessor(BeanPostProcessor beanPostProcessor) {
         this.beanPostProcessorList.add(beanPostProcessor);
     }
 }
