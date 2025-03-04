@@ -37,8 +37,18 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         }
         applyPropertyValues(beanName, instance, beanDefinition);
         instance = initializeBean(beanName, instance, beanDefinition);
+
         addSingletonBean(beanName, instance);
+
+        registerDisposableBeanIfNecessary(beanName, instance);
+
         return instance;
+    }
+
+    private void registerDisposableBeanIfNecessary(String beanName, Object instance) {
+        if (instance instanceof DisposableBean) {
+            addDisposableBean(beanName, (DisposableBean) instance);
+        }
     }
 
 

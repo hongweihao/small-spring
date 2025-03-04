@@ -1,6 +1,8 @@
 package io.github.hongweihao.ss06.ioc.factory.registry.singleton;
 
 
+import io.github.hongweihao.ss06.ioc.factory.DisposableBean;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,12 +19,38 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
 
     Map<String, Object> singletonBeanMap = new HashMap<>();
 
+    Map<String, DisposableBean> disposableBeanMap = new HashMap<>();
+
     @Override
     public Object getSingletonBean(String beanName) {
         return singletonBeanMap.get(beanName);
     }
 
+
     protected void addSingletonBean(String beanName, Object bean) {
         singletonBeanMap.put(beanName, bean);
+    }
+
+    protected void addDisposableBean(String beanName, DisposableBean disposableBean) {
+        disposableBeanMap.put(beanName, disposableBean);
+    }
+
+    @SuppressWarnings("SuspiciousMethodCalls")
+    @Override
+    public void destroySingletons() {
+        /*// ConcurrentModificationException
+        disposableBeanMap.forEach((beanName, disposableBean) -> {
+            DisposableBean bean = disposableBeanMap.remove(beanName);
+            bean.destroy();
+        });*/
+
+        Object[] keys = disposableBeanMap.keySet().toArray();
+        for (Object key : keys) {
+            DisposableBean bean = disposableBeanMap.remove(key);
+            bean.destroy();
+        }
+
+
+
     }
 }

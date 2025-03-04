@@ -27,12 +27,14 @@ public class BeanFactoryTest {
 
         // 获取BeanFactoryPostProcessor的实现类并执行其方法
         Map<String, BeanFactoryPostProcessor> beanMap = defaultListableBeanFactory.getBeansOfType(BeanFactoryPostProcessor.class);
-        beanMap.forEach((beanName, beanFactoryPostProcessor) -> {
-            beanFactoryPostProcessor.postProcessBeanFactory(defaultListableBeanFactory);
-        });
+        beanMap.forEach(
+                (beanName, beanFactoryPostProcessor) -> beanFactoryPostProcessor.postProcessBeanFactory(defaultListableBeanFactory)
+        );
 
         // 添加BeanPostProcessor的实现类
         defaultListableBeanFactory.addBeanPostProcessor(new MyBeanPostProcessor());
+
+        Runtime.getRuntime().addShutdownHook(new Thread(defaultListableBeanFactory::destroySingletons));
 
         // 从工厂中获取bean对象
         TestService service = (TestService) defaultListableBeanFactory.getBean("testService", TestService.class);
