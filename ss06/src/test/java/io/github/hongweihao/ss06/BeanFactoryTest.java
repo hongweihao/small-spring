@@ -2,6 +2,7 @@ package io.github.hongweihao.ss06;
 
 import io.github.hongweihao.ss06.bean.TestService;
 import io.github.hongweihao.ss06.ioc.factory.BeanFactoryPostProcessor;
+import io.github.hongweihao.ss06.ioc.factory.BeanPostProcessor;
 import io.github.hongweihao.ss06.ioc.factory.DefaultListableBeanFactory;
 import io.github.hongweihao.ss06.ioc.resource.reader.BeanDefinitionReader;
 import io.github.hongweihao.ss06.ioc.resource.reader.XmlBeanDefinitionReader;
@@ -32,7 +33,10 @@ public class BeanFactoryTest {
         );
 
         // 添加BeanPostProcessor的实现类
-        defaultListableBeanFactory.addBeanPostProcessor(new MyBeanPostProcessor());
+        Map<String, BeanPostProcessor> beanPostProcessorMap = defaultListableBeanFactory.getBeansOfType(BeanPostProcessor.class);
+        beanPostProcessorMap.forEach(
+                (beanName, beanPostProcessor) -> defaultListableBeanFactory.addBeanPostProcessor(beanPostProcessor)
+        );
 
         Runtime.getRuntime().addShutdownHook(new Thread(defaultListableBeanFactory::destroySingletons));
 
