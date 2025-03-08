@@ -33,11 +33,11 @@ public class XmlBeanDefinitionReader implements BeanDefinitionReader {
         doLoadBeanDefinitions(inputSteam);
     }
 
-    private void loadBeanDefinitions(Resource... resources) throws IOException {
-        for (Resource resource : resources) {
-            loadBeanDefinitions(resource);
-        }
-    }
+    // private void loadBeanDefinitions(Resource... resources) throws IOException {
+    //     for (Resource resource : resources) {
+    //         loadBeanDefinitions(resource);
+    //     }
+    // }
 
     private void doLoadBeanDefinitions(InputStream inputStream) {
         Document document = XmlUtil.readXML(inputStream);
