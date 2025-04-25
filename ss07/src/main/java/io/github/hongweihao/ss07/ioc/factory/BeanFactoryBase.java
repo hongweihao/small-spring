@@ -41,6 +41,7 @@ public abstract class BeanFactoryBase extends SingletonBeanRegistryImpl implemen
         return createBean(name, beanDefinition, args);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <T> T getBean(String name, Class<T> requiredType) throws BeanException {
         return (T) getBean(name);
