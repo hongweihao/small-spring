@@ -1,0 +1,8 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.test.config": {
+        "vmArgs": [
+            "--add-opens=java.base/java.lang=ALL-UNNAMED"
+        ]
+    }
+}
