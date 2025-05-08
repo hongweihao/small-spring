@@ -1,7 +1,7 @@
 package io.github.hongweihao.ss06.bean;
 
-import io.github.hongweihao.ss06.ioc.factory.DisposableBean;
-import io.github.hongweihao.ss06.ioc.factory.InitializingBean;
+import io.github.hongweihao.ss06.ioc.factory.extend.DisposableBean;
+import io.github.hongweihao.ss06.ioc.factory.extend.InitializingBean;
 
 /**
  * <p>

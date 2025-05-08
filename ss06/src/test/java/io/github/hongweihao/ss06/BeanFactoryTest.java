@@ -1,9 +1,9 @@
 package io.github.hongweihao.ss06;
 
 import io.github.hongweihao.ss06.bean.TestService;
-import io.github.hongweihao.ss06.ioc.factory.BeanFactoryPostProcessor;
-import io.github.hongweihao.ss06.ioc.factory.BeanPostProcessor;
 import io.github.hongweihao.ss06.ioc.factory.DefaultListableBeanFactory;
+import io.github.hongweihao.ss06.ioc.factory.extend.BeanFactoryPostProcessor;
+import io.github.hongweihao.ss06.ioc.factory.extend.BeanPostProcessor;
 import io.github.hongweihao.ss06.ioc.resource.reader.BeanDefinitionReader;
 import io.github.hongweihao.ss06.ioc.resource.reader.XmlBeanDefinitionReader;
 import org.junit.Test;

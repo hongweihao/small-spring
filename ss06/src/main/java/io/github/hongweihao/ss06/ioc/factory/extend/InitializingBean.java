@@ -1,4 +1,4 @@
-package io.github.hongweihao.ss06.ioc.factory;
+package io.github.hongweihao.ss06.ioc.factory.extend;
 
 /**
  * 扩展接口： 自定义 bean 初始化方法，由 Bean 实现

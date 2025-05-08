@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import java.lang.reflect.*;
 
+@SuppressWarnings("deprecation")
 public class ReflectionTest {
 
     /*=================获取Class对象=================*/

@@ -1,6 +1,6 @@
 package io.github.hongweihao.ss06;
 
-import io.github.hongweihao.ss06.ioc.factory.BeanPostProcessor;
+import io.github.hongweihao.ss06.ioc.factory.extend.BeanPostProcessor;
 
 /**
  * <p>

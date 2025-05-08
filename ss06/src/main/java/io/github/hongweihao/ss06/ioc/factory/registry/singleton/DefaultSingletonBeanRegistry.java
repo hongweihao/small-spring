@@ -1,10 +1,10 @@
 package io.github.hongweihao.ss06.ioc.factory.registry.singleton;
 
 
-import io.github.hongweihao.ss06.ioc.factory.DisposableBean;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import io.github.hongweihao.ss06.ioc.factory.extend.DisposableBean;
 
 
 /**

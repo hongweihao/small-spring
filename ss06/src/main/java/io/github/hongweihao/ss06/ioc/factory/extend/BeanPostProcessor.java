@@ -1,4 +1,4 @@
-package io.github.hongweihao.ss06.ioc.factory;
+package io.github.hongweihao.ss06.ioc.factory.extend;
 
 /**
  * 扩展接口：调用初始化方法前后调用

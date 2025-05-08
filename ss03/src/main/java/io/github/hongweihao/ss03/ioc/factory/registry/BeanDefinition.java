@@ -9,13 +9,13 @@ package io.github.hongweihao.ss03.ioc.factory.registry;
  * @date 2022/10/25 13:29
  */
 public class BeanDefinition {
-    private final Class beanClass;
+    private final Class<?> beanClass;
 
-    public BeanDefinition(Class beanClass) {
+    public BeanDefinition(Class<?> beanClass) {
         this.beanClass = beanClass;
     }
 
-    public Class getBeanClass() {
+    public Class<?> getBeanClass() {
         return this.beanClass;
     }
 }

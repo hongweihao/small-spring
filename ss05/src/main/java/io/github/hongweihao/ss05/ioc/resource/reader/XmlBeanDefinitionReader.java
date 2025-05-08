@@ -33,6 +33,7 @@ public class XmlBeanDefinitionReader implements BeanDefinitionReader {
         doLoadBeanDefinitions(inputSteam);
     }
 
+    @SuppressWarnings("unused")
     private void loadBeanDefinitions(Resource... resources) throws IOException {
         for (Resource resource : resources) {
             loadBeanDefinitions(resource);

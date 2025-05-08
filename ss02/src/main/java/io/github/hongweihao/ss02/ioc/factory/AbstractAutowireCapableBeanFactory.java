@@ -13,6 +13,7 @@ import io.github.hongweihao.ss02.ioc.factory.registry.BeanDefinition;
  */
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory {
 
+    @SuppressWarnings("deprecation")
     protected Object createBean(String beanName, BeanDefinition beanDefinition) {
         Object instance;
         try {

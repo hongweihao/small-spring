@@ -2,6 +2,9 @@ package io.github.hongweihao.ss06.ioc.factory;
 
 
 import cn.hutool.core.bean.BeanUtil;
+import io.github.hongweihao.ss06.ioc.factory.extend.BeanPostProcessor;
+import io.github.hongweihao.ss06.ioc.factory.extend.DisposableBean;
+import io.github.hongweihao.ss06.ioc.factory.extend.InitializingBean;
 import io.github.hongweihao.ss06.ioc.factory.instantiation.CglibInstantiationStrategy;
 import io.github.hongweihao.ss06.ioc.factory.instantiation.InstantiationStrategy;
 import io.github.hongweihao.ss06.ioc.factory.registry.BeanDefinition;

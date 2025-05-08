@@ -8,6 +8,7 @@ package io.github.hongweihao.ss02.model;
  * @author Karl
  * @date 2022/10/25 13:35
  */
+@SuppressWarnings("unused")
 public class TestBean1 {
 
     public String field1 = "v1";
