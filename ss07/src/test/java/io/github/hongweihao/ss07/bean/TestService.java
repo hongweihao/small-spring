@@ -1,22 +1,19 @@
 package io.github.hongweihao.ss07.bean;
 
+import io.github.hongweihao.ss07.ioc.factory.extend.DisposableBean;
+import io.github.hongweihao.ss07.ioc.factory.extend.InitializingBean;
+
 /**
  * <p>
  * TestService
  * </p>
  */
-public class TestService {
+public class TestService implements InitializingBean, DisposableBean {
     private String name;
 
     private Integer age;
 
     private TestDao testDao;
-
-   /* public TestService(String name, Integer age, TestDao testDao) {
-        this.name = name;
-        this.age = age;
-        this.testDao = testDao;
-    }*/
 
     public void test() {
         System.out.println("testService.name: " + this.name);
@@ -30,5 +27,15 @@ public class TestService {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    @Override
+    public void destroy() {
+        System.out.println("TestService destroy");
+    }
+
+    @Override
+    public void afterPropertiesSet() {
+        System.out.println("TestService afterPropertiesSet");
     }
 }

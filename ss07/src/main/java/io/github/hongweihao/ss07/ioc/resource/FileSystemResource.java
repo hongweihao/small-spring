@@ -12,11 +12,11 @@ import java.nio.file.Files;
  *
  * @date 2022/11/16 13:36
  */
-public class ResourceFileSystemImpl implements Resource {
+public class FileSystemResource implements Resource {
     private final String path;
     private final File file;
 
-    public ResourceFileSystemImpl(String path) {
+    public FileSystemResource(String path) {
         this.path = path;
         this.file = new File(path);
     }

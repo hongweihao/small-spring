@@ -13,11 +13,11 @@ import java.net.URLConnection;
  *
  * @date 2022/11/16 13:37
  */
-public class ResourceUrlImpl implements Resource {
+public class UrlResource implements Resource {
 
     private final URL url;
 
-    public ResourceUrlImpl(URL url) {
+    public UrlResource(URL url) {
         this.url = url;
     }
 

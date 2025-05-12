@@ -9,4 +9,6 @@ package io.github.hongweihao.ss07.ioc.factory.registry.singleton;
  */
 public interface SingletonBeanRegistry {
     Object getSingletonBean(String beanName);
+
+    void destroySingletons();
 }

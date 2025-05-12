@@ -8,7 +8,6 @@
         <property name="testDao" ref="testDao"/>
     </bean>
 
-<!--    <bean id="myPostBeanFactoryProcessor" class="io.github.hongweihao.ss07.MyBeanFactoryPostProcessor"/>-->
-<!--    <bean id="myBeanPostProcessor" class="io.github.hongweihao.ss07.MyBeanPostProcessor"/>-->
-
+    <bean id="myBeanFactoryPostProcessor" class="io.github.hongweihao.ss07.MyBeanFactoryPostProcessor"/>
+    <bean id="myBeanPostProcessor" class="io.github.hongweihao.ss07.MyBeanPostProcessor"/>
 </beans>

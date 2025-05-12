@@ -12,11 +12,11 @@ import java.util.Objects;
  *
  * @date 2022/11/16 13:36
  */
-public class ResourceClassPathImpl implements Resource {
+public class ClassPathResource implements Resource {
     private final String name;
     private final ClassLoader classLoader;
 
-    public ResourceClassPathImpl(String name, ClassLoader classLoader) {
+    public ClassPathResource(String name, ClassLoader classLoader) {
         Objects.requireNonNull(name);
         this.name = name;
         this.classLoader = classLoader;
