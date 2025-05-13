@@ -1,13 +1,13 @@
 package io.github.hongweihao.ss07.ioc.factory;
 
 
-import io.github.hongweihao.ss07.ioc.factory.registry.BeanDefinition;
-import io.github.hongweihao.ss07.ioc.factory.registry.BeanDefinitionRegistry;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+
+import io.github.hongweihao.ss07.ioc.factory.registry.BeanDefinition;
+import io.github.hongweihao.ss07.ioc.factory.registry.BeanDefinitionRegistry;
 
 /**
  * <p>
@@ -45,5 +45,9 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
             }
         });
         return map;
+    }
+
+    public void preInstantiateSingletons() {
+        beanDefinitionMap.keySet().forEach(this::getBean);
     }
 }

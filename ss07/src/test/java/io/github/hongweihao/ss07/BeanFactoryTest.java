@@ -1,14 +1,16 @@
 package io.github.hongweihao.ss07;
 
+import java.util.Map;
+
+import org.junit.Test;
+
 import io.github.hongweihao.ss07.bean.TestService;
+import io.github.hongweihao.ss07.ioc.context.ClasspathXmlApplicationContext;
 import io.github.hongweihao.ss07.ioc.factory.DefaultListableBeanFactory;
 import io.github.hongweihao.ss07.ioc.factory.extend.BeanFactoryPostProcessor;
 import io.github.hongweihao.ss07.ioc.factory.extend.BeanPostProcessor;
 import io.github.hongweihao.ss07.ioc.resource.reader.BeanDefinitionReader;
 import io.github.hongweihao.ss07.ioc.resource.reader.XmlBeanDefinitionReader;
-import org.junit.Test;
-
-import java.util.Map;
 
 /**
  * <p>
@@ -45,5 +47,12 @@ public class BeanFactoryTest {
         service.test();
     }
 
+    @Test
+    public void test_context() throws Exception {
+        ClasspathXmlApplicationContext context = new ClasspathXmlApplicationContext("classpath:spring.xml");
+        context.registerShutdownHook();
+        TestService service = (TestService) context.getBean("testService", TestService.class);
+        service.test();
+    }
 
 }
