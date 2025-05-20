@@ -2,6 +2,10 @@ package io.github.hongweihao.ss08.ioc.factory;
 
 
 import cn.hutool.core.bean.BeanUtil;
+import io.github.hongweihao.ss08.ioc.aware.Aware;
+import io.github.hongweihao.ss08.ioc.aware.BeanClassLoaderAware;
+import io.github.hongweihao.ss08.ioc.aware.BeanFactoryAware;
+import io.github.hongweihao.ss08.ioc.aware.BeanNameAware;
 import io.github.hongweihao.ss08.ioc.factory.extend.BeanPostProcessor;
 import io.github.hongweihao.ss08.ioc.factory.extend.DisposableBean;
 import io.github.hongweihao.ss08.ioc.factory.extend.InitializingBean;
@@ -99,6 +103,19 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     private Object initializeBean(String beanName, Object instance, BeanDefinition beanDefinition) {
+        if (instance instanceof Aware) {
+            if (instance instanceof BeanNameAware) {
+                ((BeanNameAware) instance).setBeanName(beanName);
+            }
+            if (instance instanceof BeanClassLoaderAware) {
+                ((BeanClassLoaderAware) instance).setBeanClassLoader(this.getClass().getClassLoader());
+            }
+            if (instance instanceof BeanFactoryAware) {
+                ((BeanFactoryAware) instance).setBeanFactory(this);
+            }
+        }
+
+
         instance = applyBeanPostProcessorsBeforeInitialization(beanName, instance);
         invokeInitMethods(beanName, instance, beanDefinition);
         return applyBeanPostProcessorsAfterInitialization(beanName, instance);

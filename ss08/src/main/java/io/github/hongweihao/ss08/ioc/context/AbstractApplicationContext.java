@@ -2,6 +2,7 @@ package io.github.hongweihao.ss08.ioc.context;
 
 import java.util.Map;
 
+import io.github.hongweihao.ss08.ioc.aware.ApplicationContextBeanPostProcessor;
 import io.github.hongweihao.ss08.ioc.factory.DefaultListableBeanFactory;
 import io.github.hongweihao.ss08.ioc.factory.extend.BeanFactoryPostProcessor;
 import io.github.hongweihao.ss08.ioc.factory.extend.BeanPostProcessor;
@@ -30,6 +31,8 @@ public abstract class AbstractApplicationContext implements ApplicationContext {
 
         // 2. 获取BeanFactory
         DefaultListableBeanFactory beanFactory = getBeanFactory();
+
+        beanFactory.addBeanPostProcessor(new ApplicationContextBeanPostProcessor(this));
 
         // 3. 调用 BeanFactoryPostProcessor 列表
         invokeBeanFactoryPostProcessors(beanFactory);
