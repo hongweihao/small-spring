@@ -1,19 +1,24 @@
 package io.github.hongweihao.ss09.ioc.resource.reader;
 
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.core.util.XmlUtil;
-import io.github.hongweihao.ss09.ioc.factory.BeanException;
-import io.github.hongweihao.ss09.ioc.factory.registry.*;
-import io.github.hongweihao.ss09.ioc.resource.Resource;
-import io.github.hongweihao.ss09.ioc.resource.loader.DefaultResourceLoader;
-import io.github.hongweihao.ss09.ioc.resource.loader.ResourceLoader;
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.io.IOException;
-import java.io.InputStream;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.XmlUtil;
+import io.github.hongweihao.ss09.ioc.factory.BeanException;
+import io.github.hongweihao.ss09.ioc.factory.registry.BeanDefinition;
+import io.github.hongweihao.ss09.ioc.factory.registry.BeanDefinitionRegistry;
+import io.github.hongweihao.ss09.ioc.factory.registry.BeanReference;
+import io.github.hongweihao.ss09.ioc.factory.registry.PropertyValue;
+import io.github.hongweihao.ss09.ioc.factory.registry.PropertyValues;
+import io.github.hongweihao.ss09.ioc.resource.Resource;
+import io.github.hongweihao.ss09.ioc.resource.loader.DefaultResourceLoader;
+import io.github.hongweihao.ss09.ioc.resource.loader.ResourceLoader;
 
 public class XmlBeanDefinitionReader implements BeanDefinitionReader {
     private final BeanDefinitionRegistry beanDefinitionRegistry;
@@ -53,6 +58,7 @@ public class XmlBeanDefinitionReader implements BeanDefinitionReader {
             String id = element.getAttribute("id");
             String name = element.getAttribute("name");
             String className = element.getAttribute("class");
+            String scope = element.getAttribute("scope");
 
             String beanName = StrUtil.isNotBlank(id) ? id : name;
             Class<?> clazz;
@@ -63,7 +69,7 @@ public class XmlBeanDefinitionReader implements BeanDefinitionReader {
             }
 
             PropertyValues propertyValues = new PropertyValues();
-            BeanDefinition beanDefinition = new BeanDefinition(clazz, propertyValues);
+            BeanDefinition beanDefinition = new BeanDefinition(clazz);
 
             // properties 信息
             NodeList propertyNodes = element.getChildNodes();

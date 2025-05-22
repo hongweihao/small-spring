@@ -6,6 +6,7 @@
         <property name="name" value="karl"/>
         <property name="age" value="30"/>
         <property name="testDao" ref="testDao"/>
+        <scope value="prototype"/>
     </bean>
 
     <bean id="myBeanFactoryPostProcessor" class="io.github.hongweihao.ss09.MyBeanFactoryPostProcessor"/>

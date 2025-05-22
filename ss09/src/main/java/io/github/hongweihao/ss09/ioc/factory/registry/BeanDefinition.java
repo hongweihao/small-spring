@@ -8,13 +8,18 @@ package io.github.hongweihao.ss09.ioc.factory.registry;
  * @date 2022/10/25 13:29
  */
 public class BeanDefinition {
+
+    public static final String SCOPE_SINGLETON = "singleton";
+    public static final String SCOPE_PROTOTYPE = "prototype";
+
+    private String scope = SCOPE_SINGLETON;
+
     private final Class<?> beanClass;
 
-    private final PropertyValues propertyValues;
+    private PropertyValues propertyValues;
 
-    public BeanDefinition(Class<?> beanClass, PropertyValues propertyValues) {
+    public BeanDefinition(Class<?> beanClass) {
         this.beanClass = beanClass;
-        this.propertyValues = propertyValues;
     }
 
     public Class<?> getBeanClass() {
@@ -24,4 +29,18 @@ public class BeanDefinition {
     public PropertyValues getPropertyValues() {
         return propertyValues;
     }
+
+    public void setPropertyValues(PropertyValues propertyValues) {
+        this.propertyValues = propertyValues;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
+
+    
 }
