@@ -55,4 +55,13 @@ public class BeanFactoryTest {
         service.test();
     }
 
+    @Test
+    public void test_scope() throws Exception {
+        ClasspathXmlApplicationContext context = new ClasspathXmlApplicationContext("classpath:spring.xml");
+        context.registerShutdownHook();
+        TestService service = (TestService) context.getBean("testService", TestService.class);
+        TestService service2 = (TestService) context.getBean("testService", TestService.class);
+        System.out.println("is singleton: " + (service == service2));
+    }
+
 }

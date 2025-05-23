@@ -71,7 +71,9 @@ public class XmlBeanDefinitionReader implements BeanDefinitionReader {
             PropertyValues propertyValues = new PropertyValues();
             BeanDefinition beanDefinition = new BeanDefinition(clazz);
             beanDefinition.setPropertyValues(propertyValues);
-            beanDefinition.setScope(scope);
+            if (StrUtil.isNotBlank(scope)) {
+                beanDefinition.setScope(scope);
+            }
 
             // properties 信息
             NodeList propertyNodes = element.getChildNodes();

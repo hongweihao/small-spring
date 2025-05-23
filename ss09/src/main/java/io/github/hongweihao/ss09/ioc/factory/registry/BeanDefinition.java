@@ -42,5 +42,7 @@ public class BeanDefinition {
         this.scope = scope;
     }
 
-    
+    public boolean isSingleton() {
+        return SCOPE_SINGLETON.equals(scope);
+    }
 }
